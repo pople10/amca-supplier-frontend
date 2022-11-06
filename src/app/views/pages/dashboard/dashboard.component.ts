@@ -471,9 +471,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     let userData = localStorage.getItem("userData");
     if(userData == null){
-      localStorage.removeItem("userData");
-      localStorage.removeItem("token");
-      this.router.navigate(["/"]);
+      this.authService.logOut();
     }else{
       let data = JSON.parse(userData);
       let roles = data.roles;

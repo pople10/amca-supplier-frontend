@@ -91,17 +91,17 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
     ]),
-    telephone:new FormControl(
+    phone:new FormControl(
       '',
       [
         Validators.required
       ]),
-    firstname:new FormControl(
+    firstName:new FormControl(
       '',
       [
         Validators.required
       ]),
-    lastname:new FormControl(
+    lastName:new FormControl(
       '',
       [
         Validators.required
@@ -112,12 +112,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(10)
-      ]),
-    accountType:new FormControl(
-      '',
-      [
-        Validators.required
-      ]),
+      ])
   });
 
   ngOnInit(): void {
@@ -132,7 +127,6 @@ export class RegisterComponent implements OnInit {
     this.dataSent=true;
     if(this.registerForm.valid)
     {
-        this.data.redirectTo=location.origin+"/auth/login";
         this.authService.register(this.data).subscribe(response=>{
           this.data.clear();
           this.isSubmitted=false;

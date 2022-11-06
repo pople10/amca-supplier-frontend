@@ -30,7 +30,7 @@ export class AuthService {
 
   register(data:RegisterModel)
   {
-    return this.http.post<any>(`${ENV["backend-api-base-url"]}/authentication/create-user`, data, {
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/auth/register/buyer`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
   }
@@ -62,7 +62,7 @@ export class AuthService {
 
   updateProfile(data:any)
   {
-    return this.http.put<any>(`${ENV["backend-api-base-url"]}/account/profile/update`, data, {
+    return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/auth/profile/change`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
   }

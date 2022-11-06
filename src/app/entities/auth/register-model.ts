@@ -3,25 +3,20 @@ export class RegisterModel {
 
     public password:string;
 
-    public firstname:string;
+    public firstName:string;
 
-    public lastname:string;
+    public lastName:string;
 
     public cin:string;
 
-    public phoneNumber:string;
-
-    public accountType:string;
-
-    public redirectTo:string;
+    public phone:string;
 
     public clear(){
         this.cin='';
         this.email="";
-        this.firstname="";
-        this.lastname="";
+        this.firstName="";
+        this.lastName="";
         this.password="";
-        this.phoneNumber="";
-        this.accountType="PERSON";
+        this.phone="";
     }
 }

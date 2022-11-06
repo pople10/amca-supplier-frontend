@@ -386,6 +386,8 @@
     "updatePassword": "تغيير كلمة المرور",
      "oldPassword": "كلمة المرور القديمة",
      "newPassword": "كلمة مرور جديدة",
-     "newPasswordConfirmed": "تأكيد كلمة المرور الجديدة"
+     "newPasswordConfirmed": "تأكيد كلمة المرور الجديدة",
+     "numCooperative":"رقم التعاونية",
+     "COOPERATIVE":"تعاونية"
 
 }

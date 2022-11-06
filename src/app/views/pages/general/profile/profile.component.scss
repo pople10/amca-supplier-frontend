@@ -42,3 +42,10 @@
     transform: translate(-50%, -50%);
     text-align: center;
 }
+
+@media (max-width:750px) {
+    .bigMobile
+    {
+        width: 90%!important;
+    }    
+}

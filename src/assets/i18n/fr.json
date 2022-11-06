@@ -529,7 +529,9 @@
     "newPassword":"Nouveau mot de passe",
     "newPasswordConfirmed":"Confirmation du nouveau mot de passe",
     "infoProfile":"Les informations du profile",
-    "updateProfile":"Modifier le profile"
+    "updateProfile":"Modifier le profile",
+    "numCooperative":"Numero coopérative",
+    "COOPERATIVE":"Coopérative"
 
 
 }

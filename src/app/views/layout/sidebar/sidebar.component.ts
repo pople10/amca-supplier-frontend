@@ -7,6 +7,7 @@ import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { LanguageService } from 'src/app/services/language/language.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +27,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   refExposant ;
 
-  constructor(@Inject(DOCUMENT) private document: Document,private renderer: Renderer2, public router: Router, public languageService: LanguageService) {
+  constructor(private authService:AuthService,@Inject(DOCUMENT) private document: Document,private renderer: Renderer2, public router: Router, public languageService: LanguageService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
 
@@ -61,10 +62,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     let userData = localStorage.getItem("userData");
     if(userData == null){
-      localStorage.removeItem("userData");
-      localStorage.removeItem("token");
-      localStorage.removeItem("expiredAt");
-      this.router.navigate(["/"]);
+      this.authService.logOut();
     }else{
       let data = JSON.parse(userData);
       let roles = data.roles;

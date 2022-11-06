@@ -24,26 +24,26 @@
                 ">
                                 <div class="col-6">
                                     <label for="fname">{{"firstName" | translate}} <span class="text-danger"> *</span></label>
-                                    <input [(ngModel)]="this.data.firstname" type="text" class="form-control" id="fname" placeholder="{{ 'firstName' | translate }}" formControlName="firstname" [ngClass]="{'is-invalid':isSubmitted && form.firstname.errors}" [ngStyle]="
+                                    <input [(ngModel)]="this.data.firstName" type="text" class="form-control" id="fname" placeholder="{{ 'firstName' | translate }}" formControlName="firstName" [ngClass]="{'is-invalid':isSubmitted && form.firstName.errors}" [ngStyle]="
                       this.languageService.userLanguage == 'ar' && {
                         'text-align': 'right'
                       }
                     " />
                                     <div *ngIf="
-                  isSubmitted && form.firstname.errors?.required
+                  isSubmitted && form.firstName.errors?.required
                           " class="invalid-feedback">
                                         {{ "RequiredField" | translate }}
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label for="lname">{{"lastName" | translate}}<span class="text-danger"> *</span></label>
-                                    <input [(ngModel)]="this.data.lastname" type="text" class="form-control" id="lname" [ngClass]="{'is-invalid':isSubmitted && form.lastname.errors}" placeholder="{{ 'lastName' | translate }}" formControlName="lastname" required [ngStyle]="
+                                    <input [(ngModel)]="this.data.lastName" type="text" class="form-control" id="lname" [ngClass]="{'is-invalid':isSubmitted && form.lastName.errors}" placeholder="{{ 'lastName' | translate }}" formControlName="lastName" required [ngStyle]="
                         this.languageService.userLanguage == 'ar' && {
                           'text-align': 'right'
                         }
                       " />
                                     <div *ngIf="
-                  isSubmitted && form.lastname.errors?.required
+                  isSubmitted && form.lastName.errors?.required
                           " class="invalid-feedback">
                                         {{ "RequiredField" | translate }}
                                     </div>
@@ -111,25 +111,6 @@
                   }
                 ">
                                 <label for="cin">{{
-                  "accountType" | translate
-                  }}<span class="text-danger"> *</span></label>
-                                <ng-select (change)="typeChanged($event)" [(ngModel)]="this.data.accountType" [multiple]="false" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" placeholder="{{ 'accountType' | translate }}"
-                                    formControlName="accountType" [ngClass]="{ 'is-invalid': isSubmitted && form.accountType.errors }">
-                                    <ng-option *ngFor="let prd of accountTypes" [value]="prd.id">{{ prd.id | translate }}</ng-option>
-                                </ng-select>
-                                <div *ngIf="
-                  isSubmitted && form.accountType.errors?.required
-                          " class="invalid-feedback">
-                                    {{ "RequiredField" | translate }}
-                                </div>
-                            </div>
-
-                            <div *ngIf="showCin" class="form-group" [ngStyle]="
-                  this.languageService.userLanguage == 'ar' && {
-                    'text-align': 'right'
-                  }
-                ">
-                                <label for="cin">{{
                                   display | translate
                   }}<span class="text-danger"> *</span></label>
                                 <input [(ngModel)]="this.data.cin" type="text" class="form-control" id="cin" placeholder="{{ display | translate }}" formControlName="cin" [ngClass]="{'is-invalid':isSubmitted && form.cin.errors}" [ngStyle]="
@@ -152,17 +133,17 @@
                   }
                 ">
                                 <label for="phone">{{
-                  "phoneNumber" | translate
+                  "phone" | translate
                   }}<span class="text-danger"> *</span></label>
-                                <input [(ngModel)]="this.data.phoneNumber" id="phone" type="tel" class="form-control" placeholder="{{
-                    'phoneNumber' | translate
-                  }}" formControlName="telephone" mask="00 00 00 00 00" [showMaskTyped]="true" [ngClass]="{'is-invalid':isSubmitted && form.telephone.errors}" [ngStyle]="
+                                <input [(ngModel)]="this.data.phone" id="phone" type="tel" class="form-control" placeholder="{{
+                    'phone' | translate
+                  }}" formControlName="phone" mask="00 00 00 00 00" [showMaskTyped]="true" [ngClass]="{'is-invalid':isSubmitted && form.phone.errors}" [ngStyle]="
                     this.languageService.userLanguage == 'ar' && {
                       'text-align': 'right'
                     }
                   " />
                                 <div *ngIf="
-                  isSubmitted && form.telephone.errors?.required
+                  isSubmitted && form.phone.errors?.required
                           " class="invalid-feedback">
                                     {{ "RequiredField" | translate }}
                                 </div>

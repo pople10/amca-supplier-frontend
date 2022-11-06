@@ -42,8 +42,18 @@ export class ProfileComponent implements OnInit {
 
   refresh(response)
   {
-    this.authService.updateData(response);
-    this.userData = JSON.parse(localStorage.getItem("userData"));
+    let user = localStorage.getItem("userData") ?? null;
+    this.authService.getMe().subscribe(
+      reponse=>{
+        delete reponse["roles"];
+        delete reponse["id"];
+        let datos = {};
+        if(user!=null)
+          datos=JSON.parse(user);
+        localStorage.setItem("userData",JSON.stringify({...datos,...reponse}));
+        this.userData = JSON.parse(localStorage.getItem("userData"));
+      }
+    )
   }
 
 
