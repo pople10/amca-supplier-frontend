@@ -1,0 +1,29 @@
+<app-public-navbar></app-public-navbar>
+<div id="cardsContainer">
+  <mat-card
+    class="box"
+    routerLink="/artist-card/new"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  >
+    <img src="assets/images/home/artist_card.svg" alt="" />
+    <h3>{{ "ArtistCards" | translate }}</h3>
+  </mat-card>
+  <mat-card class="box" 
+  
+    routerLink="/export-authorization/new-export-authorization" 
+    [ngStyle]="
+        this.languageService.userLanguage == 'ar' &&{
+            'text-align' : 'right'
+        }
+        "
+    >
+    <img src="assets/images/home/artist_card.svg" alt="" />
+    <h3>{{ "ExportAuthorization" | translate }}</h3> 
+    </mat-card>
+
+  
+</div>

@@ -1,0 +1,1735 @@
+<p class="h5 mb-4" [ngStyle]="
+    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+  ">
+    {{ "NewExportAuthorizationRequest" | translate }}
+</p>
+<div class="">
+    <div class="card">
+      <div
+        class="card-body"
+      >
+     
+      <aw-wizard #wizardForm [navBarDirection]="
+          this.languageService.userLanguage == 'ar' && 'right-to-left'
+        " [awNavigationMode] navigateBackward="allow" navigateForward="allow">
+           <!--Form Step 1 -->
+        <aw-wizard-step stepTitle="{{ 'generalInfo' | translate }}" [ngStyle]="
+        this.languageService.userLanguage == 'ar' && {
+          'text-align': 'right'
+        }
+      " class="pt-4">
+            <form>
+                <div class="col-md-12 stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "InformationOfTheApplicant" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label [ngStyle]="
+                                        this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+                                      ">{{ "TypeOfTheApplicant" | translate }}<span class="text-danger"> *</span></label>
+                                        <div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                            <input
+                                            
+                                                type="radio"
+                                                checked=""
+                                                value="0"
+                                                class="form-check-input"
+                                                
+                                                
+                                            />
+                                            <i class="input-frame"></i>
+                                            {{ "Owner" | translate }}
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                            <input
+                                                
+                                                type="radio"
+                                                class="form-check-input"
+                                                value="1"
+                                            />
+                                            <i class="input-frame"></i>
+                                            {{ "Mandatory" | translate }}
+                                            </label>
+                                        </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "IdentificationOfTheApplicant" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "lastName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryLastName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "firstName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryFirstName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "companyName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryCompanyName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "patentNumber" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnterypatentNumber' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "companyName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryCompanyName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "address" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'F_NDE_Address_Description' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "F_NDE_Telephone" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input [ngStyle]="
+                                        this.languageService.userLanguage == 'ar' && {
+                                        'text-align': 'right'
+                                        }
+                                        " type="tel" class="form-control" placeholder="{{
+                                            'F_NDE_Telephone_Description' | translate
+                                        }}"  />
+                                        
+                                                
+                                      </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "IdentificationOfTheOwner" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "lastName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryLastName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "firstName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryFirstName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "companyName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryCompanyName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "patentNumber" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnterypatentNumber' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "companyName" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryCompanyName' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "address" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'F_NDE_Address_Description' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "F_NDE_Telephone" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input [ngStyle]="
+                                        this.languageService.userLanguage == 'ar' && {
+                                        'text-align': 'right'
+                                        }
+                                        " type="tel" class="form-control" placeholder="{{
+                                            'F_NDE_Telephone_Description' | translate
+                                        }}"  />
+                                        
+                                                
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button
+                            type="button"
+                            class="btn btn-primary submit"
+                            awNextStep
+                          >
+                            Suivant
+                </button>
+                
+            </form>
+        </aw-wizard-step>
+            <!-- Fin Form Step 1 -->
+
+            <!--Form Step 2 -->
+        <aw-wizard-step stepTitle="{{ 'IdentificationOfTheCollectionAndExport' | translate }}" class="pt-4">
+            <form>
+              <div class="col-md-12 stretch-card my-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{ "InformationOfTheCollectionAndExport" | translate }}</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "NumberOfArtworksToExported" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnteryNumberOfArtworksToExported' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label [ngStyle]="
+                                this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+                              ">{{ "NatureOfTheArtwork" | translate }}<span class="text-danger"> *</span></label>
+                                <div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                    
+                                        type="radio"
+                                        checked=""
+                                        value="0"
+                                        class="form-check-input"
+                                        
+                                        
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "heritageArtwork" | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                        
+                                        type="radio"
+                                        class="form-check-input"
+                                        value="1"
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "nonheritageArtwork" | translate }}
+                                    </label>
+                                </div>
+                                
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label [ngStyle]="
+                                this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+                              ">{{ "ExportType" | translate }}<span class="text-danger"> *</span></label>
+                                <div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                    
+                                        type="radio"
+                                        checked=""
+                                        value="0"
+                                        class="form-check-input"
+                                        
+                                        
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "temporary" | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                        
+                                        type="radio"
+                                        class="form-check-input"
+                                        value="1"
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "permanent" | translate }}
+                                    </label>
+                                </div>
+                                
+                                </div>
+                            </div>
+                          </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-12 stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "IdentificationOfTheArtworks" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "DateOfRelease" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="date"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryDateOfRelease' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "DateOfReturn" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="date"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryDateOfReturn' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "BorderPointOfExit" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryBorderPointOfExit' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "BorderPointOfDestination" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryBorderPointOfDestination' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "BorderPointOfReturn" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryBorderPointOfReturn' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "OverallInsuranceValue" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryOverallInsuranceValue' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "InformationPermanentExport" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "DateOfRelease" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="date"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryDateOfRelease' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "BorderPointOfExit" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryBorderPointOfExit' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "BorderPointOfDestination" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryBorderPointOfDestination' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "OverallTransactionValue" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryOverallTransactionValue
+                                          ' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "OverallInsuranceValue" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryOverallInsuranceValue' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "reasonForExportation" | translate }}</p>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label class="control-label">{{ "TemporaryExport" | translate }}</label>
+                                  <ng-select>
+                                </ng-select>
+                                <div class="mt-2">
+                                  <p class="text-muted">Selected items:</p>
+                                  <ul>
+                                    <li >item</li>
+                                  </ul>
+                                </div>
+                                  <div
+                                    class="invalid-feedback"
+                                  >
+                                    {{ "RequiredField" | translate }}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label class="control-label">{{ "PermanentExport" | translate }}</label>
+                                  <ng-select>
+                                </ng-select>
+                                <div class="mt-2">
+                                  <p class="text-muted">Selected items:</p>
+                                  <ul>
+                                    <li >item</li>
+                                  </ul>
+                                </div>
+                                  <div
+                                    class="invalid-feedback"
+                                  >
+                                    {{ "RequiredField" | translate }}
+                                  </div>
+                                </div>
+                              </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">{{ "TemporaryExportTemporaryExhibitionCulturalEvent" | translate }}</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "AddressOfTheExhibitionEventLocation" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryAddressOfTheExhibitionEventLocation' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "organizationResponsible" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryorganizationResponsible' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                          >{{ "address" | translate }}<span class="text-danger">
+                                            *</span
+                                          ></label
+                                        >
+                                        <input
+                                          type="text"
+                                          
+                                          class="form-control"
+                                          placeholder="{{ 'EnteryaddressTheExhibition' | translate }}"
+                                          
+                                          
+                                        />
+                                      </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "fax" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="text"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'Enteryfax' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "phone" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="tel"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'Enteryphone' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <p class="card-title">{{ "TemporaryExportRestorationResearchAndExpertis" | translate }}</p>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "nameDestinationInstitution" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="text"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'EnterynameDestinationInstitution' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "address" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="text"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'F_NDE_Address_Description' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "fax" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryfax' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "phone" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryphone' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                              </div>
+                              
+                          </div>
+                          
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-12 stretch-card my-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <p class="card-title">{{ "PermanentExport" | translate }}</p>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "recipientPersonOrganization" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="text"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'EnteryrecipientPersonOrganization' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label class="control-label"
+                                        >{{ "address" | translate }}<span class="text-danger">
+                                          *</span
+                                        ></label
+                                      >
+                                      <input
+                                        type="text"
+                                        
+                                        class="form-control"
+                                        placeholder="{{ 'F_NDE_Address_Description' | translate }}"
+                                        
+                                        
+                                      />
+                                    </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "fax" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryfax' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "phone" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryphone' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                              </div>
+                              
+                          </div>
+                          
+                      </div>
+                  </div>
+                </div>
+                <button
+                            type="button"
+                            class="btn btn-primary submit"
+                            awPreviousStep
+                          >
+                            Precedent
+                </button>
+                <button
+                            type="button"
+                            class="btn btn-primary submit"
+                            awNextStep
+                          >
+                            Suivant
+                </button>
+                
+            </form>
+        </aw-wizard-step>
+            <!-- Fin Form Step 2 -->
+            <!--Form Step 3 -->
+        <aw-wizard-step stepTitle="{{ 'infosOfTheCarrierFarwarder' | translate }}" class="pt-4">
+          <form>
+            <div class="col-md-12 stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{ "IdentificationOfTheCarrierFarwarder" | translate }}</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "companyName" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnteryCompanyName' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "patentNumber" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnterypatentNumber' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "meansOfTransportation" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnterymeansOfTransportation' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "conditionsOfTransport" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnteryconditionsOfTransport' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "address" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'F_NDE_Address_Description' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "phone" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryphone' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "fax" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'Enteryfax' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awPreviousStep
+                      >
+                        Precedent
+            </button>
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awNextStep
+                      >
+                        Suivant
+            </button>
+            
+        </form>
+        </aw-wizard-step>
+            <!-- Fin Form Step 3 -->
+            <!--Form Step 4 -->
+        <aw-wizard-step stepTitle="{{ 'DescriptionOfTheArtworks' | translate }}" class="pt-4">
+          <form>
+            <div class="col-md-12 stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{ "identificationDescriptionArtworks " | translate }}</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "consistency" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryconsistency' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "officialTitle" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnteryofficialTitle' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "category" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enterycategory' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "origin" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryorigin' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "numberlistAttachedRequest" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'EnterynumberlistAttachedRequest' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "numberInventory" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'EnterynumberInventory' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label"
+                                  >{{ "legalStatus" | translate }}<span class="text-danger">
+                                    *</span
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  
+                                  class="form-control"
+                                  placeholder="{{ 'EnterylegalStatus' | translate }}"
+                                  
+                                  
+                                />
+                              </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label"
+                                  >{{ "conservationStatus " | translate }}<span class="text-danger">
+                                    *</span
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  
+                                  class="form-control"
+                                  placeholder="{{ 'EnteryconservationStatus' | translate }}"
+                                  
+                                  
+                                />
+                              </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "dimension" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'EnteryDimension' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                      >{{ "weight" | translate }}<span class="text-danger">
+                                        *</span
+                                      ></label
+                                    >
+                                    <input
+                                      type="text"
+                                      
+                                      class="form-control"
+                                      placeholder="{{ 'Enteryweight' | translate }}"
+                                      
+                                      
+                                    />
+                                  </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                <label [ngStyle]="
+                                this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+                              ">{{ "existenceSupport" | translate }}<span class="text-danger"> *</span></label>
+                                <div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                    
+                                        type="radio"
+                                        checked=""
+                                        value="0"
+                                        class="form-check-input"
+                                        
+                                        
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "Yes" | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                    <input
+                                        
+                                        type="radio"
+                                        class="form-check-input"
+                                        value="1"
+                                    />
+                                    <i class="input-frame"></i>
+                                    {{ "No" | translate }}
+                                    </label>
+                                </div>
+                                
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "Material" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'EnteryMaterial' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                          <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "Manufacturing" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'EnteryManufacturing' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label"
+                                  >{{ "StyleSchoolCurrent" | translate }}<span class="text-danger">
+                                    *</span
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  
+                                  class="form-control"
+                                  placeholder="{{ 'EnteryStyleSchoolCurrent' | translate }}"
+                                  
+                                  
+                                />
+                              </div>
+                          </div>
+                          
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="control-label"
+                                    >{{ "ArtistCraftsmanAuthor" | translate }}<span class="text-danger">
+                                      *</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="text"
+                                    
+                                    class="form-control"
+                                    placeholder="{{ 'EnteryArtistCraftsmanAuthor' | translate }}"
+                                    
+                                    
+                                  />
+                                </div>
+                          </div>
+                          
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+                            ">{{ "signedArtwork" | translate }}<span class="text-danger"> *</span></label>
+                              <div>
+                              <div class="form-check form-check-inline">
+                                  <label class="form-check-label">
+                                  <input
+                                  
+                                      type="radio"
+                                      checked=""
+                                      value="0"
+                                      class="form-check-input"
+                                      
+                                      
+                                  />
+                                  <i class="input-frame"></i>
+                                  {{ "Yes" | translate }}
+                                  </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                  <label class="form-check-label">
+                                  <input
+                                      
+                                      type="radio"
+                                      class="form-check-input"
+                                      value="1"
+                                  />
+                                  <i class="input-frame"></i>
+                                  {{ "No" | translate }}
+                                  </label>
+                              </div>
+                              
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label"
+                                  >{{ "era" | translate }}<span class="text-danger">
+                                    *</span
+                                  ></label
+                                >
+                                <input
+                                  type="text"
+                                  
+                                  class="form-control"
+                                  placeholder="{{ 'Enteryera' | translate }}"
+                                  
+                                  
+                                />
+                              </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label class="control-label"
+                                >{{ "transactionalValue" | translate }}<span class="text-danger">
+                                  *</span
+                                ></label
+                              >
+                              <input
+                                type="text"
+                                
+                                class="form-control"
+                                placeholder="{{ 'EnterytransactionalValue' | translate }}"
+                                
+                                
+                              />
+                            </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label"
+                              >{{ "insuranceValue " | translate }}<span class="text-danger">
+                                *</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              
+                              class="form-control"
+                              placeholder="{{ 'EnteryinsuranceValue' | translate }}"
+                              
+                              
+                            />
+                          </div>
+                    </div>
+                        
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                              <label class="control-label"
+                                >{{ "notes" | translate }}<span class="text-danger">
+                                  *</span
+                                ></label
+                              >
+                              <input
+                                type="textarea"
+                                
+                                class="form-control"
+                                placeholder="{{ 'Enterynotes' | translate }}"
+                                
+                                
+                              />
+                            </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label"
+                              >{{ "numberDocument" | translate }}<span class="text-danger">
+                                *</span
+                              ></label
+                            >
+                            <input
+                              type="text"
+                              
+                              class="form-control"
+                              placeholder="{{ 'EnterynumberDocument' | translate }}"
+                              
+                              
+                            />
+                          </div>
+                    </div>
+                   
+                      
+                  </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awPreviousStep
+                      >
+                        Precedent
+            </button>
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awNextStep
+                      >
+                        Suivant
+            </button>
+            
+        </form>
+        </aw-wizard-step>
+            <!-- Fin Form Step 4 -->
+             <!--Form Step 5 -->
+        <aw-wizard-step stepTitle="{{ 'documentExhibition' | translate }}" class="pt-4">
+          <form>
+            <div class="col-md-12 stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{ "photography " | translate }}</p>
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <div class="form-group">
+                              <label
+                                data-toggle="tooltip"
+                                [title]="'file' | translate"
+                                class="control-label"
+                                [ngStyle]="
+                                  this.languageService.userLanguage == 'ar' && {
+                                    display: 'flex',
+                                    'flex-direction': 'row-reverse'
+                                  }
+                                "
+                                >{{ "imagesArtworks" | translate }}<span class="text-danger"> *</span></label
+                              >
+                              <input
+                                [ngStyle]="
+                                  this.languageService.userLanguage == 'ar' && {
+                                    'text-align': 'right'
+                                  }
+                                "
+                                
+                                type="file"
+                               
+                                name="" class="file-upload-default" id="CV"
+                              />
+                              <div
+                                class="input-group col-xs-12"
+                                
+                              >
+                                <input
+                                  
+                                  [ngStyle]="
+                                    this.languageService.userLanguage == 'ar' && {
+                                      'text-align': 'right'
+                                    }
+                                  "
+                                  type="text"
+                                  class="form-control file-upload-info"
+                                  disabled=""
+                                  id="CVData"
+                                />
+                                <span class="input-group-append">
+                                  <button class="btn submit nextBtn" type="button">
+                                    {{ "import" | translate }}
+                                    <i
+                                      data-feather="upload"
+                                      class="icon-lg"
+                                      
+                                    ></i>
+                                  </button>
+                                </span>
+                              </div>
+                              <p
+                                class="text-secondary"
+                                style="margin: 8px 0"
+                                [ngStyle]="
+                                  this.languageService.userLanguage == 'ar' && {
+                                    'text-align': 'right',
+                                    direction: 'rtl'
+                                  }
+                                "
+                              >
+                                Format accepté Zip
+                              </p>
+                              <div
+                                class="text-danger"
+                                
+                              ></div>
+                            </div>
+                          </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awPreviousStep
+                      >
+                        Precedent
+            </button>
+            <button
+                        type="button"
+                        class="btn btn-primary submit"
+                        awNextStep
+                      >
+                        Suivant
+            </button>
+            
+        </form>
+        </aw-wizard-step>
+            <!-- Fin Form Step 5 -->
+            <!--Form Step 6 -->
+        <aw-wizard-step stepTitle="{{ 'Validation' | translate }}" class="pt-4">
+          <div class="text-center">
+            <i
+              data-feather="check-circle"
+              appFeatherIcon
+              class="text-success mt-4 mb-2 icon-xxl"
+            ></i>
+            <h3 class="text-muted mb-3">Thank you !</h3>
+            <p class="w-75 mx-auto mb-4 text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+              ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis,
+              sagittis accumsan tellus. In hac habitasse platea dictumst
+            </p>
+          </div>
+        </aw-wizard-step>
+            <!-- Fin Form Step 6 -->
+      </aw-wizard>
+        
+      </div>
+    </div>
+  </div>

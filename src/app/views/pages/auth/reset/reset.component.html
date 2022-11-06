@@ -1,0 +1,139 @@
+<div class="row w-100 mx-0 auth-page">
+    <div class="col-md-10 col-xl-8 mx-auto">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-4 pr-md-0">
+                    <div class="auth-left-wrapper">
+                        <img src="assets/images/multilang.png" alt="" />
+                    </div>
+                </div>
+                <div class="col-md-8 pl-md-0">
+                    <div class="auth-form-wrapper px-4 py-5">
+                        <h5 class="text-muted font-weight-normal mb-4 auth-title" [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              ">
+                            {{ "Reset" | translate }}
+                        </h5>
+
+                        <form *ngIf="!vkey" class="forms-sample" [formGroup]="resetForm" (ngSubmit)="reset($event)">
+                            <div class="form-group" [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                ">
+                                <label for="email">{{
+                  "Username" | translate
+                  }}</label>
+                                <input [(ngModel)]="email" [ngClass]="{'is-invalid':isSubmitted && form.email.errors}" type="email" class="form-control" id="email" placeholder="{{ 'Username' | translate }}" formControlName="email" required [ngStyle]="
+                    this.languageService.userLanguage == 'ar' && {
+                      'text-align': 'right'
+                    }
+                  " />
+                                <div *ngIf="
+                                isSubmitted && form.email.errors?.required
+                                        " class="invalid-feedback">
+                                    {{ "RequiredField" | translate }}
+                                </div>
+                                <div *ngIf="
+                                isSubmitted && form.email.errors?.email
+                                        " class="invalid-feedback">
+                                    {{ "EmailField" | translate }}
+                                </div>
+                            </div>
+                            <div class="mt-3" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                                <button [disabled]="showSpinner" style="min-width: 10vw;height: 6vh;" type="submit" class="btn btn-success mx-auto mr-2 mb-2 mb-md-0 auth-btn-connect">
+                  <span [ngStyle]="showSpinner&&{'display':'none'}">
+                    {{ "ResetShort" | translate }}
+                  </span>
+                  <span [ngStyle]="!showSpinner&&{'display':'none'}" style=" margin: 3px 2px;"
+                    class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+                            </div>
+                        </form>
+
+
+                        <form *ngIf="vkey" class="forms-sample" [formGroup]="changeForm" (ngSubmit)="change($event)">
+                            <div class="form-group" [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                ">
+                                <label for="password">{{
+                  "Password" | translate
+                  }}</label>
+                                <input [(ngModel)]="password" [ngClass]="{'is-invalid':isSubmitted && formchange.password.errors}" type="password" class="form-control" id="password" placeholder="{{ 'Password' | translate }}" (keyup)="onChangePassword($event)" formControlName="password"
+                                    required [ngStyle]="
+                    this.languageService.userLanguage == 'ar' && {
+                      'text-align': 'right'
+                    }
+                  " />
+                                <div *ngIf="
+                                isSubmitted && formchange.password.errors?.required
+                                        " class="invalid-feedback">
+                                    {{ "RequiredField" | translate }}
+                                </div>
+                                <div *ngIf="
+                                  isSubmitted && formchange.password.errors?.pattern
+                                    " class="invalid-feedback">
+                                    <ul *ngFor="let msg of passwordMessages" style="margin-top:10px;">
+                                        <li>{{msg | translate}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group" [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                ">
+                                <label for="password_confirmation">{{
+                  "passwordConfirmation" | translate
+                  }}</label>
+                                <input [ngClass]="{'is-invalid':isSubmitted && (formchange.passwordConfirmation.errors || !confirmedPassword)}" type="password" class="form-control" id="password_confirmation" placeholder="{{ 'passwordConfirmation' | translate }}" formControlName="passwordConfirmation"
+                                    required [ngStyle]="
+                    this.languageService.userLanguage == 'ar' && {
+                      'text-align': 'right'
+                    }
+                  " />
+                                <div *ngIf="
+                                isSubmitted && formchange.passwordConfirmation.errors?.required
+                                        " class="invalid-feedback">
+                                    {{ "RequiredField" | translate }}
+                                </div>
+                                <div *ngIf="isSubmitted &&!confirmedPassword" class="invalid-feedback">
+                                    {{ "confirmationPasswordRequired" | translate }}
+                                </div>
+                            </div>
+
+
+
+                            <div class="mt-3" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                                <button [disabled]="showSpinner" style="min-width: 10vw;height: 6vh;" type="submit" class="btn btn-success mx-auto mr-2 mb-2 mb-md-0 auth-btn-connect">
+              <span [ngStyle]="showSpinner&&{'display':'none'}">
+                {{ "passwordChange" | translate }}
+              </span>
+              <span [ngStyle]="!showSpinner&&{'display':'none'}" style=" margin: 3px 2px;"
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+                            </div>
+                        </form>
+
+
+                        <div [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                            <span class="d-block mt-3 text-muted">{{ "passwordRemembered" | translate }}
+                    <a routerLink="/auth/login" class="auth-register-link">{{ "SignIn" | translate }}
+                    </a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

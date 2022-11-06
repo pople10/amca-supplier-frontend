@@ -1,0 +1,267 @@
+#mainContainer {
+	background-color: white;
+	padding: 0.5% 0 0 0;
+}
+#topContainer {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	input {
+		border-color: white !important;
+	}
+}
+#bottomContainer {
+	width: 85%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+#b1 {
+	width: 20%;
+}
+#b3 {
+	width: 20%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	div {
+		margin: 0 4px;
+	}
+	span {
+		font-size: 0.9em;
+	}
+}
+#b2 {
+	width: 230px;
+}
+.loginIcon {
+	font-size: 2em;
+}
+#searchIcon {
+	font-size: 2em;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-color: white !important;
+}
+.navbarElement {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2em;
+	a {
+		color: rgb(94, 94, 94);
+		text-decoration: none;
+		font-weight: bold;
+	}
+	mat-icon {
+		margin: 0 6px 5px 0;
+		font-size: 1.5em;
+		color: rgb(75, 74, 74);
+	}
+}
+#burgerMenu {
+	font-size: 2.5em;
+  a{
+    color:black;
+  }
+}
+#burgerMenuBottom {
+	font-size: 2.5em;
+	display: none !important;
+  a{
+    color:black;
+  }
+}
+#langMenu {
+	font-size: 1.4em;
+}
+#mainBottomContainer {
+	display: flex;
+	justify-content: center;
+	margin: 2% 0 0 0;
+	padding: 1.5% 0;
+	box-shadow: 0px 3px 5px rgb(199, 197, 197);
+}
+.dropdown-toggle {
+	&::after {
+		display: none;
+	}
+}
+form {
+	width: 80% !important;
+	border-radius: 5px;
+}
+.button {
+	display: inline-block;
+	margin: 4px 2px;
+	padding-left: 32px;
+	padding-right: 32px;
+	line-height: 50px;
+	text-align: center;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	&:hover {
+		transition-duration: 0.4s;
+		-moz-transition-duration: 0.4s;
+		-webkit-transition-duration: 0.4s;
+		-o-transition-duration: 0.4s;
+		background-color: white;
+		color: black;
+	}
+}
+.search-container {
+	position: relative;
+	display: inline-block;
+	margin: 4px 2px;
+	height: 50px;
+	width: 160px;
+	vertical-align: bottom;
+}
+.mglass {
+	display: inline-block;
+	pointer-events: none;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+}
+.searchbutton {
+	position: absolute;
+	width: 80%;
+	margin: 0;
+	padding: 0;
+	font-size: 3em;
+}
+.search {
+	&:focus {
+		+ {
+			.searchbutton {
+				transition-duration: 0.4s;
+				-moz-transition-duration: 0.4s;
+				-webkit-transition-duration: 0.4s;
+				-o-transition-duration: 0.4s;
+				background-color: white;
+				color: black;
+			}
+		}
+		width: 90%;
+		padding: 0 16px 0 0;
+	}
+	position: absolute;
+	left: 49px;
+	background-color: white;
+	outline: none;
+	border: none;
+	padding: 0;
+	width: 0;
+	height: 100%;
+	z-index: 10;
+	transition-duration: 0.4s;
+	-moz-transition-duration: 0.4s;
+	-webkit-transition-duration: 0.4s;
+	-o-transition-duration: 0.4s;
+	font-size: 1.5em;
+}
+.expandright {
+	left: auto;
+	right: 49px;
+	&:focus {
+		padding: 0 0 0 16px;
+	}
+}
+@media only screen and (max-width: 1300px) {
+  #langMenuBottom{
+    font-size:2em;
+  }
+	#mainBottomContainer {
+		padding: 0;
+		box-shadow: none;
+	}
+	#langMenu {
+		display: none !important;
+	}
+	#burgerMenu {
+		display: block !important;
+	}
+	#burgerMenuBottom {
+		display: block !important;
+    .bitem i{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2.5em;
+    }
+    .bitem p{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:1.5em;
+    }
+	}
+
+	#b1 {
+		width: 40%;
+		order: 2;
+		font-size: 0.6em;
+		display: flex;
+		justify-content: flex-end;
+	}
+	#b2 {
+		order: 1;
+		width: 20%;
+		margin-right: 10px;
+	}
+	#b3 {
+		order: 3;
+		span {
+			font-size: 0.7em;
+		}
+	}
+	.loginIcon {
+		display: none;
+	}
+	#bottomContainer {
+		margin-top: 10px;
+		flex-direction: column;
+		display: none;
+	}
+	.navbarElement {
+		font-size: 1.2em;
+		margin: 5px 0;
+	}
+	.searchbutton {
+		display: flex !important;
+		justify-content: flex-end !important;
+	}
+}
+@media only screen and (max-width: 425px) {
+	#b1 {
+		justify-content: flex-start;
+		margin-right: 10px;
+	}
+	#b2 {
+		margin-right: 0px;
+	}
+	.search {
+		&:focus {
+			width: 75%;
+			padding: 0 16px 0 0;
+		}
+	}
+  #burgerMenuBottom {
+    .bitem mat-icon{
+      font-size:2em;
+    }
+    .bitem p{
+      font-size:1em;
+    }
+	}
+}

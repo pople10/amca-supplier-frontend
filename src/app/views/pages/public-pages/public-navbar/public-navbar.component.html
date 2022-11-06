@@ -1,0 +1,158 @@
+<div id="mainContainer">
+  <div id="topContainer">
+      <div class="search-container" id="b1">
+          <!--<form action="/search" method="get">
+              <input class="search" id="searchleft" type="search" name="q" placeholder="{{ 'searchMsg' | translate }}" />
+              <label class="button searchbutton" for="searchleft"><span class="mglass">&#9906;</span></label
+      >
+    </form>-->
+  </div>
+  <div id="b2">
+    <img src="assets/images/multilang.png" alt="" width="100%" />
+  </div>
+  <div id="b3">
+    <!-- <div class="loginIcon">
+      <button class="btn btn-dark">
+        <i class="mdi mdi-account-plus"></i>
+        &nbsp;
+        <span>Nouveau compte</span>
+      </button>
+    </div>
+    <div class="loginIcon">
+      <button class="btn btn-dark">
+        <i class="mdi mdi-account-key"></i>
+        &nbsp;
+        <span>login</span>
+      </button>
+    </div> -->
+
+    <div
+      class="d-inline-block"
+      ngbDropdown
+      id="langMenu"
+      placement="bottom-right"
+    >
+      <a
+        class="nav-link"
+        ngbDropdownToggle
+        id="languageDropdown"
+        role="button"
+      >
+        <i
+          class="flag-icon flag-icon-fr mt-1"
+          title="fr"
+          *ngIf="getCurrentLanguage() == 'fr'"
+        ></i>
+        <i
+          class="flag-icon flag-icon-ma mt-1"
+          title="fr"
+          *ngIf="getCurrentLanguage() == 'ar'"
+        ></i>
+        <span
+          class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
+        ></span>
+      </a>
+      <div ngbDropdownMenu aria-labelledby="languageDropdown">
+        <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
+          ><i class="flag-icon flag-icon-ma" title="ar" id="ar"></i>
+          <span class="ml-1">Arabe</span></a
+        >
+        <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
+          <i class="flag-icon flag-icon-fr" title="fr" id="fr"></i>
+          <span class="ml-1">Francais</span></a
+        >
+      </div>
+    </div>
+
+    <div
+      id="burgerMenuBottom"
+      ngbDropdown
+      class="d-inline-block"
+      placement="bottom-right"
+    >
+      <div class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+        <i class="mdi mdi-menu"></i>
+      </div>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div class="dropdown-header d-flex flex-column align-items-center">
+          <div id="langMenuBottom" ngbDropdown class="info w-100 my-1">
+            <div
+              class="dropdown-toggle"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <i
+                class="flag-icon flag-icon-fr mt-1"
+                title="fr"
+                *ngIf="getCurrentLanguage() == 'fr'"
+              ></i>
+              <i
+                class="flag-icon flag-icon-ma mt-1"
+                title="fr"
+                *ngIf="getCurrentLanguage() == 'ar'"
+              ></i>
+              <span
+                class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
+              ></span>
+            </div>
+            <div ngbDropdownMenu aria-labelledby="languageDropdown">
+              <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
+                ><i class="flag-icon flag-icon-ma" title="ar" id="ar"></i>
+                <span class="ml-1">Arabe</span></a
+              >
+              <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
+                <i class="flag-icon flag-icon-fr" title="fr" id="fr"></i>
+                <span class="ml-1">Francais</span></a
+              >
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mainBottomContainer">
+  <div id="bottomContainer">
+    <div class="navbarElement">
+      <mat-icon aria-hidden="false" aria-label="Example home icon"
+        >home</mat-icon
+      >
+      <a href="#"
+        ><p>{{ "Home" | translate }}</p></a
+      >
+    </div>
+    <div class="navbarElement">
+      <mat-icon>theater_comedy</mat-icon>
+      <a href="#"
+        ><p>{{ "ArtsDomain" | translate }}</p></a
+      >
+    </div>
+    <div class="navbarElement">
+      <mat-icon>military_tech</mat-icon>
+      <a href="#"
+        ><p>{{ "PrizeAttribution" | translate }}</p></a
+      >
+    </div>
+    <div class="navbarElement">
+      <mat-icon>menu_book</mat-icon>
+      <a href="#"
+        ><p>{{ "BookDomain" | translate }}</p></a
+      >
+    </div>
+    <div class="navbarElement">
+      <mat-icon>download_for_offline</mat-icon>
+      <a href="#"
+        ><p>{{ "DownloadDocuments" | translate }}</p></a
+      >
+    </div>
+    <div class="navbarElement">
+      <mat-icon>alternate_email</mat-icon>
+      <a href="#"
+        ><p>{{ "Contact" | translate }}</p></a
+      >
+    </div>
+  </div>
+</div>
+</div>

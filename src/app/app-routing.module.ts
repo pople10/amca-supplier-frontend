@@ -1,0 +1,71 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { BaseComponent } from './views/layout/base/base.component';
+import { AuthGuard } from './core/guard/auth.guard';
+import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+import { DashboardComponent } from './views/pages/dashboard/dashboard.component';
+import { GeneralComponent } from './views/pages/general/general.component';
+import { AdministrationComponent } from './views/pages/administration/administration.component';
+import { ExportAuthorizationComponent } from './views/pages/export-authorization/export-authorization.component';
+import { NoLinkPageComponent } from './views/pages/no-link-pages/no-link-page.component';
+
+
+const routes: Routes = [
+  { path:'', loadChildren: () => import('./views/pages/public-pages/public-pages.module').then(m => m.PublicPagesModule) },
+  { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: '',
+    component: BaseComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component : DashboardComponent,
+        loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+        data : {
+          role : ["admin","supplier","buyer","buyer_expert"]
+        }
+      },
+      {
+        path: 'general',
+        component : GeneralComponent,
+        loadChildren: () => import('./views/pages/general/general.module').then(m => m.GeneralModule),
+        data : {
+          role : ["admin","supplier","buyer","buyer_expert"]
+        }
+      },
+
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: 'error',
+    component: ErrorPageComponent,
+    data: {
+      'type': "Erreur",
+      'title': 'Page inéxistante',
+      'desc': 'La page que vous cherchez n\'éxiste pas'
+    }
+  },
+  {
+    path: 'edition-expiré',
+    component: ErrorPageComponent,
+    data: {
+      'type': "Délai dépassé",
+      'title': ' ',
+      'desc': 'La période d\'édition est expirée'
+    }
+  },
+  {
+    path: 'error/:type',
+    component: ErrorPageComponent
+  },
+  { path: '**', redirectTo: 'error', pathMatch: 'full' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

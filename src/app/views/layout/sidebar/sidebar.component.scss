@@ -1,0 +1,29 @@
+#sidebarText{
+  font-size:20px;
+}
+
+
+.adminSideBar{
+  background-color:#072348!important;
+}
+
+
+.adminTextColor{
+  color:white!important;
+}
+
+.adminToggler{
+  background-color:#072348!important;
+  span{
+    background:white!important;
+  }
+}
+
+
+.adminSideBarHeader{
+  border-bottom:0.5px solid gray;
+}
+
+.nav-link ::before{
+  right: -15px;
+}

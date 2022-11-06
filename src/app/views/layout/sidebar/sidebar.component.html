@@ -1,0 +1,739 @@
+<nav class="sidebar" id="sidebar" class="sidebar" [ngStyle]="
+    this.languageService.userLanguage == 'ar'
+      ? {
+          right: 0
+        }
+      : {
+          left: 0
+        }
+  ">
+    <div [ngStyle]="
+      this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+    " [ngClass]="{
+      'sidebar-header': true,
+      adminSideBar: isAdmin,
+      adminSideBarHeader: isAdmin
+    }">
+        <!--- Logo -->
+        <a routerLink="/dashboard" id="sidebarText" [ngClass]="{
+        'sidebar-brand': true,
+        adminTextColor: isAdmin
+      }">
+            {{ "amca" | translate }}
+        </a>
+
+        <!--- Toggler -->
+        <div [ngClass]="{
+        'sidebar-toggler': true,
+        'active': true,
+        adminToggler: isAdmin
+      }" #sidebarToggler (click)="toggleSidebar($event)">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div [perfectScrollbar] [ngClass]="{ 'sidebar-body': true, adminSideBar: isAdmin }">
+        <!--- Sidemenu start -->
+
+        <ul class="sidebar-nav metismenu" id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item" routerLink="Accueil">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon class="link-icon" appFeatherIcon>home</mat-icon>
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "Home" | translate }}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon class="link-icon" appFeatherIcon>post_add</mat-icon>
+
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "Exhibitor" | translate }}</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="exposant/demande">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{ "request" |
+                                    translate }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="exposant/exposant-demande-details">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"myRequests" |
+                                    translate}}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="exposant/bon-commande">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{ "BonCommande" |
+                                    translate }}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ng-container>
+
+            <!--             
+
+            <ng-container *ngIf="!isAdmin||true">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon class="link-icon" appFeatherIcon>school</mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                         && { 'margin-right': '30px','margin-left':'0px' } ">{{
+              "GroupeScolaire" | translate
+            }}</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="groupe-scolaire">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                  {{ "GroupeScolaire_NouvelleDemande" | translate }}
+                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container> -->
+
+        
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" routerLink="/proposal-project">
+                        <mat-icon class="link-icon" appFeatherIcon>how_to_vote</mat-icon>
+
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "proposalProject" | translate }}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon class="link-icon" appFeatherIcon>card_membership</mat-icon>
+
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "ArtistCards" | translate }}</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="artist-card/new">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{ "request" |
+                                    translate }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="artist-card/list">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"myRequests" |
+                                    translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>card_giftcard
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Attribution des prix</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Prix Hassan 2</span>
+                                <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/new-hassan2-award">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau Prix
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/hassan2-award-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des prix
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Prix du livre</span>
+                                <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/new-book-award">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau prix
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/book-award-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des prix
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Prix du théâtre</span>
+                                <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/new-theater-award">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau prix
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/theater-award-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des prix
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Prix honorifique</span>
+                                <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/new-honorary-award">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau prix
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/prize-award/honorary-award-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des prix
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon class="link-icon" appFeatherIcon>fact_check</mat-icon>
+
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "ExportAuthorization" | translate }}</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="export-authorization/new-export-authorization">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{ "request" |
+                                    translate }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"myRequests" |
+                                    translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="!isAdmin">
+                <li class="nav-item" routerLink="reglement-interieur">
+                    <a class="nav-link" [routerLink]="['/reglement-interieur']">
+                        <mat-icon class="link-icon" appFeatherIcon>assignment_late</mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                         && { 'margin-right': '30px','margin-left':'0px' } ">{{
+                            "ReglementInterieur" | translate
+                            }}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon appFeatherIcon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }">people
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "Commission" | translate
+                            }}</span>
+                        <span data-feather="chevron-down" appFeatherIcon class="link-arrow adminTextColor"></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-commission">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "NewCommission" | translate }}
+                                </span>
+                            </a>
+                        </li>
+
+                        <!--<li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/ajout-publications-planning">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                  Ajout publications à une commission
+                </span>
+                            </a>
+                        </li>-->
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/seances-commission">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    Liste des commissions
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>list_alt
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "Exhibitor" | translate
+                            }}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/exposant-admin">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "SIELExhibitorsParticipationsList" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-liste-demandes">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    Liste demandes
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }">supervised_user_circle
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "users" | translate
+                            }}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/manage-users">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "manageUsers" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/manage-roles">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "manageRoles" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>list
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">EDITION</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-nouvelle-edition">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    Nouvelle édition
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/liste-edition">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    Liste des éditions
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>school
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "Booking_School" | translate
+                            }}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-booking-school">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "BookingSchoolList" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>inbox
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "Booking_Stand" | translate
+                            }}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-booking-stand">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "BookingStandList" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>folder
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{
+                            "projectDomains" | translate
+                            }}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-project-domains">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "domains" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-project">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "proposalProject" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>art_track
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"Profession artistique" |
+                            translate}}</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-profession-artistic">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "Profession artistique" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-profession-artistic/domains">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "Domaine du profession artistique" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-profession-artistic/categories">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{ "Catégorie du profession artistique" | translate }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>list
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Annuaire du livre</span>
+                        <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Écrivains</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-writer">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau écrivain
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-writers-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des écrivains
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Éditeurs</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-publisher">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau éditeur
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-publishers-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des éditeurs
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Distributeurs</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-distributor">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau distributeur
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-distributor-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des distributeurs
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Imprimeurs</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-printing">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau imprimeur
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-printings-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des imprimeurs
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Bibliotheque</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-library">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouveau bibliotheque
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-libraries-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des bibliotheques
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);">
+                                <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">Bibliotheque publique</span>
+                                <span class="link-arrow adminTextColor" data-feather="chevron-down" appFeatherIcon></span>
+                            </a>
+
+                            <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-new-public-library">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Nouvelle bibliotheque publique
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="administration/admin-public-libraries-list">
+                                    <a class="nav-link">
+                                        <i class="link-icon" appFeatherIcon></i>
+                                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                            Liste des bibliotheques publiques
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</nav>

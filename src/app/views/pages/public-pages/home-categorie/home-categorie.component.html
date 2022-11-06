@@ -1,0 +1,24 @@
+<app-public-navbar></app-public-navbar>
+<div id="cardsContainer">
+  <!-- <mat-card class="box">
+    <img src="assets/images/home/projet.png" alt="" />
+    <h3>Appels à projets</h3>
+  </mat-card>
+  <mat-card class="box">
+    <img src="assets/images/home/librairie.png" alt="" />
+    <h3>Gestion des bibliothèques</h3>
+ </mat-card> -->
+  <mat-card class="box" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+    routerLink="/exposant/demande">
+    <img src="assets/images/home/annuaire.png" alt="" />
+    <h3>Annuaire des intervenants</h3>
+  </mat-card>
+  <mat-card class="box" routerLink="/exposant/demande" [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    ">
+    <img src="assets/images/home/livre_ouvert.png" alt="" />
+    <h3>{{ "ExhibitorsParticipation" | translate }}</h3>
+  </mat-card>
+</div>

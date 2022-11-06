@@ -1,0 +1,52 @@
+
+<div [ngClass]="'currentTheme' | translate">
+<app-public-navbar></app-public-navbar>
+<div id="cardsContainer">
+  <mat-card class="box" routerLink="/auth/register">
+    <img src="assets/images/home/shopping-cart.svg" alt="" />
+    <h3>{{ "buyerAttribute" | translate }}</h3>
+    <p>{{ "buyerDescription" | translate }}</p>
+  </mat-card>
+  
+  <mat-card class="box" routerLink="/auth/register/supplier">
+    <img src="assets/images/home/truck-delivery.svg" alt="" />
+    <h3>{{ "supplierAttribute" | translate }}</h3>
+    <p>{{ "supplierDescription" | translate }}</p>
+  </mat-card>
+  <mat-card class="box" routerLink="/auth/login">
+    <img src="assets/images/home/login.svg" alt="" />
+    <h3>{{ "Login" | translate }}</h3>
+    <p>{{ "alreadyHaveAccount" | translate }}</p>
+  </mat-card>
+</div>
+<div class="m-4 p-2">
+  <h2 style="text-align:center;">{{"connectWithUs" | translate}}</h2>
+  <div class="connectWithUs d-flex m-4 flex-center flex-gap-20">
+    <a target="_blank" href="http://amcamaroc.org/">
+      <mat-icon class="bigIcon" appFeatherIcon>home</mat-icon>
+    </a>
+    <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
+      <div class="bigIcon" appFeatherIcon>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+      </div>
+    </a>
+    <a target="_blank" href="https://www.facebook.com/Association-Marocaine-de-La-Communauté-Achats-AMCA-102453701526495/">
+      <mat-icon class="bigIcon" appFeatherIcon>facebook</mat-icon>
+    </a>
+    <a target="_blank" href="https://youtube.com/channel/UCv3FXHT_11esmxe17_0dGuQ">
+      <div class="bigIcon" appFeatherIcon><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><g clip-path="url(#svgIDa)"><path fill="currentColor" d="M23.5 6.507a2.786 2.786 0 0 0-.766-1.27a3.05 3.05 0 0 0-1.338-.742C19.518 4 11.994 4 11.994 4a76.624 76.624 0 0 0-9.39.47a3.16 3.16 0 0 0-1.338.76c-.37.356-.638.795-.778 1.276A29.09 29.09 0 0 0 0 12c-.012 1.841.151 3.68.488 5.494c.137.479.404.916.775 1.269c.371.353.833.608 1.341.743c1.903.494 9.39.494 9.39.494a76.8 76.8 0 0 0 9.402-.47a3.05 3.05 0 0 0 1.338-.742a2.78 2.78 0 0 0 .765-1.27A28.38 28.38 0 0 0 24 12.023a26.579 26.579 0 0 0-.5-5.517ZM9.602 15.424V8.577l6.26 3.424l-6.26 3.423Z"/></g><defs><clipPath id="svgIDa"><path fill="#fff" d="M0 0h24v24H0z"/></clipPath></defs></g></svg></div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div id="footerItems">
+    <div id="footerRightItems">
+      <p id="cg">{{ "GeneralConditions" | translate }}</p>
+      <p>{{ "LegalMentions" | translate }}</p>
+    </div>
+
+    <p>&copy; {{"COPYRIGHT"|translate}} {{thisYear}}</p>
+  </div>
+</footer>
+</div>

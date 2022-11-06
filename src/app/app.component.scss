@@ -1,0 +1,60 @@
+.loader_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70vh;
+}
+
+.table_loader_background {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    position: absolute;
+}
+
+.table_loader {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.centerizeText {
+    text-align: center;
+}
+
+.smallText {
+    font-size: 90%;
+}
+
+.w-80px {
+    width: 80px;
+}
+
+.displayInlineBlock {
+    display: inline-block;
+}
+
+.rightSide {
+    text-align: right;
+}
+
+@media(max-width:700px) {
+    .bigSize {
+        font-size: 4vw;
+    }
+}
+
+@media(min-width:700px) {
+    .bigSize {
+        font-size: 2vw;
+    }
+}
+
+.displayBlock {
+    display: block;
+}

@@ -1,0 +1,46 @@
+:host {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-left-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9fafc!important;
+}
+
+.auth-left-wrapper img {
+    width: 90%;
+}
+
+.auth-title {
+    color: #4b4b4b!important;
+    font-weight: bold!important;
+}
+
+.auth-btn-connect {
+    text-transform: uppercase;
+    margin: 20px 0;
+    background-color: #05b962;
+}
+
+.auth-register-link {
+    color: #c83237;
+}
+
+#spinnerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

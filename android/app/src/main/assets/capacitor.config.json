@@ -1,0 +1,6 @@
+{
+	"appId": "com.example.app",
+	"appName": "nobleui-angular",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

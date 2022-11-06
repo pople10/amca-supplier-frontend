@@ -1,0 +1,164 @@
+<div class="profile-page tx-13">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="profile-header">
+                <div class="cover">
+                    <div class="gray-shade"></div>
+                    <figure>
+                        <img [src]="domSanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABHwAAAB4CAMAAAC3iBUYAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAASlQTFRFmZmZmpqam5ubnJycnZ2dnp6en5+foKCgoaGhoqKio6OjpKSkpaWlpqamp6enqKioqampqqqqq6urrKysra2trq6ur6+vsLCwsbGxsrKys7OztLS0tbW1tra2t7e3uLi4ubm5urq6u7u7vLy8vb29vr6+v7+/wMDAwcHBwsLCw8PDxMTExcXFx8fHycnJysrKy8vLzMzMzc3Nzs7Oz8/P0NDQ0dHR09PT1dXV1tbW19fX2NjY2dnZ2tra29vb3Nzc3d3d3t7e39/f4ODg4eHh4uLi4+Pj5OTk5eXl5ubm5+fn6Ojo6enp6urq6+vr7Ozs7e3t7u7u7+/v8PDw8fHx8vLy8/Pz9PT09fX19vb29/f3+Pj4+fn5+vr6+/v7/Pz8/f39/v7+////agQZfgAAAcdJREFUeJzt1FnCEAIARtGPRIhQ5ijKkCEJmcmUKTKmTGH/i7CM+/Cfs4L7dDcAgAPjNoCA+QCJ3Q4QMB8gsUMAgd0BEDAfIGE+QGKHAQK7EyBgPkBidwEEdgQgYD5AYncDBHYPQMB8gMTuBQjsKEBg9wEEdj9AwHyAxI4BBPYAQGAPAgT2EEDAfIDEjgMEdgIgsIcBAnsEILBHAQJ7DCCwxwECewIgsCcBAjsJENhTAIE9DRDYKYDATgME9gxAYM8CBHYGILCzAIE9BxDY8wCBvQAQ2IsAgZ0DCOwlgMBeBgjsFYDAXgUImA+Q2HmAwF4DCOwCQGCvAwR2ESCwNwACexMgsLcAArsEENjbAAHzARJ7ByCwdwECew8gsPcBAvsAILAPAQL7CCCwjwECuwwQ2CcAgX0KENhnAIF9DhDYFwCBXQEI7EuAwL4CCOxrgMC+AQjsW4DArgIE9h1AYN8DBHYNILAfAALmAyT2I0BgPwEE9jNAYL8ABMwHSOxXgMCuAwT2G0BgNwAC5gMkdhMgsN8BAuYDJPYHQGB/AgTMB0jsL4CA+QCJ/Q0QMB8gsVsAgf0DEFgdABxMqwOAg2n/AgT2H0Dgf7XbKl8NtuOxAAAAAElFTkSuQmCC')"
+                            class="img-fluid w-100" alt="profile cover" />
+                    </figure>
+                    <div class="cover-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <label for="profilePhoto">
+                              <div class="overlay-container">
+                                  <div class="overlay" [ngStyle]="uploading&&{'opacity':'0.3'}">
+                                      <div  class="text-overlay">
+                                          <span *ngIf="!uploading" class="material-icons-outlined" style="font-size: 35px;">photo_camera</span>
+                                          <span [ngStyle]="!uploading&&{'display':'none'}" style=" margin: 3px 2px;font-size: 35px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                      </div>
+                                  </div>
+                              </div>
+                            </label>
+                            <span class="profile-name">{{ userData.firstName + " " +userData.lastName | uppercase }}</span>
+                        </div>
+                        <div class="d-none d-md-block" *ngIf="!showModifyForm">
+                            <button class="btn btn-primary btn-icon-text btn-edit-profile" (click)="toggleShowModifyForm()">
+                <i
+                  data-feather="edit"
+                  appFeatherIcon
+                  class="btn-icon-prepend"
+                ></i>
+
+                {{"updateProfile"|translate}}
+              </button>
+                        </div>
+                        <div class="d-none d-md-block" *ngIf="showModifyForm">
+                            <button class="btn btn-primary btn-icon-text btn-edit-profile" (click)="toggleShowModifyForm()">
+                <i
+                  data-feather="info"
+                  appFeatherIcon
+                  class="btn-icon-prepend"
+                ></i>
+
+                {{"infoProfile"|translate}}
+              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row profile-body">
+        <!-- left wrapper start -->
+        <div class="d-md-block w-50 mx-auto" *ngIf="showModifyForm">
+            <div class="card rounded">
+                <form class="card-body" [formGroup]="validationEditForm" (ngSubmit)="updateProfile()">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="card-title mb-0 text-center w-100">
+                            <i data-feather="edit" appFeatherIcon class="btn-icon-prepend mr-2"></i> {{"updateProfile"|translate}}
+                        </h6>
+                    </div>
+                    <div class="mt-3">
+                        <label class="control-label font-weight-bold text-uppercase">{{"lastName"|translate}}</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enterez le nouveau nom"
+              formControlName="lastname"
+              [ngClass]="{'is-invalid':submitted && editForm.lastname.errors}"
+            />
+            <div *ngIf="submitted && editForm.lastname.errors?.required" class="invalid-feedback">
+              {{ "RequiredField" | translate }}
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="control-label font-weight-bold text-uppercase"
+              >{{"firstName"|translate}}</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enterez le nouveau prénom"
+              formControlName="firstname"
+              [ngClass]="{'is-invalid':submitted && editForm.firstname.errors}"
+            />
+            <div *ngIf="submitted && editForm.firstname.errors?.required" class="invalid-feedback">
+              {{ "RequiredField" | translate }}
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="control-label font-weight-bold text-uppercase"
+              >{{"email"|translate}}</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enterez le nouveau email"
+              formControlName="email"              
+              [ngClass]="{'is-invalid':submitted && editForm.email.errors}"
+            />
+              <div *ngIf="submitted && editForm.email.errors?.required" class="invalid-feedback">
+                    {{ "RequiredField" | translate }}
+              </div>
+              <div *ngIf="submitted && editForm.email.errors?.email" class="invalid-feedback">
+                {{ "EmailField" | translate }}
+              </div>
+          </div>
+
+          <div class="mt-3" style="text-align: center;">
+            <button [disabled]="dataSent" class="btn btn-primary" type="submit">
+              <span [ngStyle]="!dataSent&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              {{"update"|translate}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- left wrapper end -->
+    <!-- middle wrapper start -->
+    <div class="d-md-block w-50 mx-auto" *ngIf="!showModifyForm">
+      <div class="card rounded">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="card-title mb-0 text-center w-100">
+              <i
+                data-feather="info"
+                appFeatherIcon
+                class="btn-icon-prepend mr-2"
+              ></i>
+              {{"infoProfile"|translate}}
+            </h6>
+          </div>
+          <div class="mt-3">
+            <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+              >{{"lastName"|translate}}</label
+            >
+            <p class="text-muted">{{ userData.lastName }}</p>
+          </div>
+          <div class="mt-3">
+            <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+              >{{"firstName"|translate}}</label
+            >
+            <p class="text-muted">{{ userData.firstName }}</p>
+          </div>
+          <div class="mt-3">
+            <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+              >{{"email"|translate}}</label
+            >
+            <p class="text-muted">{{ userData.email }}</p>
+          </div>
+          <div class="mt-3">
+            <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+              >{{"cin"|translate}}</label
+            >
+            <p class="text-muted">
+              {{ userData?.cin }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

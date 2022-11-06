@@ -1,0 +1,27 @@
+.ltr-style {
+	@import './../themplates/home-fr';
+  }
+  
+  .rtl-style {
+    @import './../themplates/home-ar';
+  }
+  
+.bigIcon
+{
+  font-size: 70px;
+  color: #4d8cff;
+}
+.flex-center
+{
+  align-items: center;
+  justify-content: center;
+}
+.flex-gap-20
+{
+  gap: 20%;
+}
+.connectWithUs
+{
+  border: #fe6150 2px solid;
+  border-radius: 20px;
+}
