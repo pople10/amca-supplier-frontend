@@ -37,6 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { NgbNavModule, NgbPaginationModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { HistoryComponent } from './history/history.component';
+import { AuthGuard } from 'src/app/core/guard/auth.guard';
 
 
 
@@ -45,12 +47,20 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 const routes: Routes = [
   {
     path: '',
+    canActivate:[AuthGuard],
     component: AdministrationComponent,
     children: [
       {
         path: '',
-        redirectTo: 'exposant-admin',
+        redirectTo: 'history',
         pathMatch: 'full'
+      },
+      {
+        path: 'history',
+        component : HistoryComponent,
+        data : {
+          role : ["admin"]
+        }
       }
     ]
   }
@@ -58,7 +68,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AdministrationComponent
+    AdministrationComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,

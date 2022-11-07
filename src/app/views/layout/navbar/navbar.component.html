@@ -35,9 +35,9 @@
                     <div class="dropdown-header d-flex flex-column align-items-center">
                         <div class="info text-center">
                             <p class="email text-muted mb-0">{{ username }}</p>
-                            <p class="name font-weight-bold mb-0">
-                                <small *ngFor="let item of roles">{{ item }} </small>
-                            </p>
+                            <div class="name font-weight-bold mb-0">
+                                <small class="d-block" *ngFor="let item of roles">{{ item | translate }} </small>
+                            </div>
                         </div>
                     </div>
                     <div class="dropdown-body">

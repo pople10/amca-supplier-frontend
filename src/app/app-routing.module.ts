@@ -8,11 +8,13 @@ import { GeneralComponent } from './views/pages/general/general.component';
 import { AdministrationComponent } from './views/pages/administration/administration.component';
 import { ExportAuthorizationComponent } from './views/pages/export-authorization/export-authorization.component';
 import { NoLinkPageComponent } from './views/pages/no-link-pages/no-link-page.component';
+import { BuyerComponent } from './views/pages/buyer/buyer/buyer.component';
+import { NonAuthGuard } from './core/guard/non-auth.guard';
 
 
 const routes: Routes = [
   { path:'', loadChildren: () => import('./views/pages/public-pages/public-pages.module').then(m => m.PublicPagesModule) },
-  { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
+  { canActivate:[NonAuthGuard],path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
   {
     path: '',
     component: BaseComponent,
@@ -34,6 +36,22 @@ const routes: Routes = [
           role : ["admin","supplier","buyer","buyer_expert"]
         }
       },
+      {
+        path: 'buyer',
+        component : BuyerComponent,
+        loadChildren: () => import('./views/pages/buyer/buyer/buyer.module').then(m => m.BuyerModule),
+        data : {
+          role : ["buyer","buyer_expert"]
+        }
+      },
+      {
+        path: 'admin',
+        component : AdministrationComponent,
+        loadChildren: () => import('./views/pages/administration/administration.module').then(m => m.AdministrationModule),
+        data : {
+          role : ["admin"]
+        }
+      },
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
@@ -49,12 +67,12 @@ const routes: Routes = [
     }
   },
   {
-    path: 'edition-expiré',
+    path: 'access-denied',
     component: ErrorPageComponent,
     data: {
-      'type': "Délai dépassé",
-      'title': ' ',
-      'desc': 'La période d\'édition est expirée'
+      'type': "Access Denied",
+      'title': 'Access Denied',
+      'desc': "You don't have permission to this page"
     }
   },
   {

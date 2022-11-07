@@ -64,9 +64,6 @@ export class ResetComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private authService:AuthService, private snackBar: MatSnackBar, public languageService: LanguageService,private handleRequestService:HandleRequestService,private translateService:TranslateService) { }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/']);
-    }
     this.vkey=this.route.snapshot.paramMap.get('vkey');
   }
 

@@ -45,9 +45,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn) {
-      this.router.navigate(['/dashboard']);
-    }
     try{
       (async function(){
         await this.translate.get('proposalActivityEmpty').toPromise().then();

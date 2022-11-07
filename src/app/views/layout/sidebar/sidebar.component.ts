@@ -27,6 +27,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   refExposant ;
 
+  roles:string[];
+
   constructor(private authService:AuthService,@Inject(DOCUMENT) private document: Document,private renderer: Renderer2, public router: Router, public languageService: LanguageService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -67,6 +69,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       let data = JSON.parse(userData);
       let roles = data.roles;
       this.isAdmin = (roles.includes("admin") != null) ? roles.includes("admin") : false;
+      this.roles=roles;
     }
     this.menuItems = MENU;
 

@@ -4,12 +4,14 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse
+  HttpResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { LanguageService } from './language/language.service';
 
 
 @Injectable()
@@ -26,11 +28,11 @@ export class AuthInterceptor implements HttpInterceptor {
     if(cond){
       try{
         if(token != null && expirationDate>(new Date())){
-          request = request.clone({
-            setHeaders : {
-              Authorization : `${token_type} ${token}`
-            }
+          const headers = new HttpHeaders({
+            'Authorization': `${token_type} ${token}`,
+            'Accept-Language': localStorage.getItem("userLanguage")
           });
+          request = request.clone({headers});
         }else{
           this.authService.logOut();
         }

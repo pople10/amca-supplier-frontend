@@ -1,7 +1,7 @@
 import { PageDetails } from "./PageDetails";
 
-export class GenericPageable {
-    content : any[];
+export class GenericPageable <T>{
+    content : T[];
 
     pageDetails : PageDetails = new PageDetails;
 }
