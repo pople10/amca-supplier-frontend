@@ -566,8 +566,20 @@
     "PENDING":"En attendant", 
     "REJECTED":"Rejeté",
     "buyer_expert":"Acheteur expert",
-    "admin":"Administrateur"
-
+    "admin":"Administrateur",
+    "addBuyer":"Ajouter un acheteur",
+    "users":"Utilisateurs",
+    "isExpert":"Est-ce qu'il est un acheteur expert?",
+    "id":"Identifiant",
+    "tableName":"Nom du table",
+    "action":"Action",
+    "actor":"Acteur",
+    "createDate":"Date de création",
+    "CREATE":"Création",
+    "DELETE":"Suppression",
+    "UPDATE":"Modification",
+    "user":"Utilisateur",
+    "Anonymous":"Anonyme"
 
 
 }

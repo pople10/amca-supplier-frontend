@@ -35,6 +35,13 @@ export class AuthService {
     });
   }
 
+  registerSupplier(data:any)
+  {
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/auth/register/supplier`, data, {
+      headers: new HttpHeaders().set('Content-type', 'application/json'),
+    });
+  }
+
   askToReset(data:any)
   {
     return this.http.post<any>(`${ENV["backend-api-base-url"]}/auth/register/reset`, data, {

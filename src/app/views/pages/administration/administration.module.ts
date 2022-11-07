@@ -39,6 +39,9 @@ import { NgbNavModule, NgbPaginationModule, NgbCollapseModule } from '@ng-bootst
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HistoryComponent } from './history/history.component';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
+import { AddBuyerComponent } from './add-buyer/add-buyer.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 
@@ -61,6 +64,13 @@ const routes: Routes = [
         data : {
           role : ["admin"]
         }
+      },
+      {
+        path: 'buyer/add',
+        component : AddBuyerComponent,
+        data : {
+          role : ["admin"]
+        }
       }
     ]
   }
@@ -69,7 +79,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AdministrationComponent,
-    HistoryComponent
+    HistoryComponent,
+    AddBuyerComponent
   ],
   imports: [
     CommonModule,
@@ -92,7 +103,8 @@ const routes: Routes = [
     NgbNavModule,
     NgbTooltipModule,
     NgbPaginationModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    MatCheckboxModule
   ]
 })
 export class AdministrationModule { }

@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { RegisterModel } from 'src/app/entities/auth/register-model';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from 'src/app/services/shared/users.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-add-buyer',
+  templateUrl: './add-buyer.component.html',
+  styleUrls: ['./add-buyer.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class AddBuyerComponent implements OnInit {
   data:RegisterModel = new RegisterModel();
   passwordMessages:string[]=[];
   display:string="CIN";
 
-  constructor(private router: Router,private translateService:TranslateService,public languageService: LanguageService, private authService : AuthService, private handleRequestService:HandleRequestService) { }
+  constructor(private router: Router,private translateService:TranslateService,public languageService: LanguageService, private userService : UserService, private handleRequestService:HandleRequestService) { }
 
   onChangePassword(event){
     let data = this.data.password;
@@ -85,21 +85,18 @@ export class RegisterComponent implements OnInit {
     this.dataSent=true;
     if(this.registerForm.valid)
     {
-        this.authService.register(this.data).subscribe(response=>{
+        this.userService.createUserBuyer(this.data).subscribe(response=>{
           this.data.clear();
           this.isSubmitted=false;
           Swal.fire(
             {
               position: 'center',
               title: this.translateService.instant("success"),
-              text: this.translateService.instant("accountCreatedWithSuccess"),
+              text: this.translateService.instant("done"),
               showConfirmButton: false,
-              icon: 'success',
-              timer:2000
+              icon: 'success'
             }
-          ).then(()=>{
-              this.router.navigate(["/auth/login"]);
-          });
+          );
         },err=>{
           this.handleRequestService.handleError(err);
         }).add(()=>{
@@ -114,11 +111,5 @@ export class RegisterComponent implements OnInit {
 
   get form() {
     return this.registerForm.controls;
-  }
-
-  goBack(e)
-  {
-    e.preventDefault();
-    window.location.href="/";
   }
 }

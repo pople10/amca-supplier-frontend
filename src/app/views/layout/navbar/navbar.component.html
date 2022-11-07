@@ -13,7 +13,7 @@
             <li class="nav-item" ngbDropdown>
                 <a class="nav-link" ngbDropdownToggle id="languageDropdown" role="button">
                     <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'fr'">Français</span>
-                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'ar' && !isAdmin">العربية</span>
+                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'ar'">العربية</span>
                     <span class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"></span>
                 </a>
                 <div ngbDropdownMenu aria-labelledby="languageDropdown" [ngStyle]="

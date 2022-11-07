@@ -16,10 +16,10 @@ import { HandleRequestService } from 'src/app/services/shared/handle-request.ser
 export class HistoryComponent implements OnInit {
   data:GenericPageable<AuditResponse>=new GenericPageable();
   refName="id";
-  fields:string[]=["id","tableName","action","actor"]
+  fields:string[]=["id"]
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
-  fieldsStatic:string[]=[];
+  fieldsStatic:string[]=["actor","tableName","action"];
   fieldsDates:string[]=["createDate"];
   sizes:number[]=[5,10,20,50,100];
   isLoad:boolean=true;

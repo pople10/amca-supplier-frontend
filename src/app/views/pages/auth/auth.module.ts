@@ -13,6 +13,18 @@ import { FeahterIconModule } from '../../../core/feather-icon/feather-icon.modul
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResetComponent } from './reset/reset.component';
+import { SupplierRegisterComponent } from './supplier-register/supplier-register.component';
+import { MatInputModule } from '@angular/material/input';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatStepperModule } from '@angular/material/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { ArchwizardModule } from 'angular-archwizard';
+import { QuillModule } from 'ngx-quill';
+import { NgbCollapseModule, NgbNavModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const routes: Routes = [
@@ -44,13 +56,17 @@ const routes: Routes = [
       {
         path: 'reset/:vkey',
         component: ResetComponent
+      },
+      {
+        path: 'register/supplier',
+        component: SupplierRegisterComponent
       }
     ]
   },
 ]
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, AuthComponent, ResetComponent],
+  declarations: [LoginComponent, RegisterComponent, AuthComponent, ResetComponent, SupplierRegisterComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -62,7 +78,26 @@ const routes: Routes = [
     NgxMaskModule.forRoot({ validation: true}),
     FeahterIconModule,
     MatSnackBarModule,
-    NgSelectModule
+    NgSelectModule,
+    FeahterIconModule,
+    QuillModule.forRoot(), // ngx-quill
+    ArchwizardModule, // angular-archwizard
+    NgxMaskModule.forRoot({ validation: true}), // Ngx-mask
+    NgSelectModule,
+    MatStepperModule,
+    CdkStepperModule,
+    MatInputModule,
+    DropzoneModule,
+    NgxCsvParserModule,
+    MatSnackBarModule,
+    TranslateModule,
+    MatIconModule,
+    NgxPaginationModule,
+    SweetAlert2Module.forRoot(),
+    NgbNavModule,
+    NgbPaginationModule,
+    NgbCollapseModule,
+    NgbTooltipModule,
   ]
 })
 export class AuthModule { }

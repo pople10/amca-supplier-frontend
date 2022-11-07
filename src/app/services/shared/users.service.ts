@@ -8,36 +8,36 @@ import { ENV } from 'src/env';
 @Injectable({
   providedIn: 'root'
 })
-export class anyService {
+export class UserService {
   createUserBuyer(data: any) {
-    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/admin/user/buyer`, data, {
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/user/buyer`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });  }
   createUser(data:any){
-    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/admin/user`, data, {
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/user`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
   }
   updateUser(data:any,ref:string)
   {
-    return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/admin/user/${ref}`, data, {
+    return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/user/${ref}`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
   }
   getUser(ref:string):Observable<any>
   {
-    return this.http.get<any>(`${ENV["backend-api-base-url"]}/api/admin/user/${ref}`);
+    return this.http.get<any>(`${ENV["backend-api-base-url"]}/api/user/${ref}`);
   }
   getanyWithPageAndSize(page: number, size: number) {
-    return this.http.get<GenericPageable<UserResponse>>(`${ENV["backend-api-base-url"]}/api/admin/user/page?page=${page}&size=${size}`);
+    return this.http.get<GenericPageable<UserResponse>>(`${ENV["backend-api-base-url"]}/api/user/page?page=${page}&size=${size}`);
   }
   deleteUser(refToDelete: string) {
-    return this.http.delete<any>(`${ENV["backend-api-base-url"]}/account/admin/${refToDelete}`);
+    return this.http.delete<any>(`${ENV["backend-api-base-url"]}/account/${refToDelete}`);
   }
 
   assignRolesToUser(data:any)
   {
-    return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/admin/user/assign`, data, {
+    return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/user/assign`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
   }

@@ -377,7 +377,7 @@
     "connectWithUs":"شبكاتنا الاجتماعية",
     "alreadyHaveAccount":"هل لديك حساب؟",
     "buyerAttribute":"بوابة المشتري",
-    "supplierAttribute":"مزود البوابة",
+    "supplierAttribute":"بوابة المورد",
     "buyerDescription":"أنشئ حسابك لاستشارة الموردين المؤهلين",
     "supplierDescription":"أنشئ حسابك لتكون من بين الموردين المؤهلين",
     "COPYRIGHT":"حقوق النشر",
@@ -421,7 +421,21 @@
      "PENDING":"في الإنتظار",
      "REJECTED":"مرفوض",
      "buyer_expert":"مشتري محترف",
-     "admin":"مسير"
+     "admin":"مسير",
+     "addBuyer":"أضف مشتري",
+     "users":"المستخدمون",
+     "isExpert":"هل هو مشتر خبير؟",
+     "id":"تعريف",
+     "tableName":"اسم العنصر",
+     "action":"العملية",
+     "actor":"الفاعل",
+     "createDate":"تاريخ الإضافة",
+     "CREATE":"إضافة",
+     "DELETE":"حذف",
+     "UPDATE":"تعديل",
+     "user":"مستخدم",
+     "Anonymous":"مجهول"
+ 
 
 
 }

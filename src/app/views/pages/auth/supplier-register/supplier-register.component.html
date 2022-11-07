@@ -1,0 +1,238 @@
+<div class="row w-100 mx-0 auth-page">
+    <div class="col-md-10 col-xl-8 mx-auto">
+        <div class="card">
+            <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
+                <aw-wizard [navigateBackward]="(isDisabled?'deny':'allow')" #wizardForm [navBarDirection]="this.languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
+                    <!------------ Page 1 : General Information        ------------>
+                    <aw-wizard-step [stepTitle]="('NEWARTISTACCOUNTDEMANDE' | translate )" (stepEnter)="onInitPage1()"><br/>
+                        <div *ngIf="this.page==1" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
+                            <ng-container *ngFor="let d of this.inputsStep1;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'titleElement'" [ngTemplateOutlet]="titleElement" [ngTemplateOutletContext]="{title:d.title}"></ng-container>
+                            </ng-container>
+                        </div>
+                    </aw-wizard-step>
+                    <!------------ Page 2 : Documents                  ------------>
+                    <aw-wizard-step [stepTitle]="('documentExhibition' | translate )" (stepEnter)="page=2"><br/>
+                        <div class="row" *ngIf="this.page==2">
+                            <div class="col-12" *ngFor="let companyfiles of this.inputsStep2;let index = index;" [ngStyle]="this.languageService.userLanguage == 'ar' && {'display':'flex', 'flex-direction': 'row-reverse' ,'text-align': 'right'}">
+                                <ng-container [ngTemplateOutlet]="FileInput" [ngTemplateOutletContext]="{companyfiles:companyfiles,index:index}"></ng-container>
+                            </div>
+                        </div>
+                    </aw-wizard-step>
+                    <!------------ Page 3 : General Information Member ------------>
+                    <aw-wizard-step [stepTitle]="('MemberProject' | translate )" (stepEnter)="onInitPage3()"><br/>
+                        <div *ngIf="this.page==3" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
+                            <ng-container *ngFor="let d of this.inputsStep3;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                            </ng-container>
+                            <div class="modal-footer col-12" [ngStyle]=" languageService.userLanguage == 'ar' ? {
+                'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
+                                <div class="mx-2 mt-2">
+                                    <button [disabled]="!isdisableLoadModal" type="button" class="btn btn-dange-muted-2 text-white" (click)="clearForm3()"> <i data-feather="x" appFeatherIcon></i> </button>
+                                </div>
+                                <div class="mt-2 mx-2" *ngIf="this.generalMember.refGeneralMember==null;else editbutton">
+                                    <button (click)="this.onAddForm3($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                      <i  data-feather="plus-circle" appFeatherIcon></i>
+                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                                <div class="table table-striped table-responsive" *ngIf="generalMemberArray.length>0">
+                                    <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ "fullname" | translate }}</th>
+                                                <th>{{ "cin" | translate }}</th>
+                                                <th>{{ "email" | translate }}</th>
+                                                <th>{{ "phoneNumber" | translate }}</th>
+                                                <th>{{ "gender" | translate }}</th>
+                                                <th>{{ "role" | translate }}</th>
+                                                <th>{{ "F_OuvragesPourSalon_Actions" | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="my-10" *ngFor=" let item of generalMemberArray;let  index = index ">
+                                                <td>{{ item.firstName + " " + item.lastName }}</td>
+                                                <td>{{ item.cin }}</td>
+                                                <td>{{ item.email }}</td>
+                                                <td>{{ "+212 "+(item.phoneNumber) }}</td>
+                                                <td>{{ (item.gender ) | translate }}</td>
+                                                <td>{{ (item.role ) | translate }}</td>
+                                                <td class="d-flex justify-content-center" id="actionsContainer">
+                                                    <span (click)="setEditForm3(item)"><i data-feather="edit-2" appFeatherIcon></i></span>
+                                                    <span (click)=" deleteEForm3( confirmRemove, index )"><i data-feather="x" appFeatherIcon></i></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </aw-wizard-step>
+                    <!------------ Page 4 : Validation Page            ------------>
+                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=4"><br/>
+                        <div *ngIf="page==4" style=" text-align: center; ">
+                            <h5 style=" margin: 25px 0; " class="modal-title">{{"ValidateRequest" | translate}}</h5>
+                            <p>{{"validationDemande"|translate}}</p><br/>
+                        </div>
+                    </aw-wizard-step>
+                </aw-wizard><br/>
+                <!-- Next Back Button -->
+                <div class="row" [ngStyle]="languageService.userLanguage == 'fr' && {direction: 'rtl' }">
+                    <div class="m-2" *ngIf="page<lastPage;else btnDone">
+                        <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto" [ngClass]="{'disabled': isDisabled }">
+            <span [ngStyle]="isDisabled&&{'display':'none'}"   [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-right" appFeatherIcon></i></span>
+            <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span>{{ "Next" | translate }}</span>
+            </button>
+                    </div>
+                    <div class="m-2">
+                        <button type="button" style="min-height: 40px;" *ngIf="(page!=1)" [disabled]="isDisabled" class="btn button backBtn mx-auto" (click)="previousPage()">
+            <span>{{ "Back" | translate }}</span>
+            <span  [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-left" appFeatherIcon></i></span>
+            </button>
+                    </div>
+                </div>
+                <!------------------------------------ Templates    ------------------------------------------>
+                <!------------------------ Simple Input ---------------------------->
+                <ng-template #simpleInput let-d="d">
+                    <div class="col-sm-6 form-group" [id]="d.formControlName">
+                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
+
+                        <input [type]="d.type" class="form-control" [formControlName]="d.formControlName" [ngModel]="d.ngModel" (ngModelChange)="d.onChange($event)" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "
+                            placeholder="{{ d.placeHolder| translate }}" />
+
+                        <div *ngIf="isFormSubmitted && getFormGroup.get(d.formControlName).errors" class="invalid-feedback">
+                            {{ (getErrorInputs(d.formControlName)) | translate }}
+                        </div>
+                    </div>
+                </ng-template>
+                <!------------------------ Phone Input  ---------------------------->
+                <ng-template #phoneNumber let-d="d">
+                    <div class="col-sm-6 form-group" [id]="d.formControlName">
+                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
+                        <input [ngModel]="d.ngModel" (ngModelChange)="d.onChange($event)" type="tel" class="form-control" placeholder="{{ d.placeHolder| translate }}" [formControlName]="d.formControlName" prefix="+{{ NumberCodeForm }}" mask="0 00 00 00 00" [showMaskTyped]="true"
+                            [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                        <div *ngIf="isFormSubmitted && getFormGroup.get(d.formControlName).errors" class="invalid-feedback">
+                            {{ (getErrorInputs(d.formControlName)) | translate }}
+                        </div>
+                    </div>
+                </ng-template>
+                <!------------------------ Select Input ---------------------------->
+                <ng-template #selectInput let-d="d">
+                    <div class="col-sm-6 form-group" [id]="d.formControlName">
+                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
+                        <ng-select [ngModel]="getModelValue(d.ngModel)" (ngModelChange)="d.onChange($event)" [multiple]="d.multiple" [formControlName]="d.formControlName" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                            [searchable]="true" placeholder="{{ d.placeHolder| translate }}">
+                            <ng-option *ngFor="let op of (getOption(d.options))" [value]="op[d.value]">{{ ((d.getLabel(op,languageService.userLanguage)) | translate) }}</ng-option>
+                        </ng-select>
+                        <div *ngIf="isFormSubmitted && getFormGroup.get(d.formControlName).errors" class="invalid-feedback">
+                            {{ (getErrorInputs(d.formControlName)) | translate }}
+                        </div>
+                    </div>
+                </ng-template>
+                <!------------------------ File Input ---------------------------->
+                <ng-template #FileInput let-companyfiles="companyfiles" let-index="index">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{companyfiles.key | translate}}<span class="text-danger" *ngIf="companyfiles.required"> *</span></label>
+                            <input (change)="onChangeFile($event,index)" type="file" [accept]="companyfiles.accept" [id]='companyfiles.key' class="file-upload-default" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                            <div class="input-group col-xs-12">
+                                <span class="input-group-append" [ngStyle]="companyfiles.data.refDocument==''&&{'display':'none'}">
+                    <button class="btn btn-info download-file"  type="button" [id]="companyfiles.data.refDocument+index" style=" text-align: center!important; " (click)="this.downloadFile(index,companyfiles.data.refDocument)">
+                      <i data-feather="arrow-down-circle"  class="download-icon" appFeatherIcon></i>
+                      <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                </button>
+                                </span>
+                                <input (click)="openFileBrowser(companyfiles.key)" type="text" class="form-control file-upload-info" disabled="" [value]="companyfiles.data.name" placeholder='{{ "importFile" | translate }}' [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right' }"
+                                />
+                                <span (click)="openFileBrowser(companyfiles.key)" class="input-group-append ">
+                    <button class="btn submit nextBtn" type="button">{{"import"|translate}}
+                      <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                    </button>
+                  </span>
+                            </div>
+                        </div>
+                        <p class="text-secondary" style=" margin: 8px 0; " [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{'type_of_files'|translate}}</p>
+                        <div class="text-danger" *ngIf="isFormSubmitted && form[companyfiles.key].errors">
+                            <small>{{ (getErrorInputs(companyfiles.key)) | translate }}</small>
+                        </div>
+                    </div>
+                </ng-template>
+                <!------------------------ Form Title   ---------------------------->
+                <ng-template #titleElement let-title="title">
+                    <div class="col-12">
+                        <br/>
+                        <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ title | translate }} </p>
+                    </div>
+                </ng-template>
+            </form>
+            <div class="loader_container" *ngIf="!isLoded || !isLodedAllPage">
+                <div class="spinner-border text-primary" role="status">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noediton>
+    <h3 class="alert alert-warning" style="text-align: center;"> {{ "no_edition"|translate }}</h3>
+</ng-template>
+<ng-template #editbutton>
+    <div class="mt-2 mx-2">
+        <button (click)="this.onEditForm3($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary">
+      <i   data-feather="save" appFeatherIcon></i>
+    </button>
+    </div>
+</ng-template>
+<ng-template #btnDone>
+    <div class="m-2">
+        <button type="button" style="min-height: 40px;" class="btn submit validateButton" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }" (click)="valideDemande(validateInscription)">
+            <span>{{"Valider"|translate}}</span>
+            <span [ngStyle]="isDisabled&&{'display':'none'}"><i style="margin:0 5px;" data-feather="check" appFeatherIcon></i></span>
+            <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+    </div>
+</ng-template>
+<ng-template #validateInscription let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{"ValidateRequest" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <p>{{"validationDemande"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"cancel"|translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"validate" |translate}}
+    </button>
+    </div>
+</ng-template>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>

@@ -91,6 +91,28 @@
                     </a>
             
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>supervisor_account
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"users" | translate}}</span>
+                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/buyer/add">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                    {{"addBuyer" | translate}}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ng-container>
             
         </ul>
