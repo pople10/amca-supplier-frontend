@@ -11,6 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { GeneralService } from 'src/app/services/shared/general.service';
+import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
+import { SupplierRequest } from 'src/app/entities/SupplierRequest';
 
 @Component({
   selector: 'app-supplier-register',
@@ -18,27 +21,43 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./supplier-register.component.scss']
 })
 export class SupplierRegisterComponent implements OnInit {
+  onSubmitPage6() {
+    if(!this.isLodedAllPage){
+        this.onDone();
+        this.AfterCheckLastPage();
+  }
+  }
 
   /*****    flags for update any item     *****/
   refToUpdate:string=null;
 
   /*****    Fome Group for validation     *****/
   validationForm1: FormGroup;
+  validationForm2: FormGroup;
   validationFormFiles:FormGroup;
   validationForm3: FormGroup;
+  validationForm4: FormGroup;
+  validationForm5: FormGroup;
 
   /*****    Submit Data     *****/
-  artistAccount:any;
-  generalMember:any={};
-  generalMemberArray:Array<any>=[];
+  supplierRequest:SupplierRequest=new SupplierRequest();
   page:any=1;
-  lastPage:any=4;
+  lastPage:any=6;
   isFormSubmitted: Boolean;
 
   /*****   Inputs : Generation in HTML by *ngFor    *****/
   inputsStep1;
   inputsStep2:Array<any>;
   inputsStep3;
+  inputsStep4;
+  inputsStep5;
+  /*********** Values ****** */
+  lawFormValues:any;
+  commercialCourtValues:any;
+  salesfamilyValues:any;
+  managerfunctionsValues:any;
+  countryValues:any;
+  sectoractivityValues:any;
 
   /*****   Flags    *****/
   isDisabled:Boolean=false;
@@ -49,7 +68,6 @@ export class SupplierRegisterComponent implements OnInit {
   iseditablePage2:Boolean=false;
   isdisableLoadModal:Boolean=true;
   noEdition:Boolean=false;
-  artisticProfession:any;
   NumberCodeForm="212";
   regions = REGIONS;
   villes =VILLES;
@@ -62,67 +80,42 @@ export class SupplierRegisterComponent implements OnInit {
                       {value:"PASSPORT",labelFr:"Passeport",labelAr:"جواز سفر"},
                       {value:"DRIVER_LICENSE_CARD",labelFr:"Permis de conduire",labelAr:"بطاقة رخصة السائق"},
                       {value:"RESIDENT_CARD",labelFr:"Carte de séjour",labelAr:"بطاقة اقامة"}]                      
-  DataPage1 = ["cin","firstName","lastName","firstNameAR","lastNameAR","artistName","artistNameAR","gender","identityType","identityNumber","identityProfType","artistSpeciality","artistSpecialityAR","email","phoneNumber","otherPhoneNumber","maritalStatus","dependentChildren","otherJobName","socialSecurityName","socialSecurityID","artisticWorkStartDate","lastArtisticActivity","teamName","teamCreationDate","studyLevel","artisticEtablishmentName","ribNumber","domainName","birthDate","birthCountry","birthCity","nationality"
-  ,"region","city","postalCode","address","province","projectName","projectTitle","projectType","numDancesOrSongs","durationTime","projectCost","projectDescription","albumTitle","refArtisticProfession"];//
-  Files = ["TECHNICAL_FORM","ESTIMATED_PRICE","RESUME","ARTISTIC_FOLDER","ARTISTIC_CARD","WORK_PROFESSIONAL_PHOTO","CIN_CARD_COPY_ARTIST"];
+  DataPage1 = ["firstName","lastName","cin","email","phone","password"];//
+  DataPage2 = ["socialReason","tradeName","lawForm","nrc","commercialCourt","creationYear","ice","capitalMAD"];
+  DataPage3 = ["officeAddress","officeZipCode","officeCountry","officeCity","xAxisMap","yAxisMap"];
+  DataPage4 = ["managerFullName","managerFunction","professionalFax","professionalPhone","professionalEmail","website"]
+  DataPage5 = ["activitySector","totalEffective","turnoverN1","turnoverN2","turnoverN3","isoCertification","otherIsoCertification","salesFamily"];
+  DataPages= [this.DataPage1,this.DataPage2,this.DataPage3]
+  Files = [];
   MemberData = ["cin","firstName","lastName","gender","phoneNumber","email","role"];
 
   initForme1(){
     this.inputsStep1 = [
-      {type:"simpleInput",data:{formControlName:"cin",label:"cin",placeHolder:"",type:"text",ngModel:this.artistAccount.cin,onChange:(v)=>{this.onChangevalue(v,'artistAccount','cin')},required:true}},
-      {type:"simpleInput",data:{formControlName:"firstName",label:"firstName",placeHolder:"",type:"text",ngModel:this.artistAccount.firstName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','firstName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"lastName",label:"lastName",placeHolder:"",type:"text",ngModel:this.artistAccount.lastName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','lastName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"firstNameAR",label:"firstNameAR",placeHolder:"",type:"text",ngModel:this.artistAccount.firstNameAR,onChange:(v)=>{this.onChangevalue(v,'artistAccount','firstNameAR')},required:true}},
-      {type:"simpleInput",data:{formControlName:"lastNameAR",label:"lastNameAR",placeHolder:"",type:"text",ngModel:this.artistAccount.lastNameAR,onChange:(v)=>{this.onChangevalue(v,'artistAccount','lastNameAR')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artistName",label:"artistName",placeHolder:"",type:"text",ngModel:this.artistAccount.artistName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artistName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artistNameAR",label:"artistNameAR",placeHolder:"",type:"text",ngModel:this.artistAccount.artistNameAR,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artistNameAR')},required:true}},
-      {type:"selectInput",data:{formControlName:"gender",label:"gender",placeHolder:"",type:"text",ngModel:'artistAccount.gender',onChange:(v)=>{this.onChangevalue(v,'artistAccount','gender')},required:true,options:'gender',value:'id',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
-      {type:"selectInput",data:{formControlName:"identityType",label:"identityType",placeHolder:"",type:"text",ngModel:'artistAccount.identityType',onChange:(v)=>{this.onChangevalue(v,'artistAccount','identityType')},required:true,options:'identityType',value:'value',labelS:'identityType',getLabel:this.getIdentityType,multiple:false}},
-      {type:"simpleInput",data:{formControlName:"identityNumber",label:"identityNumber",placeHolder:"",type:"text",ngModel:this.artistAccount.identityNumber,onChange:(v)=>{this.onChangevalue(v,'artistAccount','identityNumber')},required:true}},
-      {type:"simpleInput",data:{formControlName:"identityProfType",label:"identityProfType",placeHolder:"",type:"text",ngModel:this.artistAccount.identityProfType,onChange:(v)=>{this.onChangevalue(v,'artistAccount','identityProfType')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artistSpeciality",label:"artistSpeciality",placeHolder:"",type:"text",ngModel:this.artistAccount.artistSpeciality,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artistSpeciality')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artistSpecialityAR",label:"artistSpecialityAR",placeHolder:"",type:"text",ngModel:this.artistAccount.artistSpecialityAR,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artistSpecialityAR')},required:true}},
-      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"text",ngModel:this.artistAccount.email,onChange:(v)=>{this.onChangevalue(v,'artistAccount','email')},required:true}},
-      {type:"simpleInput",data:{formControlName:"phoneNumber",label:"phoneNumber",placeHolder:"",type:"text",ngModel:this.artistAccount.phoneNumber,onChange:(v)=>{this.onChangevalue(v,'artistAccount','phoneNumber')},required:true}},
-      {type:"simpleInput",data:{formControlName:"otherPhoneNumber",label:"otherPhoneNumber",placeHolder:"",type:"text",ngModel:this.artistAccount.otherPhoneNumber,onChange:(v)=>{this.onChangevalue(v,'artistAccount','otherPhoneNumber')},required:true}},
-      {type:"selectInput",data:{formControlName:"maritalStatus",label:"maritalStatus",placeHolder:"",type:"text",ngModel:'artistAccount.maritalStatus',onChange:(v)=>{this.onChangevalue(v,'artistAccount','maritalStatus')},required:true,options:'maritalStatus',value:'value',labelS:'maritalStatus',getLabel:this.getMaritalStatus,multiple:false}},
-      {type:"simpleInput",data:{formControlName:"dependentChildren",label:"dependentChildren",placeHolder:"",type:"number",ngModel:this.artistAccount.dependentChildren,onChange:(v)=>{this.onChangevalue(v,'artistAccount','dependentChildren')},required:true}},
-      {type:"simpleInput",data:{formControlName:"otherJobName",label:"otherJobName",placeHolder:"",type:"text",ngModel:this.artistAccount.otherJobName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','otherJobName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"socialSecurityName",label:"socialSecurityName",placeHolder:"",type:"text",ngModel:this.artistAccount.socialSecurityName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','socialSecurityName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"socialSecurityID",label:"socialSecurityID",placeHolder:"",type:"text",ngModel:this.artistAccount.socialSecurityID,onChange:(v)=>{this.onChangevalue(v,'artistAccount','socialSecurityID')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artisticWorkStartDate",label:"artisticWorkStartDate",placeHolder:"",type:"date",ngModel:this.artistAccount.artisticWorkStartDate,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artisticWorkStartDate')},required:true}},
-      {type:"simpleInput",data:{formControlName:"lastArtisticActivity",label:"lastArtisticActivity",placeHolder:"",type:"text",ngModel:this.artistAccount.lastArtisticActivity,onChange:(v)=>{this.onChangevalue(v,'artistAccount','lastArtisticActivity')},required:true}},
-      {type:"simpleInput",data:{formControlName:"teamName",label:"teamName",placeHolder:"",type:"text",ngModel:this.artistAccount.teamName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','teamName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"teamCreationDate",label:"teamCreationDate",placeHolder:"",type:"date",ngModel:this.artistAccount.teamCreationDate,onChange:(v)=>{this.onChangevalue(v,'artistAccount','teamCreationDate')},required:true}},
-      {type:"simpleInput",data:{formControlName:"studyLevel",label:"studyLevel",placeHolder:"",type:"text",ngModel:this.artistAccount.studyLevel,onChange:(v)=>{this.onChangevalue(v,'artistAccount','studyLevel')},required:true}},
-      {type:"simpleInput",data:{formControlName:"artisticEtablishmentName",label:"artisticEtablishmentName",placeHolder:"",type:"text",ngModel:this.artistAccount.artisticEtablishmentName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','artisticEtablishmentName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"ribNumber",label:"ribNumber",placeHolder:"",type:"text",ngModel:this.artistAccount.ribNumber,onChange:(v)=>{this.onChangevalue(v,'artistAccount','ribNumber')},required:true}},
-      {type:"simpleInput",data:{formControlName:"domainName",label:"domainName",placeHolder:"",type:"text",ngModel:this.artistAccount.domainName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','domainName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"birthDate",label:"birthDate",placeHolder:"",type:"date",ngModel:this.artistAccount.birthdata.birthDate,onChange:(v)=>{this.onChangevalue(v,'artistAccount','birthdata.birthDate')},required:true}},
-      {type:"simpleInput",data:{formControlName:"birthCountry",label:"birthCountry",placeHolder:"",type:"text",ngModel:this.artistAccount.birthdata.birthCountry,onChange:(v)=>{this.onChangevalue(v,'artistAccount','birthdata.birthCountry')},required:true}},
-      {type:"simpleInput",data:{formControlName:"birthCity",label:"birthCity",placeHolder:"",type:"text",ngModel:this.artistAccount.birthdata.birthCity,onChange:(v)=>{this.onChangevalue(v,'artistAccount','birthdata.birthCity')},required:true}},
-      {type:"simpleInput",data:{formControlName:"nationality",label:"nationality",placeHolder:"",type:"text",ngModel:this.artistAccount.birthdata.nationality,onChange:(v)=>{this.onChangevalue(v,'artistAccount','birthdata.nationality')},required:true}},
-      
-      {type:"selectInput",data:{formControlName:"region",label:"region",placeHolder:"",ngModel:'artistAccount.address.region',onChange:(v)=>{this.onChangeRegion(v)},required:true,options:'regions',value:'id',labelS:'region',getLabel:(r)=>{return r.region;},multiple:false}},
-      {type:"selectInput",data:{formControlName:"city",label:"city",placeHolder:"",ngModel:'artistAccount.address.city',onChange:(v)=>{this.onChangeVille(v)},required:true,options:'villes',value:'id',labelS:'ville',getLabel:(r)=>{return r.ville;},multiple:false}},
-      {type:"simpleInput",data:{formControlName:"postalCode",label:"postalCode",placeHolder:"",type:"text",ngModel:this.artistAccount.address.postalCode,onChange:(v)=>{this.onChangevalue(v,'artistAccount','address.postalCode')},required:true}},
-      {type:"simpleInput",data:{formControlName:"address",label:"address",placeHolder:"",type:"text",ngModel:this.artistAccount.address.address,onChange:(v)=>{this.onChangevalue(v,'artistAccount','address.address')},required:true}},
-      {type:"simpleInput",data:{formControlName:"province",label:"province",placeHolder:"",type:"text",ngModel:this.artistAccount.address.province,onChange:(v)=>{this.onChangevalue(v,'artistAccount','address.province')},required:false}},
-      
-      {type:"selectInput",data:{formControlName:"refArtisticProfession",label:"refArtisticProfession",placeHolder:"",ngModel:'artistAccount.refArtisticProfession',onChange:(v)=>{this.onChangevalue(v,'artistAccount','refArtisticProfession')},required:true,options:'artisticProfession',value:'refArtisticProfession',labelS:'artisticProfession',getLabel:this.getArtisticProfession,multiple:false}},
-      {type:"titleElement",title:"generalInfo",data:{formControlName:'generalInfo'}},
-      {type:"simpleInput",data:{formControlName:"projectName",label:"projectName",placeHolder:"",type:"text",ngModel:this.artistAccount.generalInformation.projectName,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.projectName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"projectTitle",label:"projectTitle",placeHolder:"",type:"text",ngModel:this.artistAccount.generalInformation.projectTitle,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.projectTitle')},required:true}},
-      {type:"simpleInput",data:{formControlName:"projectType",label:"projectType",placeHolder:"",type:"text",ngModel:this.artistAccount.generalInformation.projectType,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.projectType')},required:true}},
-      {type:"simpleInput",data:{formControlName:"numDancesOrSongs",label:"numDancesOrSongs",placeHolder:"",type:"number",ngModel:this.artistAccount.generalInformation.numDancesOrSongs,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.numDancesOrSongs')},required:true}},
-      {type:"simpleInput",data:{formControlName:"durationTime",label:"durationTime",placeHolder:"",type:"number",ngModel:this.artistAccount.generalInformation.durationTime,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.durationTime')},required:true}},
-      {type:"simpleInput",data:{formControlName:"projectCost",label:"projectCost",placeHolder:"",type:"number",ngModel:this.artistAccount.generalInformation.projectCost,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.projectCost')},required:true}},
-      {type:"simpleInput",data:{formControlName:"projectDescription",label:"projectDescription",placeHolder:"",type:"text",ngModel:this.artistAccount.generalInformation.projectDescription,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.projectDescription')},required:true}},
-      {type:"simpleInput",data:{formControlName:"albumTitle",label:"albumTitle",placeHolder:"",type:"text",ngModel:this.artistAccount.generalInformation.albumTitle,onChange:(v)=>{this.onChangevalue(v,'artistAccount','generalInformation.albumTitle')},required:true}},
-     ];
+      {type:"simpleInput",data:{formControlName:"firstName",label:"firstName",placeHolder:"",type:"text",ngModel:this.supplierRequest.firstName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','firstName')},required:true}},
+      {type:"simpleInput",data:{formControlName:"lastName",label:"lastName",placeHolder:"",type:"text",ngModel:this.supplierRequest.lastName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lastName')},required:true}},
+      {type:"simpleInput",data:{formControlName:"cin",label:"cin",placeHolder:"",type:"text",ngModel:this.supplierRequest.cin,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','cin')},required:true}},
+      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"text",ngModel:this.supplierRequest.email,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','email')},required:true}},
+      {type:"phoneNumber",data:{formControlName:"phone",label:"phone",placeHolder:"",type:"tel",ngModel:this.supplierRequest.phone,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','phone')},required:true}},
+      {type:"simpleInput",data:{formControlName:"password",label:"password",placeHolder:"",type:"password",ngModel:this.supplierRequest.password,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','password')},required:true}},
+      ];
+  }
+  initForme2()
+  {
+    this.inputsStep2=[
+      {type:"simpleInput",data:{formControlName:"socialReason",label:"socialReason",placeHolder:"",type:"text",ngModel:this.supplierRequest.socialReason,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','socialReason')},required:true}},
+      {type:"simpleInput",data:{formControlName:"tradeName",label:"tradeName",placeHolder:"",type:"text",ngModel:this.supplierRequest.tradeName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','tradeName')},required:false}},
+      {type:"selectInput",data:{formControlName:"lawForm",label:"lawForm",placeHolder:"",type:"text",ngModel:'supplierRequest.lawForm',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lawForm')},required:true,options:'lawForm',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"simpleInput",data:{formControlName:"nrc",label:"nrc",placeHolder:"",type:"number",ngModel:this.supplierRequest.nrc,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','nrc')},required:false}},
+      {type:"selectInput",data:{formControlName:"commercialCourt",label:"commercialCourt",placeHolder:"",type:"text",ngModel:'supplierRequest.commercialCourt',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','commercialCourt')},required:false,options:'commercialCourt',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"simpleInput",data:{formControlName:"creationYear",label:"creationYear",placeHolder:"",type:"number",ngModel:this.supplierRequest.creationYear,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','creationYear')},required:true}},
+      {type:"simpleInput",data:{formControlName:"ice",label:"ice",placeHolder:"",type:"text",ngModel:this.supplierRequest.ice,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','ice')},required:true}},
+      {type:"simpleInput",data:{formControlName:"capitalMAD",label:"capitalMAD",placeHolder:"",type:"number",ngModel:this.supplierRequest.capitalMAD,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','capitalMAD')},required:true}},
+    ];
   }
   initinputsStep2= ()=>{    
-    this.inputsStep2=[];
+    this.inputsStep2=[
+
+    ];
     let data =[];
     for(let k of this.Files){
       this.inputsStep2.push({file:null,documentType:k,key:k,data:{name:"",refDocument:""},accept:"image/jpeg,image/jpg,image/png,application/pdf",required:true});
@@ -132,13 +125,34 @@ export class SupplierRegisterComponent implements OnInit {
   }
   initForme3= ()=>{    
     this.inputsStep3 = [
-      {type:"simpleInput",data:{formControlName:"firstName",label:"firstName",placeHolder:"",type:"text",ngModel:this.generalMember.firstName,onChange:(v)=>{this.onChangevalue(v,'generalMember','firstName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"lastName",label:"lastName",placeHolder:"",type:"text",ngModel:this.generalMember.lastName,onChange:(v)=>{this.onChangevalue(v,'generalMember','lastName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"text",ngModel:this.generalMember.email,onChange:(v)=>{this.onChangevalue(v,'generalMember','email')},required:true}},
-      {type:"simpleInput",data:{formControlName:"cin",label:"cin",placeHolder:"",type:"text",ngModel:this.generalMember.cin,onChange:(v)=>{this.onChangevalue(v,'generalMember','cin')},required:true}},
-      {type:"selectInput",data:{formControlName:"gender",label:"gender",placeHolder:"",ngModel:'generalMember.gender',onChange:(v)=>{this.onChangevalue(v,'generalMember','gender')},required:true,options:'gender',value:'id',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
-      {type:"phoneNumber",data:{formControlName:"phoneNumber",label:"phoneNumber",placeHolder:"",type:"text",ngModel:this.generalMember.phoneNumber,onChange:(v)=>{this.onChangevalue(v,'generalMember','phoneNumber')},required:true}},
-      {type:"simpleInput",data:{formControlName:"role",label:"role",placeHolder:"",type:"text",ngModel:this.generalMember.role,onChange:(v)=>{this.onChangevalue(v,'generalMember','role')},required:true}},
+      {type:"simpleInput",data:{formControlName:"officeAddress",label:"officeAddress",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeAddress,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeAddress')},required:true}},
+      {type:"simpleInput",data:{formControlName:"officeZipCode",label:"officeZipCode",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeZipCode,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeZipCode')},required:true}},
+      {type:"selectInput",data:{formControlName:"officeCountry",label:"officeCountry",placeHolder:"",type:"text",ngModel:'supplierRequest.officeCountry',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCountry')},required:true,options:'countries',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"simpleInput",data:{formControlName:"officeCity",label:"officeCity",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeCity,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCity')},required:true}},
+      {type:"simpleInput",data:{formControlName:"xAxisMap",label:"xAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.xAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','xAxisMap')},required:true}},
+      {type:"simpleInput",data:{formControlName:"yAxisMap",label:"yAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.yAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','yAxisMap')},required:true}},
+    ];
+  }
+  initForme4= ()=>{    
+    this.inputsStep4 = [
+      {type:"simpleInput",data:{formControlName:"managerFullName",label:"managerFullName",placeHolder:"",type:"text",ngModel:this.supplierRequest.managerFullName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFullName')},required:true}},
+      {type:"selectInput",data:{formControlName:"managerFunction",label:"managerFunction",placeHolder:"",type:"text",ngModel:'supplierRequest.managerFunction',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFunction')},required:true,options:'functions',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"phoneNumber",data:{formControlName:"professionalFax",label:"professionalFax",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalFax,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalFax')},required:true}},
+      {type:"phoneNumber",data:{formControlName:"professionalPhone",label:"professionalPhone",placeHolder:"",type:"tel",ngModel:this.supplierRequest.professionalPhone,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalPhone')},required:true}},
+      {type:"simpleInput",data:{formControlName:"professionalEmail",label:"professionalEmail",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalEmail,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalEmail')},required:true}},
+      {type:"simpleInput",data:{formControlName:"website",label:"website",placeHolder:"",type:"text",ngModel:this.supplierRequest.website,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','website')},required:true}},
+    ];
+  }
+  initForme5= ()=>{    
+    this.inputsStep5 = [
+      {type:"selectInput",data:{formControlName:"activitySector",label:"activitySector",placeHolder:"",type:"text",ngModel:'supplierRequest.activitySector',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','activitySector')},required:true,options:'activitySector',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"simpleInput",data:{formControlName:"totalEffective",label:"totalEffective",placeHolder:"",type:"number",ngModel:this.supplierRequest.totalEffective,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','totalEffective')},required:true}},
+      {type:"simpleInput",data:{formControlName:"turnoverN1",label:"turnoverN1",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN1,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN1')},required:true}},
+      {type:"simpleInput",data:{formControlName:"turnoverN2",label:"turnoverN2",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN2,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN2')},required:true}},
+      {type:"simpleInput",data:{formControlName:"turnoverN3",label:"turnoverN3",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN3,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN3')},required:true}},
+      {type:"simpleInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.isoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true}},
+      {type:"simpleInput",data:{formControlName:"otherIsoCertification",label:"otherIsoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.otherIsoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','otherIsoCertification')},required:true}},
+      {type:"selectInput",data:{formControlName:"salesFamily",label:"salesFamily",placeHolder:"",type:"text",ngModel:'supplierRequest.salesFamily',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','salesFamily')},required:true,options:'salesFamily',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
     ];
   }
   get getFormGroup(){
@@ -146,11 +160,15 @@ export class SupplierRegisterComponent implements OnInit {
       case 1:
         return this.validationForm1;
       case 2:
-        return this.validationFormFiles;
+        return this.validationForm2;
       case 3:
         return this.validationForm3;
       case 4:
-          return this.validationForm3;
+          return this.validationForm4;
+      case 5:
+          return this.validationForm5;
+      case 6:
+        return this.validationForm5;
       default:
         break;
     }
@@ -158,10 +176,19 @@ export class SupplierRegisterComponent implements OnInit {
   get form(){
     return this.getFormGroup.controls;
   }
-  constructor(  private route: ActivatedRoute,public formBuilder: FormBuilder,private translate: TranslateService,private router:Router,private modalService: NgbModal, private authService: AuthService,public  languageService: LanguageService,private snackBar:MatSnackBar,) {
+  constructor(private handleService:HandleRequestService,private generalService:GeneralService,private route: ActivatedRoute,public formBuilder: FormBuilder,private translate: TranslateService,private router:Router,private modalService: NgbModal, private authService: AuthService,public  languageService: LanguageService,private snackBar:MatSnackBar,) {
     this.isLoded=true;
     this.isLodedAllPage=true;
-    this.initinputsStep2();
+    this.generalService.getSupplierConsts().subscribe(res=>{
+      this.lawFormValues=res.filter(e=>(e.name=="lawform"))[0]?.data
+      this.commercialCourtValues=res.filter(e=>(e.name=="commercialcourt"))[0].data
+      this.salesfamilyValues=res.filter(e=>(e.name=="salesfamily"))[0].data;
+      this.managerfunctionsValues=res.filter(e=>(e.name=="managerfunctions"))[0].data;
+      this.countryValues=res.filter(e=>(e.name=="country"))[0].data;
+      this.sectoractivityValues=res.filter(e=>(e.name=="sectoractivity"))[0].data;;
+    },err=>{
+      this.handleService.handleError(err);
+    })
     this.initFormValidator();
   }
 
@@ -185,14 +212,25 @@ export class SupplierRegisterComponent implements OnInit {
     var Validation1AllElement={};
     for(let el of this.DataPage1)
       Validation1AllElement[el]=['', Validators.required];
-    Validation1AllElement["province"]=['', Validators.nullValidator];
     Validation1AllElement["email"]=['', [Validators.required, Validators.email]];
     this.validationForm1 = this.formBuilder.group({...Validation1AllElement});
     Validation1AllElement={};
-    for(let el of this.MemberData)
-      Validation1AllElement[el]=['', Validators.required];
-    Validation1AllElement["email"]=['', [Validators.required, Validators.email]];
-    this.validationForm3 = this.formBuilder.group({...Validation1AllElement});
+      for(let el of this.DataPage2)
+        Validation1AllElement[el]=['', Validators.required];
+    this.validationForm2= this.formBuilder.group({...Validation1AllElement});
+    Validation1AllElement={};
+      for(let el of this.DataPage3)
+        Validation1AllElement[el]=['', Validators.required];
+    this.validationForm3= this.formBuilder.group({...Validation1AllElement});
+    Validation1AllElement={};
+      for(let el of this.DataPage4)
+        Validation1AllElement[el]=['', Validators.required];
+      Validation1AllElement["professionalEmail"]=['', [Validators.required, Validators.email]];
+    this.validationForm4= this.formBuilder.group({...Validation1AllElement});
+    Validation1AllElement={};
+      for(let el of this.DataPage5)
+        Validation1AllElement[el]=['', Validators.required];
+    this.validationForm5= this.formBuilder.group({...Validation1AllElement});
   }
   getArtistAccountFile = ():any=>{
     return this.inputsStep2;
@@ -209,13 +247,17 @@ export class SupplierRegisterComponent implements OnInit {
         return this.onSubmitPage3();
       case 4:
         return this.onSubmitPage4();
+      case 5:
+        return this.onSubmitPage5();
+      case 6:
+          return this.onSubmitPage6();
       default:
         return null;
     }
   }
   onSubmitPage1 = ()=>{
     if(this.validationForm1.valid){
-      
+      this.onDone();
     }
     else {
       this.isDisabled=false;
@@ -223,15 +265,43 @@ export class SupplierRegisterComponent implements OnInit {
     }
   }
   onSubmitPage2 = ()=>{
-    
+    if(this.validationForm2.valid){
+      this.isDisabled = true;
+      this.onDone();
+    }
+    else {
+      this.isDisabled=false;
+      this.AfterCheckLastPage();
+    }
   }    
   onSubmitPage3 = ()=>{
-    
+    if(this.validationForm3.valid){
+      this.isDisabled = true;
+      this.onDone();
+    }
+    else {
+      this.isDisabled=false;
+      this.AfterCheckLastPage();
+    }
   }
   onSubmitPage4 = ()=>{
-    if(!this.isLodedAllPage){
-          this.onDone();
-          this.AfterCheckLastPage();
+    if(this.validationForm4.valid){
+      this.isDisabled = true;
+      this.onDone();
+    }
+    else {
+      this.isDisabled=false;
+      this.AfterCheckLastPage();
+    }
+  }
+  onSubmitPage5 = ()=>{
+    if(this.validationForm5.valid){
+      this.isDisabled = true;
+      this.onDone();
+    }
+    else {
+      this.isDisabled=false;
+      this.AfterCheckLastPage();
     }
   }
   
@@ -242,10 +312,30 @@ export class SupplierRegisterComponent implements OnInit {
   
   
   onInitPage1(){
+    this.page=1;
+    this.initForme1();
     
   }
-  onInitPage3(){
+
+  onInitPage2(){
+    this.page=2;
+    this.initForme2();
     
+  }
+
+  onInitPage3(){
+    this.page=3;
+    this.initForme3();
+  }
+  onInitPage4()
+  {
+    this.page=4;
+    this.initForme4();
+  }
+  onInitPage5()
+  {
+    this.page=5;
+    this.initForme5();
   }
   onStepOneDone = ()=>{
     this.isModification=true;
@@ -272,18 +362,10 @@ export class SupplierRegisterComponent implements OnInit {
     d[keys[i]]=value;
   }
   onChangeRegion = (value)=>{
-    if(value==null || value=="") return;
-    this.villes=VILLES.filter(ville=>ville.region==value);
-    this.artistAccount.address.region=value;
-    let city=this.artistAccount.address.city;
-    if(city!=null)
-      if((this.villes.filter(v=>v.id==city)).length==0)
-        this.artistAccount.address.city=null;
+    
   }
   onChangeVille = (value)=>{
-    if(value==null || value=="") return;
-    this.artistAccount.address.city=value;
-    this.onChangeRegion((VILLES.filter(ville=>ville.id==value))[0].region);
+    
   }
   onChangeFile = (event,index)=>{
     if (event.target.files.length) {
@@ -342,11 +424,21 @@ export class SupplierRegisterComponent implements OnInit {
     if(option == "gender"){
       return this.genderOption;
     }
-    if(option == "artisticProfession"){
-      return this.artisticProfession;
+    if(option == "lawForm"){
+      return this.lawFormValues;
     }
+    if(option=="countries")
+      return this.countryValues;
+    if(option=="commercialCourt")
+      return this.commercialCourtValues;
+    if(option=="activitySector")
+      return this.sectoractivityValues;
+    if(option=="salesFamily")
+      return this.salesfamilyValues;
     if(option == "regions")
-      return this.regions;  
+      return this.regions; 
+    if(option == "functions") 
+      return this.managerfunctionsValues;
     return this.villes;  
   }
   getModelValue(key){
@@ -364,21 +456,7 @@ export class SupplierRegisterComponent implements OnInit {
   }
   
   onDone(){
-    if(this.page==1){
-      if(this.isLodedAllPage)
-          Swal.fire(
-            {
-              position: 'center',
-              title: this.translate.instant("table_add_done"),
-              text: '',
-              showConfirmButton: false,
-              timer: 2000,
-              icon: 'success'
-            }
-          )
-          .then(()=>{this.nextPage()})
-      else this.nextPage();
-    }
+    this.nextPage();
     
   }
   onError(error:any,flag:any){
@@ -392,5 +470,31 @@ export class SupplierRegisterComponent implements OnInit {
       this.isDisabled=false;
       this.isFormSubmitted=false;
     }
+  }
+
+  valideDemande()
+  {
+    this.isDisabled=true;
+    this.authService.registerSupplier(this.supplierRequest).subscribe(
+      res=>{
+        Swal.fire(
+          {
+            position: 'center',
+            title: this.translate.instant("success"),
+            text: this.translate.instant("accountCreatedWithSuccess"),
+            showConfirmButton: false,
+            icon: 'success',
+            timer:2000
+          }
+        ).then(()=>{
+            this.router.navigate(["/auth/login"]);
+        });
+      },
+      err=>{
+        this.handleService.handleError(err);
+      }
+    ).add(()=>{
+      this.isDisabled=false;
+    })
   }
 }

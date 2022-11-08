@@ -579,7 +579,8 @@
     "DELETE":"Suppression",
     "UPDATE":"Modification",
     "user":"Utilisateur",
-    "Anonymous":"Anonyme"
+    "Anonymous":"Anonyme",
+    "companyInfo":"Informations sur l'entreprise"
 
 
 }

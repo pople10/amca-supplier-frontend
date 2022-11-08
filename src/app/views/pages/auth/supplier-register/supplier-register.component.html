@@ -1,10 +1,10 @@
 <div class="row w-100 mx-0 auth-page">
-    <div class="col-md-10 col-xl-8 mx-auto">
-        <div class="card">
+    <div class="col-md-12 col-xl-8 mx-auto">
+        <div class="card p-4">
             <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
                 <aw-wizard [navigateBackward]="(isDisabled?'deny':'allow')" #wizardForm [navBarDirection]="this.languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
                     <!------------ Page 1 : General Information        ------------>
-                    <aw-wizard-step [stepTitle]="('NEWARTISTACCOUNTDEMANDE' | translate )" (stepEnter)="onInitPage1()"><br/>
+                    <aw-wizard-step [stepTitle]="('generalInfo' | translate )" (stepEnter)="onInitPage1()"><br/>
                         <div *ngIf="this.page==1" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep1;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -15,70 +15,46 @@
                         </div>
                     </aw-wizard-step>
                     <!------------ Page 2 : Documents                  ------------>
-                    <aw-wizard-step [stepTitle]="('documentExhibition' | translate )" (stepEnter)="page=2"><br/>
+                    <aw-wizard-step [stepTitle]="('companyInfo' | translate )" (stepEnter)="page=2;onInitPage2()"><br/>
                         <div class="row" *ngIf="this.page==2">
-                            <div class="col-12" *ngFor="let companyfiles of this.inputsStep2;let index = index;" [ngStyle]="this.languageService.userLanguage == 'ar' && {'display':'flex', 'flex-direction': 'row-reverse' ,'text-align': 'right'}">
-                                <ng-container [ngTemplateOutlet]="FileInput" [ngTemplateOutletContext]="{companyfiles:companyfiles,index:index}"></ng-container>
-                            </div>
+                            <ng-container *ngFor="let d of this.inputsStep2;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'titleElement'" [ngTemplateOutlet]="titleElement" [ngTemplateOutletContext]="{title:d.title}"></ng-container>
+                            </ng-container>
                         </div>
                     </aw-wizard-step>
                     <!------------ Page 3 : General Information Member ------------>
-                    <aw-wizard-step [stepTitle]="('MemberProject' | translate )" (stepEnter)="onInitPage3()"><br/>
+                    <aw-wizard-step [stepTitle]="('address' | translate )" (stepEnter)="onInitPage3()"><br/>
                         <div *ngIf="this.page==3" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep3;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
                                 <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
                                 <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
                             </ng-container>
-                            <div class="modal-footer col-12" [ngStyle]=" languageService.userLanguage == 'ar' ? {
-                'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
-                                <div class="mx-2 mt-2">
-                                    <button [disabled]="!isdisableLoadModal" type="button" class="btn btn-dange-muted-2 text-white" (click)="clearForm3()"> <i data-feather="x" appFeatherIcon></i> </button>
-                                </div>
-                                <div class="mt-2 mx-2" *ngIf="this.generalMember.refGeneralMember==null;else editbutton">
-                                    <button (click)="this.onAddForm3($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
-                      <i  data-feather="plus-circle" appFeatherIcon></i>
-                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="row" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
-                                <div class="table table-striped table-responsive" *ngIf="generalMemberArray.length>0">
-                                    <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
-                                        <thead>
-                                            <tr>
-                                                <th>{{ "fullname" | translate }}</th>
-                                                <th>{{ "cin" | translate }}</th>
-                                                <th>{{ "email" | translate }}</th>
-                                                <th>{{ "phoneNumber" | translate }}</th>
-                                                <th>{{ "gender" | translate }}</th>
-                                                <th>{{ "role" | translate }}</th>
-                                                <th>{{ "F_OuvragesPourSalon_Actions" | translate }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="my-10" *ngFor=" let item of generalMemberArray;let  index = index ">
-                                                <td>{{ item.firstName + " " + item.lastName }}</td>
-                                                <td>{{ item.cin }}</td>
-                                                <td>{{ item.email }}</td>
-                                                <td>{{ "+212 "+(item.phoneNumber) }}</td>
-                                                <td>{{ (item.gender ) | translate }}</td>
-                                                <td>{{ (item.role ) | translate }}</td>
-                                                <td class="d-flex justify-content-center" id="actionsContainer">
-                                                    <span (click)="setEditForm3(item)"><i data-feather="edit-2" appFeatherIcon></i></span>
-                                                    <span (click)=" deleteEForm3( confirmRemove, index )"><i data-feather="x" appFeatherIcon></i></span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </aw-wizard-step>
-                    <!------------ Page 4 : Validation Page            ------------>
-                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=4"><br/>
-                        <div *ngIf="page==4" style=" text-align: center; ">
+                    <aw-wizard-step [stepTitle]="('contact' | translate )" (stepEnter)="onInitPage4()"><br/>
+                        <div *ngIf="this.page==4" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
+                            <ng-container *ngFor="let d of this.inputsStep4;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                            </ng-container>
+                        </div>
+                    </aw-wizard-step>
+                    <aw-wizard-step [stepTitle]="('financialInfo' | translate )" (stepEnter)="onInitPage5()"><br/>
+                        <div *ngIf="this.page==5" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
+                            <ng-container *ngFor="let d of this.inputsStep5;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                            </ng-container>
+                        </div>
+                    </aw-wizard-step>
+                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=6"><br/>
+                        <div *ngIf="page==6" style=" text-align: center; ">
                             <h5 style=" margin: 25px 0; " class="modal-title">{{"ValidateRequest" | translate}}</h5>
                             <p>{{"validationDemande"|translate}}</p><br/>
                         </div>
@@ -193,7 +169,7 @@
 </ng-template>
 <ng-template #btnDone>
     <div class="m-2">
-        <button type="button" style="min-height: 40px;" class="btn submit validateButton" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }" (click)="valideDemande(validateInscription)">
+        <button type="button" style="min-height: 40px;" class="btn submit validateButton" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }" (click)="valideDemande()">
             <span>{{"Valider"|translate}}</span>
             <span [ngStyle]="isDisabled&&{'display':'none'}"><i style="margin:0 5px;" data-feather="check" appFeatherIcon></i></span>
             <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
