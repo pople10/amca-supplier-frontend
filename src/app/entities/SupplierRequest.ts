@@ -2,6 +2,7 @@ import { UserRequest } from "./UserRequest";
 
 export class SupplierRequest extends UserRequest
 {
+    public id:number;
     public socialReason:string;
     public tradeName:string;
     public lawForm:string;

@@ -16,6 +16,10 @@ import { FormElementsComponent } from './form-elements.component';
 import { BasicElementsComponent } from './basic-elements/basic-elements.component';
 import { EditorsComponent } from './editors/editors.component';
 import { WizardComponent } from './wizard/wizard.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -44,7 +48,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [FormElementsComponent, BasicElementsComponent, EditorsComponent, WizardComponent],
+  declarations: [FormElementsComponent, BasicElementsComponent, EditorsComponent, WizardComponent, StarRatingComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -53,6 +57,8 @@ const routes: Routes = [
     FeahterIconModule,
     QuillModule.forRoot(), // ngx-quill
     ArchwizardModule, // angular-archwizard
+    MatTooltipModule,
+    MatButtonModule
   ]
 })
 export class FormElementsModule { }

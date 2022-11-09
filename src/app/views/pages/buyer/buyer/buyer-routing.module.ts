@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { BuyerComponent } from './buyer.component';
+import { CommentsComponent } from './comments/comments.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { SuppliersRequestsComponent } from './suppliers-requests/suppliers-requests.component';
 import { SuppliersComponent } from './suppliers/suppliers/suppliers.component';
@@ -37,7 +38,14 @@ const routes: Routes = [
         data : {
           role : ["buyer_expert"]
         }
-      }
+      },
+      {
+        path: 'rates',
+        component : CommentsComponent,
+        data : {
+          role : ["buyer","buyer_expert"]
+        }
+      },
     ]
   },
 ]

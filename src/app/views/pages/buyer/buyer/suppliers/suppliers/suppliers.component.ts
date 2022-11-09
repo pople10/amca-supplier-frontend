@@ -93,4 +93,11 @@ export class SuppliersComponent implements OnInit {
     {
       this.router.navigate([`/buyer/suppliers/${id}`]);
     }
+
+    getRate(data)
+    {
+      if(!data||data.length==0)
+        return 0;
+      return data.reduce((a,b)=>a+b.rate,0)/data.length;
+    }
 }

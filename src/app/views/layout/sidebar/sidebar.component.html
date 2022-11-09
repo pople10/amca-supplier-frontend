@@ -38,7 +38,7 @@
 
         <ul class="sidebar-nav metismenu" id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
             <ng-container>
-                <li class="nav-item" routerLink="Accueil">
+                <li class="nav-item" routerLink="/dashboard">
                     <a class="nav-link" href="javascript:void(0);">
                         <mat-icon class="link-icon" appFeatherIcon>home</mat-icon>
                         <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
@@ -77,6 +77,15 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/buyer/rates">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            star
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"rate" | translate}}</span>
+                    </a>
                 </li>
             </ng-container>
 

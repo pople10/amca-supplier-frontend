@@ -1,8 +1,27 @@
 <p class="h5 mb-4" [ngStyle]="
     this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
   ">
-   {{ "suppliers" | translate }} 
+   {{ "rate" | translate }} 
 </p>
+<div class="col-md-12 stretch-card mb-2" *ngIf="id">
+    <div class="card">
+        <div class="card-body">
+            <h4>{{"modifyYourRating" | translate}}</h4>
+            <div class="row">
+                <div class="col-3">
+                    <star-rating [rating]="comment.rate" starCount="1"[color]="starColor" (ratingUpdated)="onRatingChanged($event)"></star-rating>
+                </div>
+                <div class="col-9">
+                    <textarea [(ngModel)]="comment.comment" class="w-100 textarea p-1" placeholder="{{'yourComment'|translate}}"></textarea>
+                </div>
+                <div class="col-12 d-flex" style="justify-content:center">
+                    <button [disabled]="dataSent" (click)="modifyComment()" class="btn btn-success mr-2 mb-2 mb-md-0">{{"update"|translate}}</button>
+                    <button [disabled]="dataSent" (click)="id=null" class="btn btn-warning mr-2 mb-2 mb-md-0">{{"cancel"|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="col-md-12 stretch-card">
     <div class="card">
         <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
@@ -22,36 +41,32 @@
                 <table class="table text-center" *ngIf="!isLoad&&this.data.content.length>0;else nodata">
                     <thead>
                         <tr>
-                            <th>{{"rate"|translate}}</th>
-                            <th *ngFor="let field of this.fields">
-                                {{field|translate}}
-                            </th>
-                            <th *ngFor="let field of this.fieldsStatic">
-                                {{field|translate}}
-                            </th>
-                            <th *ngFor="let field of this.fieldsDates">
-                                {{field|translate}}
-                            </th>
+                            <th>{{"supplier" | translate}}</th>
+                            <th>{{"rate" | translate}}</th>
+                            <th>{{"comment" | translate}}</th>
                             <th>{{"actions"|translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor=" let piece of data.content  | paginate : { itemsPerPage: this.data.pageDetails.size, currentPage: data.pageDetails.number+1, totalItems: data.pageDetails.totalElements } ;let i = index  ">
                             <td>
-                                {{getRate(piece['comments']) | number : '1.2-2'}} <mat-icon>star</mat-icon>
-                            </td>
-                            <td *ngFor="let field of this.fields">
-                                {{piece[field]}}
-                            </td>
-                            <td *ngFor="let field of this.fieldsStatic">
-                                {{piece[field] | translate}}
-                            </td>
-                            <td *ngFor="let field of this.fieldsDates">
-                                {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
+                                {{piece.supplier.firstName+" "+piece.supplier.lastName.toUpperCase()}}
                             </td>
                             <td>
-                                <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                {{piece.rate}} <mat-icon>star</mat-icon>
+                            </td>
+                            <td>
+                                {{(piece.comment.length>30)? (piece.comment | slice:0:30)+'...':(piece.comment)}}
+                            </td>
+                            <td>
+                                <button [disabled]="doingAction" (click)="view(piece.supplier.id,i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                                     <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
+                                </button>
+                                <button [disabled]="doingAction" (click)="updateItem(piece[refName],i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                    <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="edit-2" appFeatherIcon></i></span>
+                                </button>
+                                <button [disabled]="doingAction" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                    <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="trash-2" appFeatherIcon></i></span>
                                 </button>
                             </td>
                         </tr>

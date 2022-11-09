@@ -16,11 +16,19 @@ import { FormsModule } from '@angular/forms';
 
 import { FeahterIconModule } from '../../../../core/feather-icon/feather-icon.module';
 import { SuppliersRequestsComponent } from './suppliers-requests/suppliers-requests.component';
+import { StarRatingComponent } from '../../form-elements/star-rating/star-rating.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import { CommentsComponent } from './comments/comments.component';
+
 
 
 
 @NgModule({
-  declarations: [BuyerComponent, SuppliersComponent, SupplierComponent, SuppliersRequestsComponent],
+  declarations: [BuyerComponent, SuppliersComponent, SupplierComponent, SuppliersRequestsComponent,StarRatingComponent, CommentsComponent],
   imports: [
     CommonModule,
     BuyerRoutingModule,
@@ -36,7 +44,12 @@ import { SuppliersRequestsComponent } from './suppliers-requests/suppliers-reque
     NgbNavModule,
     NgbPaginationModule,
     FormsModule,
-    FeahterIconModule
+    FeahterIconModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatDividerModule
   ]
 })
 export class BuyerModule { }

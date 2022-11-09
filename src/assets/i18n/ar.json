@@ -435,7 +435,14 @@
      "UPDATE":"تعديل",
      "user":"مستخدم",
      "Anonymous":"مجهول",
-     "companyInfo":"معلومات الشركة"
+     "companyInfo":"معلومات الشركة",
+     "addYourRating": "أضف تقييمك",
+     "yourComment":"تعليقك",
+     "yourRating":"رأيك في المورد",
+     "ratesAboutSupplier":"مراجعات البائع",
+     "rate":"الرأي",
+     "modifyYourRating":"غير رأيك",
+     "table_delete_done":"تم حذف العنصر بنجاح"
  
 
 

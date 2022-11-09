@@ -580,7 +580,14 @@
     "UPDATE":"Modification",
     "user":"Utilisateur",
     "Anonymous":"Anonyme",
-    "companyInfo":"Informations sur l'entreprise"
+    "companyInfo":"Informations sur l'entreprise",
+    "addYourRating":"Donner votre avis",
+    "yourComment":"Votre commentaire",
+    "yourRating":"Votre avis sur le fournisseur",
+    "ratesAboutSupplier":"Avis sur le fournisseur",
+    "rate":"Avis",
+    "modifyYourRating":"Modifier votre avis",
+    "table_delete_done":"Element supprimé avec succès"
 
 
 }

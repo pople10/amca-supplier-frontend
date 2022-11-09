@@ -1,43 +1,92 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BuyerService } from 'src/app/services/buyer.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import {Location} from '@angular/common';
+import { CommentService } from 'src/app/services/comment.service';
+import { CommentResponse } from 'src/app/entities/CommentResponse';
+import { StarRatingColor } from '../../../form-elements/star-rating/star-rating.component';
+import { CommentRequest } from 'src/app/entities/CommentRequest';
+import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-supplier',
   templateUrl: './supplier.component.html',
   styleUrls: ['./supplier.component.scss']
 })
-export class SupplierComponent implements OnInit {
+export class SupplierComponent implements OnInit,AfterViewInit {
   loading:boolean;
   data:any;
   id:number;
+  currentComment:CommentResponse;
+  comment:CommentRequest=new CommentRequest;
+  starColor:StarRatingColor = StarRatingColor.accent;
+  dataSent:boolean=false;
+  currentComments:CommentResponse[];
+  avg:number=0;
+  doNotDisplay:string[]=["id","roles","productsSold","comments"];
+  scrollInto:string;
 
   constructor(
     private buyerService:BuyerService, 
     private route: ActivatedRoute,
     private handler:HandleRequestService,
     private router:Router,
+    private translate:TranslateService,
     private _location: Location,
-    public languageService:LanguageService) { }
+    public languageService:LanguageService,
+    private snack:MatSnackBar,
+    private commentService:CommentService) {
+      this.id=parseInt(this.route.snapshot.paramMap.get('id'));
+      this.loadData();
+     }
+  ngAfterViewInit(): void {
+    if(this.scrollInto)
+    {
+      setTimeout(()=>{
+        let el:HTMLElement=document.getElementById(this.scrollInto);
+        if(el)
+          el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+      },500);
+    }
+  }
 
-  ngOnInit(): void {
-    this.id=parseInt(this.route.snapshot.paramMap.get('id'));
-    if(!this.id)
-      this.onError();
+  loadData()
+  {
     this.loading=true;
     this.buyerService.getSupplierById(this.id).subscribe(response=>{
       this.data=response;
-      delete this.data["id"];
-      delete this.data["roles"];
+      this.currentComments=this.data?.comments;
+      for(let s of this.doNotDisplay)
+      {
+        delete this.data[s];
+      }
+      if(this.currentComments)
+        this.avg=this.currentComments.reduce((a,b)=>{return a+b.rate;},0)/(this.currentComments.length?this.currentComments.length:1);
     }
     ,  err=>{
       this.handler.handleError(err);
       this.onError();
     }
     ).add(()=>{this.loading=false;});
+    this.commentService.getMyComment(this.id).subscribe(res=>{
+      this.currentComment=res;
+    });
+    this.comment.rate=3;
+    this.comment.supplier_id=this.id;
+    
+    if(this.router.getCurrentNavigation()?.extras?.state?.scroll)
+    {
+      this.scrollInto=this.router.getCurrentNavigation().extras.state?.scroll;
+    }
+  }
+
+  ngOnInit(): void {
+    if(!this.id)
+      this.onError();
   }
 
   onError()
@@ -48,6 +97,36 @@ export class SupplierComponent implements OnInit {
   goBack()
   {
     this._location.back();
+  }
+
+  onRatingChanged(rate)
+  {
+    this.comment.rate=rate;
+  }
+
+  addComment()
+  {
+    if(!this.comment.rate||!this.comment.comment)
+    {
+      this.snack.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.dataSent=true;
+    this.commentService.addComment(this.comment).subscribe(()=>{
+      this.loadData();
+      Swal.fire(
+        {
+          position: 'center',
+          title: this.translate.instant("success"),
+          text: this.translate.instant("done"),
+          showConfirmButton: false,
+          icon: 'success',
+          timer:2000
+        }
+      );
+    },err=>{
+      this.handler.handleError(err);
+    }).add(()=>{this.dataSent=false});
   }
 
 }
