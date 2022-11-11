@@ -43,6 +43,7 @@
         "@ngx-translate/http-loader": "^6.0.0",
         "@sweetalert2/ngx-sweetalert2": "^9.0.0",
         "@swimlane/ngx-datatable": "^19.0.0",
+        "alertifyjs": "^1.13.1",
         "angular-archwizard": "^6.1.0",
         "angular-cropperjs": "^1.0.2",
         "angular-datatables": "^6.0.0",

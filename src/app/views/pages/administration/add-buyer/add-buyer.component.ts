@@ -17,6 +17,7 @@ export class AddBuyerComponent implements OnInit {
   data:RegisterModel = new RegisterModel();
   passwordMessages:string[]=[];
   display:string="CIN";
+  loading:boolean=false;
 
   constructor(private router: Router,private translateService:TranslateService,public languageService: LanguageService, private userService : UserService, private handleRequestService:HandleRequestService) { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from './services/language/language.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'nobleui-angular';
 
+  public constructor(private languageService:LanguageService)
+  {
+    this.languageService.setLanguage("fr");
+  }
+
   ngOnInit(): void {
-    
   }
 
 }

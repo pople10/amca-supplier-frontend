@@ -53,8 +53,48 @@
                             </ng-container>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=6"><br/>
-                        <div *ngIf="page==6" style=" text-align: center; ">
+                    <aw-wizard-step [stepTitle]="('products' | translate )" (stepEnter)="onInitPage6()"><br/>
+                        <div *ngIf="this.page==6" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
+                            <ng-container *ngFor="let d of this.inputsStep6;let i=index" [ngSwitch]="d.type">
+                                <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'phoneNumber'" [ngTemplateOutlet]="phoneNumber" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                                <ng-container *ngSwitchCase="'selectInput'" [ngTemplateOutlet]="selectInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
+                            </ng-container>
+                            <div class="modal-footer col-12" [ngStyle]=" languageService.userLanguage == 'ar' ? {
+                'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
+                                <div class="mt-2 mx-2" *ngIf="true==true;else editbutton">
+                                    <button (click)="this.onAddForm6($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                      <i  data-feather="plus-circle" appFeatherIcon></i>
+                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                                <div class="table table-striped table-responsive" *ngIf="supplierRequest?.productsSold?.length>0">
+                                    <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ "product" | translate }}</th>
+                                                <th>{{ "F_OuvragesPourSalon_Actions" | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="my-10" *ngFor=" let item of supplierRequest?.productsSold;let  index = index ">
+                                                <td>{{ item }}</td>
+                                                <td class="d-flex justify-content-center" id="actionsContainer">
+                                                    <span (click)="deleteEForm6( confirmRemove, item )"><i data-feather="x" appFeatherIcon></i></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </aw-wizard-step>
+                    <!--********************************************** END *********************************-->
+                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=7"><br/>
+                        <div *ngIf="page==7" style=" text-align: center; ">
                             <h5 style=" margin: 25px 0; " class="modal-title">{{"ValidateRequest" | translate}}</h5>
                             <p>{{"validationDemande"|translate}}</p><br/>
                         </div>
@@ -64,23 +104,28 @@
                 <div class="row" [ngStyle]="languageService.userLanguage == 'fr' && {direction: 'rtl' }">
                     <div class="m-2" *ngIf="page<lastPage;else btnDone">
                         <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto" [ngClass]="{'disabled': isDisabled }">
-            <span [ngStyle]="isDisabled&&{'display':'none'}"   [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-right" appFeatherIcon></i></span>
-            <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            <span>{{ "Next" | translate }}</span>
-            </button>
+                            <span [ngStyle]="isDisabled&&{'display':'none'}"   [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-right" appFeatherIcon></i></span>
+                            <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span>{{ "Next" | translate }}</span>
+                        </button>
                     </div>
                     <div class="m-2">
                         <button type="button" style="min-height: 40px;" *ngIf="(page!=1)" [disabled]="isDisabled" class="btn button backBtn mx-auto" (click)="previousPage()">
-            <span>{{ "Back" | translate }}</span>
-            <span  [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-left" appFeatherIcon></i></span>
-            </button>
+                            <span>{{ "Back" | translate }}</span>
+                            <span  [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-left" appFeatherIcon></i></span>
+                        </button>
+                    </div>
+                    <div class="m-2">
+                        <button [disabled]="isDisabled" routerLink="/" style="min-height: 40px;" class="btn btn-warning mx-auto" [ngClass]="{'disabled': isDisabled }">
+                            <span>{{ "cancel" | translate }}</span>
+                        </button>
                     </div>
                 </div>
                 <!------------------------------------ Templates    ------------------------------------------>
                 <!------------------------ Simple Input ---------------------------->
                 <ng-template #simpleInput let-d="d">
                     <div class="col-sm-6 form-group" [id]="d.formControlName">
-                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
+                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate: { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}<span *ngIf="d.required" class="text-danger"> *</span></label>
 
                         <input [type]="d.type" class="form-control" [formControlName]="d.formControlName" [ngModel]="d.ngModel" (ngModelChange)="d.onChange($event)" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "
                             placeholder="{{ d.placeHolder| translate }}" />
@@ -105,7 +150,7 @@
                 <ng-template #selectInput let-d="d">
                     <div class="col-sm-6 form-group" [id]="d.formControlName">
                         <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
-                        <ng-select [ngModel]="getModelValue(d.ngModel)" (ngModelChange)="d.onChange($event)" [multiple]="d.multiple" [formControlName]="d.formControlName" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                        <ng-select [addTag]="d.free ? addCustomValue:null" [ngModel]="getModelValue(d.ngModel)" (ngModelChange)="d.onChange($event)" [multiple]="d.multiple" [formControlName]="d.formControlName" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
                             [searchable]="true" placeholder="{{ d.placeHolder| translate }}">
                             <ng-option *ngFor="let op of (getOption(d.options))" [value]="op[d.value]">{{ ((d.getLabel(op,languageService.userLanguage)) | translate) }}</ng-option>
                         </ng-select>
@@ -162,9 +207,7 @@
 </ng-template>
 <ng-template #editbutton>
     <div class="mt-2 mx-2">
-        <button (click)="this.onEditForm3($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary">
-      <i   data-feather="save" appFeatherIcon></i>
-    </button>
+        
     </div>
 </ng-template>
 <ng-template #btnDone>

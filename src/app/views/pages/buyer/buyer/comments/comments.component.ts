@@ -9,6 +9,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
+import { StarRatingColor } from '../../../form-elements/star-rating/star-rating.component';
 
 @Component({
   selector: 'app-comments',
@@ -32,6 +33,7 @@ export class CommentsComponent implements OnInit {
   comment:CommentRequest=new CommentRequest();
   id:number;
   dataSent:boolean=false;
+  starColor:StarRatingColor = StarRatingColor.accent;
 
   constructor(
     private modalService:NgbModal,

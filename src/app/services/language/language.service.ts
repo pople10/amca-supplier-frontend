@@ -18,6 +18,24 @@ export class LanguageService {
     this.document.documentElement.lang = this._userLanguage;
   }
 
+  changeStyle(lang)
+  {
+    /*setTimeout(()=>{
+      if(!this.document.getElementsByTagName("body")[0])
+        return;
+      if(lang=="ar")
+      {
+        this.document.getElementsByTagName("body")[0].style.textAlign="right";
+        this.document.getElementsByTagName("body")[0].style.direction="rtl";
+      }
+      else
+      {
+        this.document.getElementsByTagName("body")[0].style.textAlign="left";
+        this.document.getElementsByTagName("body")[0].style.direction="ltr";
+      }
+    },200);*/
+  }
+
   initLanguage(){
     const value = localStorage.getItem(this.keyLanguage);
     if(value != null){
@@ -30,6 +48,7 @@ export class LanguageService {
         localStorage.setItem(this.keyLanguage, browserLanguage);
       }
     }
+    this.changeStyle(this._userLanguage);
   }
 
   setLanguage(language){
@@ -37,6 +56,7 @@ export class LanguageService {
     localStorage.setItem(this.keyLanguage, this._userLanguage);
     this.translate.use(this._userLanguage);
     this.document.documentElement.lang = this._userLanguage;
+    this.changeStyle(language);
   }
 
   get userLanguage(){

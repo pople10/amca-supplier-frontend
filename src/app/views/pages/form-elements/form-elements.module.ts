@@ -48,7 +48,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [FormElementsComponent, BasicElementsComponent, EditorsComponent, WizardComponent, StarRatingComponent],
+  declarations: [FormElementsComponent, BasicElementsComponent, EditorsComponent, WizardComponent],
   imports: [
     CommonModule,
     FormsModule,

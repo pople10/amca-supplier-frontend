@@ -29,6 +29,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
   avg:number=0;
   doNotDisplay:string[]=["id","roles","productsSold","comments"];
   scrollInto:string;
+  thisYear:number=new Date().getFullYear();
 
   constructor(
     private buyerService:BuyerService, 

@@ -2,13 +2,14 @@ import { Injectable , Injector } from '@angular/core';
 import { ValidatorService } from './validator.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertifyService } from './alertify.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HandleRequestService {
 
-  constructor(private validator:ValidatorService,private translate:TranslateService) { 
+  constructor(private validator:ValidatorService,private translate:TranslateService,private alertifyService:AlertifyService) { 
     try{
       (async function(){
         await this.translate.get('proposalActivityEmpty').toPromise().then();
@@ -35,19 +36,13 @@ export class HandleRequestService {
         return;
       if(this.checkIfBuilt(error.error))
       {
-        if(this.checkIfHasArgument(error.error))
+        if(this.checkIfHasArgument(error.error)&&error.error.subMessages.length>0)
         {
-            Swal.fire(
-              {
-                position: 'center',
-                title: this.translate.instant("error"),
-                text: error.error.message,
-                showConfirmButton: true,
-                confirmButtonText:this.translate.instant("ok"),
-                icon: 'error'
-              }
-            );
-            return error.error.subMessages
+            for(let subMsg of error.error.subMessages)
+            {
+              this.alertifyService.error(subMsg);
+            }
+            return;
         }
         Swal.fire(
           {

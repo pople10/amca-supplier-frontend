@@ -50,7 +50,7 @@
                                 {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
                             </td>
                             <td>
-                                <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                <button [disabled]="doingAction" (click)="view(piece[refName])" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                                     <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
                                 </button>
                             </td>

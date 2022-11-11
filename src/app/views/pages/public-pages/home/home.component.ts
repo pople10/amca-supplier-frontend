@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/services/language/language.service';
+import { AlertifyService } from 'src/app/services/shared/alertify.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(public languageService: LanguageService) { }
 
   ngOnInit(): void {
+
   }
 
 }

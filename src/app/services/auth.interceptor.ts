@@ -24,24 +24,32 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = localStorage.getItem("token");
     const token_type = localStorage.getItem("token_type");
     const expirationDate = new Date(parseInt(localStorage.getItem("expiredAt")));
-    let cond:boolean = request.url.indexOf("/authentication") == -1&&request.url.indexOf("login") == -1;
+    let cond:boolean = request.url.indexOf("login") == -1;
+    const lang = localStorage.getItem("userLanguage")?localStorage.getItem("userLanguage"):"fr";
+    let headers = new HttpHeaders({
+      'Accept-Language': lang
+    });
     if(cond){
       try{
         if(token != null && expirationDate>(new Date())){
-          const headers = new HttpHeaders({
+          headers = new HttpHeaders({
             'Authorization': `${token_type} ${token}`,
-            'Accept-Language': localStorage.getItem("userLanguage")
+            'Accept-Language': lang
           });
-          request = request.clone({headers});
         }else{
           this.authService.logOut();
         }
       }
       catch(e)
       {
-        console.log(e);
+        
       }
     }
+    if(!cond)
+    {
+      headers=headers.set('Content-Type','application/x-www-form-urlencoded');
+    }
+    request = request.clone({headers});
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {

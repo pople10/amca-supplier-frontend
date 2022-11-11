@@ -24,13 +24,13 @@ export class SupplierRequest extends UserRequest
     public professionalPhone:string;
     public professionalEmail:string;
     public website:string;
-    public activitySector:string;
+    public activitySector:string[]=[];
     public totalEffective:number;
     public turnoverN1:number;
     public turnoverN2:number;
     public turnoverN3:number;
     public isoCertification:string;
     public otherIsoCertification:string;
-    public salesFamily:string;
-    public productsSold:string[];
+    public salesFamily:string[]=[];
+    public productsSold:string[]=[];
 }

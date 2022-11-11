@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { REGIONS } from 'src/app/lists/regions';
 import { VILLES } from 'src/app/lists/villes';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import { forkJoin } from 'rxjs';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +20,7 @@ import { SupplierRequest } from 'src/app/entities/SupplierRequest';
   styleUrls: ['./supplier-register.component.scss']
 })
 export class SupplierRegisterComponent implements OnInit {
-  onSubmitPage6() {
+  onSubmitPage7() {
     if(!this.isLodedAllPage){
         this.onDone();
         this.AfterCheckLastPage();
@@ -38,12 +37,15 @@ export class SupplierRegisterComponent implements OnInit {
   validationForm3: FormGroup;
   validationForm4: FormGroup;
   validationForm5: FormGroup;
+  validationForm6: FormGroup;
 
   /*****    Submit Data     *****/
   supplierRequest:SupplierRequest=new SupplierRequest();
+  selectedProduct:any={};
   page:any=1;
-  lastPage:any=6;
+  lastPage:any=7;
   isFormSubmitted: Boolean;
+  thisYear:number=new Date().getFullYear();
 
   /*****   Inputs : Generation in HTML by *ngFor    *****/
   inputsStep1;
@@ -51,6 +53,7 @@ export class SupplierRegisterComponent implements OnInit {
   inputsStep3;
   inputsStep4;
   inputsStep5;
+  inputsStep6;
   /*********** Values ****** */
   lawFormValues:any;
   commercialCourtValues:any;
@@ -58,6 +61,7 @@ export class SupplierRegisterComponent implements OnInit {
   managerfunctionsValues:any;
   countryValues:any;
   sectoractivityValues:any;
+  isocertificatesValues:any;
 
   /*****   Flags    *****/
   isDisabled:Boolean=false;
@@ -69,8 +73,9 @@ export class SupplierRegisterComponent implements OnInit {
   isdisableLoadModal:Boolean=true;
   noEdition:Boolean=false;
   NumberCodeForm="212";
+
   regions = REGIONS;
-  villes =VILLES;
+  villes = VILLES;
   genderOption = [{id:'H',label:'Homme'},{id:'F',label:'Femme'}];
   roleOption = [{id:"1",label:'Role 1'},{id:"2",label:'Role 2'}];
   maritalStatusOption=[{value:"MARRIED",labelFr:"Marié(e)",labelAr:"(ة)متزوج"},
@@ -80,12 +85,54 @@ export class SupplierRegisterComponent implements OnInit {
                       {value:"PASSPORT",labelFr:"Passeport",labelAr:"جواز سفر"},
                       {value:"DRIVER_LICENSE_CARD",labelFr:"Permis de conduire",labelAr:"بطاقة رخصة السائق"},
                       {value:"RESIDENT_CARD",labelFr:"Carte de séjour",labelAr:"بطاقة اقامة"}]                      
-  DataPage1 = ["firstName","lastName","cin","email","phone","password"];//
-  DataPage2 = ["socialReason","tradeName","lawForm","nrc","commercialCourt","creationYear","ice","capitalMAD"];
-  DataPage3 = ["officeAddress","officeZipCode","officeCountry","officeCity","xAxisMap","yAxisMap"];
-  DataPage4 = ["managerFullName","managerFunction","professionalFax","professionalPhone","professionalEmail","website"]
-  DataPage5 = ["activitySector","totalEffective","turnoverN1","turnoverN2","turnoverN3","isoCertification","otherIsoCertification","salesFamily"];
-  DataPages= [this.DataPage1,this.DataPage2,this.DataPage3]
+  DataPage1 = {
+    "firstName":[Validators.required,Validators.maxLength(72)],
+    "lastName":[Validators.required,Validators.maxLength(72)],
+    "cin":[Validators.required],
+    "email":[Validators.required,Validators.email],
+    "phone":[Validators.required],
+    "password":[Validators.required]
+  };
+  DataPage2 = {
+    "socialReason":[Validators.required],
+    "tradeName":[],
+    "lawForm":[Validators.required],
+    "nrc":[],
+    "commercialCourt":[],
+    "creationYear":[Validators.required,Validators.max(new Date().getFullYear()),Validators.min(1000)],
+    "ice":[Validators.required],
+    "capitalMAD":[Validators.required]
+  };
+  DataPage3 = {
+    "officeAddress":[Validators.required],
+    "officeZipCode":[Validators.required],
+    "officeCountry":[Validators.required],
+    "officeCity":[Validators.required],
+    "xAxisMap":[],
+    "yAxisMap":[]
+  };
+  DataPage4 = {
+    "managerFullName":[Validators.maxLength(72)],
+    "managerFunction":[],
+    "professionalFax":[],
+    "professionalPhone":[],
+    "professionalEmail":[Validators.email],
+    "website":[Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]
+  }
+  DataPage5 = {
+    "activitySector":[Validators.required],
+    "totalEffective":[],
+    "turnoverN1":[],
+    "turnoverN2":[],
+    "turnoverN3":[],
+    "isoCertification":[],
+    "otherIsoCertification":[],
+    "salesFamily":[Validators.required]
+  };
+  DataPage6 = {
+    "productName":[Validators.required]
+  };
+  DataPages= [this.DataPage1,this.DataPage2,this.DataPage3,this.DataPage4,this.DataPage5,this.DataPage6];
   Files = [];
   MemberData = ["cin","firstName","lastName","gender","phoneNumber","email","role"];
 
@@ -104,9 +151,9 @@ export class SupplierRegisterComponent implements OnInit {
     this.inputsStep2=[
       {type:"simpleInput",data:{formControlName:"socialReason",label:"socialReason",placeHolder:"",type:"text",ngModel:this.supplierRequest.socialReason,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','socialReason')},required:true}},
       {type:"simpleInput",data:{formControlName:"tradeName",label:"tradeName",placeHolder:"",type:"text",ngModel:this.supplierRequest.tradeName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','tradeName')},required:false}},
-      {type:"selectInput",data:{formControlName:"lawForm",label:"lawForm",placeHolder:"",type:"text",ngModel:'supplierRequest.lawForm',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lawForm')},required:true,options:'lawForm',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"selectInput",data:{formControlName:"lawForm",label:"lawForm",placeHolder:"",type:"text",ngModel:'supplierRequest.lawForm',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lawForm')},required:true,options:'lawForm',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"nrc",label:"nrc",placeHolder:"",type:"number",ngModel:this.supplierRequest.nrc,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','nrc')},required:false}},
-      {type:"selectInput",data:{formControlName:"commercialCourt",label:"commercialCourt",placeHolder:"",type:"text",ngModel:'supplierRequest.commercialCourt',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','commercialCourt')},required:false,options:'commercialCourt',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"selectInput",data:{formControlName:"commercialCourt",label:"commercialCourt",placeHolder:"",type:"text",ngModel:'supplierRequest.commercialCourt',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','commercialCourt')},required:false,options:'commercialCourt',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"creationYear",label:"creationYear",placeHolder:"",type:"number",ngModel:this.supplierRequest.creationYear,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','creationYear')},required:true}},
       {type:"simpleInput",data:{formControlName:"ice",label:"ice",placeHolder:"",type:"text",ngModel:this.supplierRequest.ice,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','ice')},required:true}},
       {type:"simpleInput",data:{formControlName:"capitalMAD",label:"capitalMAD",placeHolder:"",type:"number",ngModel:this.supplierRequest.capitalMAD,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','capitalMAD')},required:true}},
@@ -128,32 +175,61 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"simpleInput",data:{formControlName:"officeAddress",label:"officeAddress",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeAddress,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeAddress')},required:true}},
       {type:"simpleInput",data:{formControlName:"officeZipCode",label:"officeZipCode",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeZipCode,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeZipCode')},required:true}},
       {type:"selectInput",data:{formControlName:"officeCountry",label:"officeCountry",placeHolder:"",type:"text",ngModel:'supplierRequest.officeCountry',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCountry')},required:true,options:'countries',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
-      {type:"simpleInput",data:{formControlName:"officeCity",label:"officeCity",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeCity,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCity')},required:true}},
-      {type:"simpleInput",data:{formControlName:"xAxisMap",label:"xAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.xAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','xAxisMap')},required:true}},
-      {type:"simpleInput",data:{formControlName:"yAxisMap",label:"yAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.yAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','yAxisMap')},required:true}},
+      {type:"selectInput",data:{formControlName:"officeCity",label:"officeCity",placeHolder:"",type:"text",ngModel:'supplierRequest.officeCity',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCity')},required:true,options:'villes',value:'ville',labelS:'ville',getLabel:(r)=>{return r.ville;},multiple:false,free:true}},
+      {type:"simpleInput",data:{formControlName:"xAxisMap",label:"xAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.xAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','xAxisMap')},required:false}},
+      {type:"simpleInput",data:{formControlName:"yAxisMap",label:"yAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.yAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','yAxisMap')},required:false}},
     ];
   }
   initForme4= ()=>{    
     this.inputsStep4 = [
-      {type:"simpleInput",data:{formControlName:"managerFullName",label:"managerFullName",placeHolder:"",type:"text",ngModel:this.supplierRequest.managerFullName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFullName')},required:true}},
-      {type:"selectInput",data:{formControlName:"managerFunction",label:"managerFunction",placeHolder:"",type:"text",ngModel:'supplierRequest.managerFunction',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFunction')},required:true,options:'functions',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
-      {type:"phoneNumber",data:{formControlName:"professionalFax",label:"professionalFax",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalFax,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalFax')},required:true}},
-      {type:"phoneNumber",data:{formControlName:"professionalPhone",label:"professionalPhone",placeHolder:"",type:"tel",ngModel:this.supplierRequest.professionalPhone,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalPhone')},required:true}},
-      {type:"simpleInput",data:{formControlName:"professionalEmail",label:"professionalEmail",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalEmail,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalEmail')},required:true}},
-      {type:"simpleInput",data:{formControlName:"website",label:"website",placeHolder:"",type:"text",ngModel:this.supplierRequest.website,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','website')},required:true}},
+      {type:"simpleInput",data:{formControlName:"managerFullName",label:"managerFullName",placeHolder:"",type:"text",ngModel:this.supplierRequest.managerFullName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFullName')},required:false}},
+      {type:"selectInput",data:{formControlName:"managerFunction",label:"managerFunction",placeHolder:"",type:"text",ngModel:'supplierRequest.managerFunction',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','managerFunction')},required:false,options:'functions',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
+      {type:"phoneNumber",data:{formControlName:"professionalFax",label:"professionalFax",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalFax,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalFax')},required:false}},
+      {type:"phoneNumber",data:{formControlName:"professionalPhone",label:"professionalPhone",placeHolder:"",type:"tel",ngModel:this.supplierRequest.professionalPhone,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalPhone')},required:false}},
+      {type:"simpleInput",data:{formControlName:"professionalEmail",label:"professionalEmail",placeHolder:"",type:"text",ngModel:this.supplierRequest.professionalEmail,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','professionalEmail')},required:false}},
+      {type:"simpleInput",data:{formControlName:"website",label:"website",placeHolder:"",type:"text",ngModel:this.supplierRequest.website,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','website')},required:false}},
     ];
   }
   initForme5= ()=>{    
     this.inputsStep5 = [
-      {type:"selectInput",data:{formControlName:"activitySector",label:"activitySector",placeHolder:"",type:"text",ngModel:'supplierRequest.activitySector',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','activitySector')},required:true,options:'activitySector',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
-      {type:"simpleInput",data:{formControlName:"totalEffective",label:"totalEffective",placeHolder:"",type:"number",ngModel:this.supplierRequest.totalEffective,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','totalEffective')},required:true}},
-      {type:"simpleInput",data:{formControlName:"turnoverN1",label:"turnoverN1",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN1,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN1')},required:true}},
-      {type:"simpleInput",data:{formControlName:"turnoverN2",label:"turnoverN2",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN2,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN2')},required:true}},
-      {type:"simpleInput",data:{formControlName:"turnoverN3",label:"turnoverN3",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN3,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN3')},required:true}},
-      {type:"simpleInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.isoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true}},
-      {type:"simpleInput",data:{formControlName:"otherIsoCertification",label:"otherIsoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.otherIsoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','otherIsoCertification')},required:true}},
-      {type:"selectInput",data:{formControlName:"salesFamily",label:"salesFamily",placeHolder:"",type:"text",ngModel:'supplierRequest.salesFamily',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','salesFamily')},required:true,options:'salesFamily',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"selectInput",data:{formControlName:"activitySector",label:"activitySector",placeHolder:"",type:"text",ngModel:'supplierRequest.activitySector',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','activitySector')},required:true,options:'activitySector',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:true}},
+      {type:"simpleInput",data:{formControlName:"totalEffective",label:"totalEffective",placeHolder:"",type:"number",ngModel:this.supplierRequest.totalEffective,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','totalEffective')},required:false}},
+      {type:"simpleInput",data:{formControlName:"turnoverN1",label:"turnoverN1",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN1,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN1')},required:false}},
+      {type:"simpleInput",data:{formControlName:"turnoverN2",label:"turnoverN2",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN2,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN2')},required:false}},
+      {type:"simpleInput",data:{formControlName:"turnoverN3",label:"turnoverN3",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN3,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN3')},required:false}},
+      {type:"selectInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:'supplierRequest.isoCertification',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true,options:'isocertificates',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:true}},
+      {type:"simpleInput",data:{formControlName:"otherIsoCertification",label:"otherIsoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.otherIsoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','otherIsoCertification')},required:false}},
+      {type:"selectInput",data:{formControlName:"salesFamily",label:"salesFamily",placeHolder:"",type:"text",ngModel:'supplierRequest.salesFamily',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','salesFamily')},required:true,options:'salesFamily',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:false}},
     ];
+  }
+  initForme6= ()=>{    
+    this.inputsStep6 = [
+      {type:"simpleInput",data:{formControlName:"productName",label:"productName",placeHolder:"",type:"text",ngModel:this.selectedProduct.productName,onChange:(v)=>{this.onChangevalue(v,'selectedProduct','productName')},required:true}},
+    ];
+  }
+  getFormGroupValidation(page,data){
+    switch (page) {
+      case 1:
+         this.validationForm1=data;
+         break;
+      case 2:
+         this.validationForm2=data;
+         break;
+      case 3:
+         this.validationForm3=data;
+         break;
+      case 4:
+           this.validationForm4=data;
+           break;
+      case 5:
+           this.validationForm5=data;
+           break;
+      case 6:
+          this.validationForm6=data;
+          break;
+      default:
+        break;
+    }
   }
   get getFormGroup(){
     switch (this.page) {
@@ -168,7 +244,9 @@ export class SupplierRegisterComponent implements OnInit {
       case 5:
           return this.validationForm5;
       case 6:
-        return this.validationForm5;
+          return this.validationForm6;
+      case 7:
+        return this.validationForm6;
       default:
         break;
     }
@@ -185,7 +263,8 @@ export class SupplierRegisterComponent implements OnInit {
       this.salesfamilyValues=res.filter(e=>(e.name=="salesfamily"))[0].data;
       this.managerfunctionsValues=res.filter(e=>(e.name=="managerfunctions"))[0].data;
       this.countryValues=res.filter(e=>(e.name=="country"))[0].data;
-      this.sectoractivityValues=res.filter(e=>(e.name=="sectoractivity"))[0].data;;
+      this.sectoractivityValues=res.filter(e=>(e.name=="sectoractivity"))[0].data;
+      this.isocertificatesValues=res.filter(e=>(e.name=="isocertificates"))[0].data;
     },err=>{
       this.handleService.handleError(err);
     })
@@ -209,28 +288,17 @@ export class SupplierRegisterComponent implements OnInit {
    
   }
   initFormValidator(){
-    var Validation1AllElement={};
-    for(let el of this.DataPage1)
-      Validation1AllElement[el]=['', Validators.required];
-    Validation1AllElement["email"]=['', [Validators.required, Validators.email]];
-    this.validationForm1 = this.formBuilder.group({...Validation1AllElement});
-    Validation1AllElement={};
-      for(let el of this.DataPage2)
-        Validation1AllElement[el]=['', Validators.required];
-    this.validationForm2= this.formBuilder.group({...Validation1AllElement});
-    Validation1AllElement={};
-      for(let el of this.DataPage3)
-        Validation1AllElement[el]=['', Validators.required];
-    this.validationForm3= this.formBuilder.group({...Validation1AllElement});
-    Validation1AllElement={};
-      for(let el of this.DataPage4)
-        Validation1AllElement[el]=['', Validators.required];
-      Validation1AllElement["professionalEmail"]=['', [Validators.required, Validators.email]];
-    this.validationForm4= this.formBuilder.group({...Validation1AllElement});
-    Validation1AllElement={};
-      for(let el of this.DataPage5)
-        Validation1AllElement[el]=['', Validators.required];
-    this.validationForm5= this.formBuilder.group({...Validation1AllElement});
+    let cmp=0;
+    for(let pageForm of this.DataPages)
+    {
+      var datos={};
+      for(let key in  pageForm)
+      {
+         datos[key]=['', pageForm[key]];
+      }
+      this.getFormGroupValidation(cmp+1,this.formBuilder.group({...datos}));
+      cmp++;
+    }
   }
   getArtistAccountFile = ():any=>{
     return this.inputsStep2;
@@ -250,7 +318,9 @@ export class SupplierRegisterComponent implements OnInit {
       case 5:
         return this.onSubmitPage5();
       case 6:
-          return this.onSubmitPage6();
+        return this.onSubmitPage6();
+      case 7:
+          return this.onSubmitPage7();
       default:
         return null;
     }
@@ -304,6 +374,16 @@ export class SupplierRegisterComponent implements OnInit {
       this.AfterCheckLastPage();
     }
   }
+
+  onSubmitPage6()
+  {
+    if(!this.supplierRequest.productsSold||this.supplierRequest.productsSold.length==0)
+    {
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.onDone();
+  }
   
   
   onAddForm3(e){
@@ -337,6 +417,29 @@ export class SupplierRegisterComponent implements OnInit {
     this.page=5;
     this.initForme5();
   }
+  onInitPage6()
+  {
+    this.page=6;
+    this.initForme6();
+  }
+  deleteEForm6(c,i){
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.supplierRequest.productsSold=this.supplierRequest.productsSold.filter(e=>e!=i);
+        Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    }});
+  }
+  onAddForm6(e)
+  {
+    e.preventDefault();
+    this.isFormSubmitted=true;
+    if(this.validationForm6.valid)
+    {
+      this.supplierRequest.productsSold.push(this.selectedProduct?.productName);
+      this.selectedProduct.productName="";
+      this.initForme6();
+    }
+  }
   onStepOneDone = ()=>{
     this.isModification=true;
     this.isdisableLoadModal=true;
@@ -360,6 +463,10 @@ export class SupplierRegisterComponent implements OnInit {
     for(var i =0;i<keys.length-1;i++)
         d=d[keys[i]];
     d[keys[i]]=value;
+  }
+  onChangevalueSingle(value,key:string)
+  {
+    this[key]=value;
   }
   onChangeRegion = (value)=>{
     
@@ -433,13 +540,17 @@ export class SupplierRegisterComponent implements OnInit {
       return this.commercialCourtValues;
     if(option=="activitySector")
       return this.sectoractivityValues;
+    if(option=="isocertificates")
+      return this.isocertificatesValues;
     if(option=="salesFamily")
       return this.salesfamilyValues;
     if(option == "regions")
       return this.regions; 
     if(option == "functions") 
       return this.managerfunctionsValues;
-    return this.villes;  
+    if(option=="villes"&&this.supplierRequest.officeCountry=="Maroc")
+      return this.villes;
+    return [];  
   }
   getModelValue(key){
     let keys = key.split(".");
@@ -470,6 +581,11 @@ export class SupplierRegisterComponent implements OnInit {
       this.isDisabled=false;
       this.isFormSubmitted=false;
     }
+  }
+
+  addCustomValue(item)
+  {
+    return item;
   }
 
   valideDemande()

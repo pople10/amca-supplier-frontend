@@ -8,13 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } fro
 })
 export class StarRatingComponent implements OnInit {
 
-  @Input('rating') private rating: number = 3;
-  @Input('starCount') private starCount: number = 5;
-  @Input('color') private color: string = 'accent';
-  @Output() private ratingUpdated = new EventEmitter();
+  @Input('rating') public rating: number = 3;
+  @Input('starCount') public starCount: number = 5;
+  @Input('color') public color: string = 'accent';
+  @Output() public ratingUpdated = new EventEmitter();
 
-  private snackBarDuration: number = 2000;
-  private ratingArr = [];
+  public snackBarDuration: number = 2000;
+  public ratingArr = [];
 
   constructor() {
     for (let index = 0; index < this.starCount; index++) {
