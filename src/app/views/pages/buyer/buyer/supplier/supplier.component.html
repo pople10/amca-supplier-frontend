@@ -17,12 +17,57 @@
 
         <div class="card-body" *ngIf="!loading">
                 <div class="row mt-2" *ngFor="let item of data |keyvalue">
-                    <div class="col-6">
-                        {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
-                    </div>
-                    <div class="col-6">
-                        {{""+item.value | translate}}
-                    </div>
+                    <ng-container *ngIf="whatIsIt(item.value)=='Array'">
+                        <div class="col-6">
+                            {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
+                        </div>
+                        <div class="col-6">
+                            <ng-container *ngIf="item.value.length==0">
+                                {{"null"|translate}}
+                            </ng-container>
+                            <ng-container *ngIf="item.value.length>0">
+                                <div class="dotted-border table table-striped table-responsive">
+                                    <table *ngIf="whatIsIt(item.value[0])=='Object'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                                       <thead>
+                                          <tr>
+                                             <th *ngFor="let key of item.value[0] |keyvalue">{{ key.key | translate }}</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr class="my-10" *ngFor="let ele of item.value">
+                                             <td *ngFor="let sele of ele |keyvalue">{{sele.value}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <table *ngIf="whatIsIt(item.value[0])=='Other'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                                        <tbody>
+                                           <tr class="my-10" *ngFor="let ele of item.value">
+                                              <td>{{ele}}</td>
+                                           </tr>
+                                        </tbody>
+                                     </table>
+                                 </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="whatIsIt(item.value)=='Object'">
+                        <div class="row" *ngFor="let ele of item.value |keyvalue">
+                            <div class="col-6">
+                                {{ele.key}}
+                            </div>
+                            <div class="col-6">
+                                {{ele.value}}
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="whatIsIt(item.value)=='Other'">
+                        <div class="col-6">
+                            {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
+                        </div>
+                        <div class="col-6">
+                            {{""+item.value | translate}}
+                        </div>
+                    </ng-container>
                 </div>
         </div>
     </div>
@@ -58,6 +103,9 @@
     <div class="card mt-2" *ngIf="currentComments">
         <div class="card-body">
             <h4>{{"ratesAboutSupplier"|translate}}</h4>
+            <div class="noComments" *ngIf="!currentComments||currentComments.length==0">
+                <h6>{{"noComments" | translate}}</h6>
+            </div>
             <div *ngFor="let rate of currentComments">
                 <mat-divider></mat-divider>
                 <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} <star-rating [rating]="rate.rate" [starCount]="1" [color]="starColor"></star-rating></h6>

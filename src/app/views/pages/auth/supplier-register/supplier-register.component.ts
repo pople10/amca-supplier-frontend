@@ -13,6 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GeneralService } from 'src/app/services/shared/general.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import { SupplierRequest } from 'src/app/entities/SupplierRequest';
+import { ProductModel } from 'src/app/entities/ProductModel';
+import { MemberModel } from 'src/app/entities/MemberModel';
+import { SettlementModel } from 'src/app/entities/SettlementModel';
 
 @Component({
   selector: 'app-supplier-register',
@@ -20,11 +23,11 @@ import { SupplierRequest } from 'src/app/entities/SupplierRequest';
   styleUrls: ['./supplier-register.component.scss']
 })
 export class SupplierRegisterComponent implements OnInit {
-  onSubmitPage7() {
+  onSubmitPage11() {
     if(!this.isLodedAllPage){
-        this.onDone();
-        this.AfterCheckLastPage();
-  }
+          this.onDone();
+          this.AfterCheckLastPage();
+    }
   }
 
   /*****    flags for update any item     *****/
@@ -38,12 +41,20 @@ export class SupplierRegisterComponent implements OnInit {
   validationForm4: FormGroup;
   validationForm5: FormGroup;
   validationForm6: FormGroup;
+  validationForm7: FormGroup;
+  validationForm8: FormGroup;
+  validationForm9: FormGroup;
+  validationForm10: FormGroup;
 
   /*****    Submit Data     *****/
   supplierRequest:SupplierRequest=new SupplierRequest();
   selectedProduct:any={};
+  product:ProductModel=new ProductModel();
+  authorize:MemberModel=new MemberModel();
+  completer:MemberModel=new MemberModel();
+  settlement:SettlementModel=new SettlementModel();
   page:any=1;
-  lastPage:any=7;
+  lastPage:any=11;
   isFormSubmitted: Boolean;
   thisYear:number=new Date().getFullYear();
 
@@ -54,6 +65,10 @@ export class SupplierRegisterComponent implements OnInit {
   inputsStep4;
   inputsStep5;
   inputsStep6;
+  inputsStep7;
+  inputsStep8;
+  inputsStep9;
+  inputsStep10;
   /*********** Values ****** */
   lawFormValues:any;
   commercialCourtValues:any;
@@ -62,6 +77,8 @@ export class SupplierRegisterComponent implements OnInit {
   countryValues:any;
   sectoractivityValues:any;
   isocertificatesValues:any;
+  functionalityValues:any;
+  settlementValues:any;
 
   /*****   Flags    *****/
   isDisabled:Boolean=false;
@@ -132,9 +149,34 @@ export class SupplierRegisterComponent implements OnInit {
   DataPage6 = {
     "productName":[Validators.required]
   };
-  DataPages= [this.DataPage1,this.DataPage2,this.DataPage3,this.DataPage4,this.DataPage5,this.DataPage6];
+  DataPage7 = {
+    "fullName":[Validators.required],
+    "email":[Validators.required,Validators.email],
+    "functionality":[Validators.required],
+    "phone":[Validators.required],
+    "fax":[Validators.required]
+  };
+  DataPage8 = {
+    "haveOtherLocation":[Validators.required],
+    "settlementType":[Validators.required],
+    "city":[Validators.required],
+    "country":[Validators.required],
+    "email":[Validators.required,Validators.email]
+  }
+  DataPage9 = {
+    "haveMoroccanProducts":[Validators.required],
+    "products":[Validators.required],
+    "brand":[Validators.required],
+    "integrationRate":[Validators.required,Validators.max(100),Validators.min(0)]
+  };
+  DataPage10 = {
+    "fullName":[Validators.required],
+    "email":[Validators.required,Validators.email],
+    "functionality":[Validators.required],
+    "phone":[Validators.required]
+  }
+  DataPages= [this.DataPage1,this.DataPage2,this.DataPage3,this.DataPage4,this.DataPage5,this.DataPage6,this.DataPage7,this.DataPage8,this.DataPage9,this.DataPage10];
   Files = [];
-  MemberData = ["cin","firstName","lastName","gender","phoneNumber","email","role"];
 
   initForme1(){
     this.inputsStep1 = [
@@ -154,7 +196,7 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"selectInput",data:{formControlName:"lawForm",label:"lawForm",placeHolder:"",type:"text",ngModel:'supplierRequest.lawForm',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lawForm')},required:true,options:'lawForm',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"nrc",label:"nrc",placeHolder:"",type:"number",ngModel:this.supplierRequest.nrc,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','nrc')},required:false}},
       {type:"selectInput",data:{formControlName:"commercialCourt",label:"commercialCourt",placeHolder:"",type:"text",ngModel:'supplierRequest.commercialCourt',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','commercialCourt')},required:false,options:'commercialCourt',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
-      {type:"simpleInput",data:{formControlName:"creationYear",label:"creationYear",placeHolder:"",type:"number",ngModel:this.supplierRequest.creationYear,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','creationYear')},required:true}},
+      {type:"simpleInput",data:{formControlName:"creationYear",label:"creationYear",placeHolder:"",type:"number",ngModel:this.supplierRequest.creationYear,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','creationYear')},required:true,max:new Date().getFullYear()}},
       {type:"simpleInput",data:{formControlName:"ice",label:"ice",placeHolder:"",type:"text",ngModel:this.supplierRequest.ice,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','ice')},required:true}},
       {type:"simpleInput",data:{formControlName:"capitalMAD",label:"capitalMAD",placeHolder:"",type:"number",ngModel:this.supplierRequest.capitalMAD,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','capitalMAD')},required:true}},
     ];
@@ -197,14 +239,46 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"simpleInput",data:{formControlName:"turnoverN1",label:"turnoverN1",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN1,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN1')},required:false}},
       {type:"simpleInput",data:{formControlName:"turnoverN2",label:"turnoverN2",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN2,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN2')},required:false}},
       {type:"simpleInput",data:{formControlName:"turnoverN3",label:"turnoverN3",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN3,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN3')},required:false}},
-      {type:"selectInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:'supplierRequest.isoCertification',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true,options:'isocertificates',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:true}},
+      {type:"selectInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:'supplierRequest.isoCertification',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true,options:'isocertificates',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"otherIsoCertification",label:"otherIsoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.otherIsoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','otherIsoCertification')},required:false}},
       {type:"selectInput",data:{formControlName:"salesFamily",label:"salesFamily",placeHolder:"",type:"text",ngModel:'supplierRequest.salesFamily',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','salesFamily')},required:true,options:'salesFamily',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:false}},
     ];
   }
-  initForme6= ()=>{    
+  initForme6 = ()=>{    
     this.inputsStep6 = [
       {type:"simpleInput",data:{formControlName:"productName",label:"productName",placeHolder:"",type:"text",ngModel:this.selectedProduct.productName,onChange:(v)=>{this.onChangevalue(v,'selectedProduct','productName')},required:true}},
+    ];
+  }
+  initForme7 = ()=>{
+    this.inputsStep7 = [
+      {type:"simpleInput",data:{formControlName:"fullName",label:"fullName",placeHolder:"",type:"text",ngModel:this.authorize.fullName,onChange:(v)=>{this.onChangevalue(v,'authorize','fullName')},required:true}},
+      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"email",ngModel:this.authorize.email,onChange:(v)=>{this.onChangevalue(v,'authorize','email')},required:true}},
+      {type:"selectInput",data:{formControlName:"functionality",label:"functionality",placeHolder:"",type:"text",ngModel:'authorize.functionality',onChange:(v)=>{this.onChangevalue(v,'authorize','functionality')},required:true,options:'functionality',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
+      {type:"phoneNumber",data:{formControlName:"phone",label:"phone",placeHolder:"",type:"text",ngModel:this.authorize.phone,onChange:(v)=>{this.onChangevalue(v,'authorize','phone')},required:true}},
+      {type:"phoneNumber",data:{formControlName:"fax",label:"fax",placeHolder:"",type:"text",ngModel:this.authorize.fax,onChange:(v)=>{this.onChangevalue(v,'authorize','fax')},required:true}},
+    ];
+  }
+  initForme8 = ()=>{
+    this.inputsStep8 = [
+      {type:"selectInput",data:{formControlName:"settlementType",label:"settlementType",placeHolder:"",type:"text",ngModel:'settlement.settlementType',onChange:(v)=>{this.onChangevalue(v,'settlement','settlementType')},required:true,options:'settlement',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
+      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"email",ngModel:this.settlement.email,onChange:(v)=>{this.onChangevalue(v,'settlement','email')},required:true}},
+      {type:"selectInput",data:{formControlName:"country",label:"country",placeHolder:"",type:"text",ngModel:'settlement.country',onChange:(v)=>{this.onChangevalue(v,'settlement','country')},required:true,options:'countries',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
+      {type:"selectInput",data:{formControlName:"city",label:"city",placeHolder:"",type:"text",ngModel:'settlement.city',onChange:(v)=>{this.onChangevalue(v,'settlement','city')},required:true,options:'villes1',value:'ville',labelS:'ville',getLabel:(r)=>{return r.ville;},multiple:false,free:true}}
+    ];
+  }
+  initForme9 = ()=>{
+    this.inputsStep9 = [
+      {type:"selectInput",data:{formControlName:"products",label:"products",placeHolder:"",type:"text",ngModel:'product.products',onChange:(v)=>{this.onChangevalue(v,'product','products')},required:true,options:'none',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:true}},
+      {type:"simpleInput",data:{formControlName:"brand",label:"brand",placeHolder:"",type:"text",ngModel:this.product.brand,onChange:(v)=>{this.onChangevalue(v,'product','brand')},required:true}},
+      {type:"simpleInput",data:{formControlName:"integrationRate",label:"integrationRate",placeHolder:"",type:"number",ngModel:this.product.integrationRate,onChange:(v)=>{this.onChangevalue(v,'product','integrationRate')},required:true,max:100,min:0}},
+    ];
+  }
+  initForme10 = ()=>{
+    this.inputsStep10 = [
+      {type:"simpleInput",data:{formControlName:"fullName",label:"fullName",placeHolder:"",type:"text",ngModel:this.completer.fullName,onChange:(v)=>{this.onChangevalue(v,'completer','fullName')},required:true}},
+      {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"email",ngModel:this.completer.email,onChange:(v)=>{this.onChangevalue(v,'completer','email')},required:true}},
+      {type:"selectInput",data:{formControlName:"functionality",label:"functionality",placeHolder:"",type:"text",ngModel:'completer.functionality',onChange:(v)=>{this.onChangevalue(v,'completer','functionality')},required:true,options:'functionality',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
+      {type:"phoneNumber",data:{formControlName:"phone",label:"phone",placeHolder:"",type:"text",ngModel:this.completer.phone,onChange:(v)=>{this.onChangevalue(v,'completer','phone')},required:true}}
     ];
   }
   getFormGroupValidation(page,data){
@@ -227,6 +301,18 @@ export class SupplierRegisterComponent implements OnInit {
       case 6:
           this.validationForm6=data;
           break;
+      case 7:
+          this.validationForm7=data;
+          break;
+      case 8:
+          this.validationForm8=data;
+          break;
+      case 9:
+          this.validationForm9=data;
+          break;
+      case 10:
+          this.validationForm10=data;
+          break;
       default:
         break;
     }
@@ -234,11 +320,11 @@ export class SupplierRegisterComponent implements OnInit {
   get getFormGroup(){
     switch (this.page) {
       case 1:
-        return this.validationForm1;
+          return this.validationForm1;
       case 2:
-        return this.validationForm2;
+          return this.validationForm2;
       case 3:
-        return this.validationForm3;
+          return this.validationForm3;
       case 4:
           return this.validationForm4;
       case 5:
@@ -246,7 +332,15 @@ export class SupplierRegisterComponent implements OnInit {
       case 6:
           return this.validationForm6;
       case 7:
-        return this.validationForm6;
+          return this.validationForm7;
+      case 8:
+          return this.validationForm8;
+      case 9:
+          return this.validationForm9;
+      case 10:
+          return this.validationForm10;
+      case 11:
+          return this.validationForm10;
       default:
         break;
     }
@@ -265,6 +359,8 @@ export class SupplierRegisterComponent implements OnInit {
       this.countryValues=res.filter(e=>(e.name=="country"))[0].data;
       this.sectoractivityValues=res.filter(e=>(e.name=="sectoractivity"))[0].data;
       this.isocertificatesValues=res.filter(e=>(e.name=="isocertificates"))[0].data;
+      this.functionalityValues=res.filter(e=>(e.name=="functions"))[0].data;
+      this.settlementValues=res.filter(e=>(e.name=="settlement"))[0].data;
     },err=>{
       this.handleService.handleError(err);
     })
@@ -321,6 +417,14 @@ export class SupplierRegisterComponent implements OnInit {
         return this.onSubmitPage6();
       case 7:
           return this.onSubmitPage7();
+      case 8:
+          return this.onSubmitPage8();
+      case 9:
+          return this.onSubmitPage9();
+      case 10:
+          return this.onSubmitPage10();
+      case 11:
+          return this.onSubmitPage11();
       default:
         return null;
     }
@@ -384,6 +488,46 @@ export class SupplierRegisterComponent implements OnInit {
     }
     this.onDone();
   }
+
+  onSubmitPage7()
+  {
+    if(!this.supplierRequest.authorizedContacts||this.supplierRequest.authorizedContacts.length==0)
+    {
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.onDone();
+  }
+
+  onSubmitPage8()
+  {
+    if(this.supplierRequest.haveOtherLocation!=false&&(!this.supplierRequest.settlements||this.supplierRequest.settlements.length==0))
+    {
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.onDone();
+  }
+
+  onSubmitPage9()
+  {
+    if(this.supplierRequest.haveMoroccanProducts!=false&&(!this.supplierRequest.moroccanProduct||this.supplierRequest.moroccanProduct.length==0))
+    {
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.onDone();
+  }
+
+  onSubmitPage10()
+  {
+    if(!this.supplierRequest.formCompleters||this.supplierRequest.formCompleters.length==0)
+    {
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
+    }
+    this.onDone();
+  }
   
   
   onAddForm3(e){
@@ -422,10 +566,61 @@ export class SupplierRegisterComponent implements OnInit {
     this.page=6;
     this.initForme6();
   }
+  onInitPage7()
+  {
+    this.page=7;
+    this.initForme7();
+  }
+  onInitPage8()
+  {
+    this.page=8;
+    this.initForme8();
+  }
+  onInitPage9()
+  {
+    this.page=9;
+    this.initForme9();
+  }
+  onInitPage10()
+  {
+    this.page=10;
+    this.initForme10();
+  }
   deleteEForm6(c,i){
     this.modalService.open(c, {centered: true}).result.then((result) => {
       if(result == "save"){
         this.supplierRequest.productsSold=this.supplierRequest.productsSold.filter(e=>e!=i);
+        Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    }});
+  }
+  deleteEForm7(c,i){
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.supplierRequest.authorizedContacts=this.supplierRequest.authorizedContacts.filter((e,k)=>k!=i);
+        Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    }});
+  }
+  deleteEForm8(c,i)
+  {
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.supplierRequest.settlements=this.supplierRequest.settlements.filter((e,k)=>k!=i);
+        Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    }});
+  }
+  deleteEForm9(c,i)
+  {
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.supplierRequest.moroccanProduct=this.supplierRequest.moroccanProduct.filter((e,k)=>k!=i);
+        Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    }});
+  }
+  deleteEForm10(c,i)
+  {
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.supplierRequest.formCompleters=this.supplierRequest.formCompleters.filter((e,k)=>k!=i);
         Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
     }});
   }
@@ -438,6 +633,64 @@ export class SupplierRegisterComponent implements OnInit {
       this.supplierRequest.productsSold.push(this.selectedProduct?.productName);
       this.selectedProduct.productName="";
       this.initForme6();
+      this.isFormSubmitted=false;
+    }
+  }
+  changeYesQuestion(e,key,clear)
+  {
+    if(e.target.value == "n"){
+      this.supplierRequest[key] = false;
+      this.supplierRequest[clear]=[];
+    }else{
+      this.supplierRequest[key] = true;
+    }
+  }
+  onAddForm7(e)
+  {
+    e.preventDefault();
+    this.isFormSubmitted=true;
+    if(this.validationForm7.valid)
+    {
+      this.supplierRequest.authorizedContacts.push(this.authorize);
+      this.authorize=new MemberModel();
+      this.isFormSubmitted=false;
+      this.initForme7();
+    }
+  }
+  onAddForm8(e)
+  {
+    e.preventDefault();
+    this.isFormSubmitted=true;
+    if(this.validationForm8.valid)
+    {
+      this.supplierRequest.settlements.push(this.settlement);
+      this.settlement=new SettlementModel();
+      this.isFormSubmitted=false;
+      this.initForme8();
+    }
+  }
+  onAddForm9(e)
+  {
+    e.preventDefault();
+    this.isFormSubmitted=true;
+    if(this.validationForm9.valid)
+    {
+      this.supplierRequest.moroccanProduct.push(this.product);
+      this.product=new ProductModel();
+      this.isFormSubmitted=false;
+      this.initForme9();
+    }
+  }
+  onAddForm10(e)
+  {
+    e.preventDefault();
+    this.isFormSubmitted=true;
+    if(this.validationForm10.valid)
+    {
+      this.supplierRequest.formCompleters.push(this.completer);
+      this.completer=new MemberModel();
+      this.isFormSubmitted=false;
+      this.initForme10();
     }
   }
   onStepOneDone = ()=>{
@@ -520,6 +773,10 @@ export class SupplierRegisterComponent implements OnInit {
       return (ar["labelFr"]);
   }
   getOption(option){
+    if(option=="functionality")
+      return this.functionalityValues;
+    if(option=="settlement")
+      return this.settlementValues;
     if(option=="identityType")
     {
       return this.identityTypeOption;
@@ -549,6 +806,8 @@ export class SupplierRegisterComponent implements OnInit {
     if(option == "functions") 
       return this.managerfunctionsValues;
     if(option=="villes"&&this.supplierRequest.officeCountry=="Maroc")
+      return this.villes;
+    if(option=="villes1"&&this.settlement.country=="Maroc")
       return this.villes;
     return [];  
   }

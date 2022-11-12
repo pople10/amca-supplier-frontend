@@ -610,6 +610,13 @@
     "salesFamily":"Domaine Commercial Couvert",
     "financialInfo":"Informations financière",
     "contact":"Contacte",
-    "MaxlengthField":"La valeur entrée est très longue"
+    "MaxlengthField":"La valeur entrée est très longue",
+    "MaskField":"Champs n'est pas complété",
+    "authorizedContacts":"Interlocuteurs Habilites",
+    "settlements":"Regionalisation et/ou Internationalisation",
+    "moroccanProduct":"Fabrication au Maroc",
+    "formCompleters":"Personne Renseignant Le Formulaire",
+    "null":"Non spécifié",
+    "noComments":"Aucun avis pour ce fournisseur"
 
 }

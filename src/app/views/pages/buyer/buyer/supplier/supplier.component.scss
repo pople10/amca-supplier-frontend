@@ -30,3 +30,16 @@
     border: 1px solid;
     padding: 10px!important;
 }
+
+.noComments
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.dotted-border
+{
+    border: 1px dotted #000;
+}

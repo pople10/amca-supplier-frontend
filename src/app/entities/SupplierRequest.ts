@@ -1,3 +1,6 @@
+import { MemberModel } from "./MemberModel";
+import { ProductModel } from "./ProductModel";
+import { SettlementModel } from "./SettlementModel";
 import { UserRequest } from "./UserRequest";
 
 export class SupplierRequest extends UserRequest
@@ -33,4 +36,10 @@ export class SupplierRequest extends UserRequest
     public otherIsoCertification:string;
     public salesFamily:string[]=[];
     public productsSold:string[]=[];
+    public authorizedContacts:MemberModel[]=[];
+    public formCompleters:MemberModel[]=[];
+    public haveOtherLocation:boolean;
+    public settlements:SettlementModel[]=[];
+    public haveMoroccanProducts:boolean;
+    public moroccanProduct:ProductModel[]=[];
 }

@@ -27,7 +27,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
   dataSent:boolean=false;
   currentComments:CommentResponse[];
   avg:number=0;
-  doNotDisplay:string[]=["id","roles","productsSold","comments"];
+  doNotDisplay:string[]=["id","roles","comments"];
   scrollInto:string;
   thisYear:number=new Date().getFullYear();
 
@@ -129,5 +129,19 @@ export class SupplierComponent implements OnInit,AfterViewInit {
       this.handler.handleError(err);
     }).add(()=>{this.dataSent=false});
   }
+
+  whatIsIt(object) {
+    var arrayConstructor = [].constructor;
+    var objectConstructor = ({}).constructor;
+    if(object==null||object==undefined)
+      return "Other"
+    if (object.constructor === arrayConstructor) {
+        return "Array";
+    }
+    if (object.constructor === objectConstructor) {
+        return "Object";
+    }
+    return "Other"
+}
 
 }

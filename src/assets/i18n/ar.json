@@ -467,7 +467,14 @@
      "financialInfo":"معلومات مالية",
      "contact":"الإتصال",
     "cancel": "إلفاء",
-    "MaxlengthField":"القيمة التي تم إدخالها طويلة جدًا"
+    "MaxlengthField":"القيمة التي تم إدخالها طويلة جدًا",
+    "MaskField":"الحقل غير مكتمل",
+    "authorizedContacts":"جهات الاتصال المعتمدة",
+    "settlements":"الأقلمة و/أو التدويل",
+    "moroccanProduct":"التصنيع في المغرب",
+    "formCompleters":"واضع النموذج",
+    "null":"غير محدد",
+    "noComments":"لا مراجعة لهذا المورد"
  
 
 
