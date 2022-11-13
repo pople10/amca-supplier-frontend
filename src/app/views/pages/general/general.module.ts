@@ -22,6 +22,8 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
 import { RoomsComponent } from './rooms/rooms.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RoomComponent } from './room/room.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -48,6 +50,10 @@ const routes: Routes = [
       {
         path: 'rooms',
         component: RoomsComponent
+      },
+      {
+        path: 'room/:id',
+        component: RoomComponent
       }
 
     ]
@@ -55,7 +61,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, PasswordChangeComponent, RoomsComponent],
+  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, PasswordChangeComponent, RoomsComponent, RoomComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -69,7 +75,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgSelectModule,
     NgbModalModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatIconModule
   ]
 })
 export class GeneralModule { }

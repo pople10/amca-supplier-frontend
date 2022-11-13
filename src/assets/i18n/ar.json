@@ -480,7 +480,10 @@
     "selectAtLeast3":"أضف 3 أحرف على الأقل",
     "alreadyEntered":"لقد قمت بالفعل بإدخال العنصر",
     "rooms":"مناقشات",
-    "participants":"الحاضرين"
+    "participants":"الحاضرين",
+    "label":"وسم",
+    "away":"انت غير متصل",
+    "sendMessage":"أرسل رسالتك"
  
 
 

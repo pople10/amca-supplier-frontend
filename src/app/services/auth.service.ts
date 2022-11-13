@@ -95,6 +95,22 @@ export class AuthService {
     localStorage.removeItem("expiredAt");
   }
 
+  getToken()
+  {
+    return localStorage.getItem("token");
+  }
+
+  getUserDataLocalStorage()
+  {
+    return JSON.parse(localStorage.getItem("userData"));
+  }
+
+  getEmailLocalStorage()
+  {
+    let user = this.getUserDataLocalStorage();
+    return user?user.email:null;
+  }
+
   updateData(newData:any)
   {
     let old:any=JSON.parse(localStorage.getItem("userData"));

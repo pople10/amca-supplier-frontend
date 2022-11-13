@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="right-side-card" *ngIf="showParticipients">
+            <div (click)="showParticipients=false" class="closeIcon">
+                <mat-icon>close</mat-icon>
+            </div>
+            <div class="list">
+                <ul class="ul-li">
+                    <li *ngFor="let part of participients">{{part.firstName+" "+part.lastName}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-header">
+            <div id="chatHeader">
+                <div class="label">
+                    {{data.label}}
+                </div>
+                <div (click)="showParticipients=true" id="participients">
+                    <mat-icon aria-hidden="false" aria-label="Participients">group</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="card-body" id="room" (click)="showParticipients=false">
+            <ng-container *ngFor="let message of messages">
+                <div class="container" *ngIf="!isMe(message.sender)">
+                    <p class="sender">{{message.sender.firstName+" "+message.sender.lastName}}</p>
+                    <p>{{message.message}}</p>
+                    <span class="time-right">{{message.createDate | date:getFormat(message.createDate) }}</span>
+                </div>
+                <div class="container darker" *ngIf="isMe(message.sender)">
+                    <p>{{message.message}}</p>
+                    <span class="time-left">{{message.createDate | date:getFormat(message.createDate) }}</span>
+                </div>
+            </ng-container>
+        </div>
+        <div class="card-footer w-100 d-flex">
+            <input (keyup.enter)="sendMsg()" [(ngModel)]="msg" type="text" class="form-control sendMessage"
+                            id="msg" placeholder="{{ 'sendMessage' | translate }}" 
+                            [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }" 
+            />
+            <button [disabled]="!msg" (click)="sendMsg()" class="btn btn-primary sendBtn">
+                <i data-feather="send" appFeatherIcon class="mr-2 icon-md"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div id="ss" class="d-none"></div>

@@ -6,4 +6,6 @@ export class RoomResponse
     public id:number;
     public participants:UserChatResponse[]=[];
     public messages:RoomMessageResponse[]=[];
+    public createDate:Date;
+    public label:string;
 }

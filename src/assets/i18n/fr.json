@@ -623,6 +623,9 @@
     "selectAtLeast3":"Ajoutez au moins 3 caractères",
     "alreadyEntered":"Vous avez déjà saisi l'élement",
     "rooms":"Discussions",
-    "participants":"Participants"
+    "participants":"Participants",
+    "label":"Étiquette",
+    "away":"Vous êtes hors ligne",
+    "sendMessage":"Envoie votre message"
 
 }

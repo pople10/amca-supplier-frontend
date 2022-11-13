@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
+import { RoomRequest } from 'src/app/entities/RoomRequest';
 import { UserChatResponse } from 'src/app/entities/UserChatResponse';
 import { ChatService } from 'src/app/services/chat.service';
 import { LanguageService } from 'src/app/services/language/language.service';
@@ -31,11 +32,12 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   currentPage:number=0;
   currentSize:number=10;
   toBeAdd:string=null;
-  emails:string[]=[];
+  request:RoomRequest=new RoomRequest();
   id:number;
   searchedUsers:UserChatResponse[]=[];
   dataSent:boolean=false;
   searching:boolean=false;
+  label
 
   constructor(
     private modalService:NgbModal,
@@ -80,9 +82,9 @@ export class RoomsComponent implements OnInit,AfterViewInit {
       this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
       return;
     }
-    if(!this.emails.includes(this.toBeAdd))
+    if(!this.request.emails.includes(this.toBeAdd))
     {
-      this.emails.push(this.toBeAdd);
+      this.request.emails.push(this.toBeAdd);
     }
     else
     {
@@ -104,7 +106,7 @@ export class RoomsComponent implements OnInit,AfterViewInit {
     {
       this.modalService.open(c, {centered: true}).result.then((result) => {
         if(result == "save"){
-          this.emails=this.emails.filter(e=>e!=i);
+          this.request.emails=this.request.emails.filter(e=>e!=i);
           Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
       }});
     }
@@ -136,13 +138,13 @@ export class RoomsComponent implements OnInit,AfterViewInit {
 
     addRoom()
     {
-      if(!this.emails||this.emails.length==0)
+      if(!this.request.emails||this.request.emails.length==0||!this.request.label||this.request.label=="")
       {
         this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
         return;
       }
       this.dataSent=true;
-      this.chatService.addRoom(this.emails).subscribe(
+      this.chatService.addRoom(this.request).subscribe(
         res=>{
             this.id=null;
             if(this.data.pageDetails.numberOfElements<=1&&this.currentPage!=0)
@@ -152,7 +154,8 @@ export class RoomsComponent implements OnInit,AfterViewInit {
             {
               this.getData(0);
             }
-            this.emails=[];
+            this.request.emails=[];
+            this.request.label=null;
             Swal.fire( { position: 'center', title: this.translate.instant("done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
         },err=>{
           this.handleRequestService.handleError(err);
