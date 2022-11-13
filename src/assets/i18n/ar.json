@@ -474,7 +474,13 @@
     "moroccanProduct":"التصنيع في المغرب",
     "formCompleters":"واضع النموذج",
     "null":"غير محدد",
-    "noComments":"لا مراجعة لهذا المورد"
+    "noComments":"لا مراجعة لهذا المورد",
+    "noUserFound":"لم يتم العثور على مستخدمين",
+    "searching":"جاري البحث...",
+    "selectAtLeast3":"أضف 3 أحرف على الأقل",
+    "alreadyEntered":"لقد قمت بالفعل بإدخال العنصر",
+    "rooms":"مناقشات",
+    "participants":"الحاضرين"
  
 
 

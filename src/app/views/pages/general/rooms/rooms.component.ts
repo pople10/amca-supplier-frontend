@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { CommentRequest } from 'src/app/entities/CommentRequest';
-import { CommentResponse } from 'src/app/entities/CommentResponse';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
-import { CommentService } from 'src/app/services/comment.service';
+import { UserChatResponse } from 'src/app/entities/UserChatResponse';
+import { ChatService } from 'src/app/services/chat.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
-import { StarRatingColor } from '../../../form-elements/star-rating/star-rating.component';
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.scss']
+  selector: 'app-rooms',
+  templateUrl: './rooms.component.html',
+  styleUrls: ['./rooms.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class RoomsComponent implements OnInit,AfterViewInit {
+  @ViewChild('addMail') selectInput;
   data:GenericPageable<any>=new GenericPageable();
   refName="id";
-  fields:string[]=[]
+  fields:string[]=[];
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
   fieldsStatic:string[]=[];
@@ -30,27 +30,66 @@ export class CommentsComponent implements OnInit {
   doingActionTo:number=null;
   currentPage:number=0;
   currentSize:number=10;
-  comment:CommentRequest=new CommentRequest();
+  toBeAdd:string=null;
+  emails:string[]=[];
   id:number;
+  searchedUsers:UserChatResponse[]=[];
   dataSent:boolean=false;
-  starColor:StarRatingColor = StarRatingColor.accent;
+  searching:boolean=false;
 
   constructor(
     private modalService:NgbModal,
-    private commentService:CommentService,
+    private chatService:ChatService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,
     private translate:TranslateService,
-    private router:Router
+    private router:Router,
+    private snackBar:MatSnackBar
     ) 
     {
 
     }
+  
+  getUsers(val)
+  {
+    this.searching=true;
+        this.dataSent=true;
+        this.chatService.getUsersByKeyword(val).subscribe(data=>{
+          this.searchedUsers=data;
+        },err=>{this.searchedUsers=[];})
+        .add(()=>{this.dataSent=false;this.searching=false;})
+  }
 
-    onRatingChanged(rate)
+  ngAfterViewInit(): void {
+    const input = this.selectInput.element.children[0].children[0].children[1].children[0];
+    input.addEventListener("keyup", (data)=>{
+      let val = input?.value;
+      if(val&&val.length>=3)
+      {
+        this.getUsers(val);
+        return;
+      }
+      this.searchedUsers=[];
+    });
+  }
+
+  onAddEmail(e)
+  {
+    if(this.toBeAdd==null||this.toBeAdd=="")
     {
-      this.comment.rate=rate;
+      this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+      return;
     }
+    if(!this.emails.includes(this.toBeAdd))
+    {
+      this.emails.push(this.toBeAdd);
+    }
+    else
+    {
+      this.snackBar.open(this.translate.instant('alreadyEntered'), this.translate.instant('close'));
+    }
+    this.toBeAdd=null;
+  }
 
     ngOnInit(): void {
       this.initData();
@@ -60,11 +99,30 @@ export class CommentsComponent implements OnInit {
     {
       this.getData(0);
     }
+
+    deleteEmail(c,i)
+    {
+      this.modalService.open(c, {centered: true}).result.then((result) => {
+        if(result == "save"){
+          this.emails=this.emails.filter(e=>e!=i);
+          Swal.fire( { position: 'center', title: this.translate.instant("table_delete_done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+      }});
+    }
+
+    onChangeKeyword(e)
+    {
+      
+    }
+
+    geItem(id)
+    {
+      this.router.navigate([`/general/room/${id}`]);
+    }
   
     private getData(page:number)
     {
       this.isLoad=true;
-      this.commentService.getMyComments(page,this.currentSize).subscribe(response=>{
+      this.chatService.getMyRooms(page,this.currentSize).subscribe(response=>{
           this.data=response;
       },err=>{
           this.handleRequestService.handleErrorWithCallBack(err,()=>{
@@ -76,10 +134,15 @@ export class CommentsComponent implements OnInit {
       });
     }
 
-    modifyComment()
+    addRoom()
     {
+      if(!this.emails||this.emails.length==0)
+      {
+        this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+        return;
+      }
       this.dataSent=true;
-      this.commentService.updateComment(this.id,this.comment).subscribe(
+      this.chatService.addRoom(this.emails).subscribe(
         res=>{
             this.id=null;
             if(this.data.pageDetails.numberOfElements<=1&&this.currentPage!=0)
@@ -89,6 +152,7 @@ export class CommentsComponent implements OnInit {
             {
               this.getData(0);
             }
+            this.emails=[];
             Swal.fire( { position: 'center', title: this.translate.instant("done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
         },err=>{
           this.handleRequestService.handleError(err);
@@ -105,20 +169,6 @@ export class CommentsComponent implements OnInit {
     {
       this.doingAction=true;
       this.doingActionTo=index;
-      this.commentService.getCommentById(refToUpdate).subscribe((res)=>{
-        this.comment=this.fromResponseToRequest(res);
-        this.id=refToUpdate;
-      },err=>{this.handleRequestService.handleError(err);})
-      .add(()=>{this.doingAction=false;this.doingActionTo=null;});
-    }
-
-    fromResponseToRequest(res:CommentResponse):CommentRequest
-    {
-      let tmp:CommentRequest=new CommentRequest();
-      tmp.comment=res.comment;
-      tmp.supplier_id=res.supplier.id
-      tmp.rate=res.rate;
-      return tmp;
     }
   
     deleteItem(componant,refToDelete,index){
@@ -126,7 +176,7 @@ export class CommentsComponent implements OnInit {
         if(result == "save"){
         this.doingAction=true;
         this.doingActionTo=index;
-        this.commentService.deleteCommentById(refToDelete)
+        this.chatService.closeRoom(refToDelete)
         .subscribe(e=>{
           if(this.data.pageDetails.numberOfElements<=1&&this.currentPage!=0)
             this.currentPage=this.currentPage-1;
@@ -146,11 +196,6 @@ export class CommentsComponent implements OnInit {
     {
       this.currentSize=data.target.value;
       this.getData(0);
-    }
-
-    view(id)
-    {
-      this.router.navigate([`/buyer/suppliers/${id}`],{ state: { scroll: 'yr' } });
     }
 
 }

@@ -617,6 +617,12 @@
     "moroccanProduct":"Fabrication au Maroc",
     "formCompleters":"Personne Renseignant Le Formulaire",
     "null":"Non spécifié",
-    "noComments":"Aucun avis pour ce fournisseur"
+    "noComments":"Aucun avis pour ce fournisseur",
+    "noUserFound":"Aucun utilisateur trouvé",
+    "searching":"Recherchant...",
+    "selectAtLeast3":"Ajoutez au moins 3 caractères",
+    "alreadyEntered":"Vous avez déjà saisi l'élement",
+    "rooms":"Discussions",
+    "participants":"Participants"
 
 }

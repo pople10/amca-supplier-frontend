@@ -123,7 +123,15 @@
                     </ul>
                 </li>
             </ng-container>
-            
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/general/rooms">
+                    <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                    <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                        send
+                    </mat-icon>
+                    <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"rooms" | translate}}</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

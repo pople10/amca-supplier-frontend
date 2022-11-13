@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FeahterIconModule } from '../../../core/feather-icon/feather-icon.module';
 
-import { NgbAccordionModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,6 +19,9 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { Routes, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -41,13 +44,18 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent
+      },
+      {
+        path: 'rooms',
+        component: RoomsComponent
       }
+
     ]
   }
 ]
 
 @NgModule({
-  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, PasswordChangeComponent],
+  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, PasswordChangeComponent, RoomsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -58,7 +66,10 @@ const routes: Routes = [
     FormsModule,
     TranslateModule,
     MatSnackBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
+    NgbModalModule,
+    NgxPaginationModule
   ]
 })
 export class GeneralModule { }

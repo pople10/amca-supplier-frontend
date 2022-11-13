@@ -1,0 +1,68 @@
+.centerizeText {
+    text-align: center;
+}
+
+.smallText {
+    font-size: 90%;
+}
+
+.w-80px {
+    width: 80px;
+}
+
+.displayInlineBlock {
+    display: inline-block;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.rightSide {
+    text-align: right;
+}
+
+@media(max-width:700px) {
+    .bigSize {
+        font-size: 4vw;
+    }
+}
+
+@media(min-width:700px) {
+    .bigSize {
+        font-size: 2vw;
+    }
+}
+
+.textarea
+{
+    height: 100px!important;
+    resize: none;
+    border-radius: 5px;
+}
+
+.textarea::-webkit-scrollbar {
+    width: 4px!important;
+}
+
+.textarea::-webkit-scrollbar-track {
+    width: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+    width: 4px;
+}
+.overflow-scroll
+{
+    overflow: scroll;
+}
+.divider-top
+{
+    border-top: 0.7px solid rgb(101, 101, 101);
+}
+.custom-pre
+{
+    background: white;
+    border: 1px solid;
+    padding: 10px!important;
+}
