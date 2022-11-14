@@ -626,6 +626,14 @@
     "participants":"Participants",
     "label":"Étiquette",
     "away":"Vous êtes hors ligne",
-    "sendMessage":"Envoie votre message"
+    "sendMessage":"Envoie votre message",
+    "fullName":"Nom complet",
+    "functionality":"Fonction",
+    "haveOtherLocationQuestion":"En dehors de votre Siège Sociale, Votre Société Dispose-t-elle d'autres implantations sur d'autres Villes/Pays?",
+    "settlementType":"Type d'implantation",
+    "country":"Pays",
+    "haveMoroccanProductsQuestion":"Votre Société Fabrique/Fournie t-elle des produits fabriqués Totalement ou Partiellement au Maroc?",
+    "brand":"Marque Commerciale",
+    "integrationRate":"Taux d'intégration locale"
 
 }

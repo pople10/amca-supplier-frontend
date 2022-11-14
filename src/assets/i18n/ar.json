@@ -483,7 +483,15 @@
     "participants":"الحاضرين",
     "label":"وسم",
     "away":"انت غير متصل",
-    "sendMessage":"أرسل رسالتك"
+    "sendMessage":"أرسل رسالتك",
+    "fullName":"الاسم الكامل",
+    "functionality":"العمل",
+    "haveOtherLocationQuestion":"بصرف النظر عن مكتبك الرئيسي ، هل لشركتك مواقع أخرى في مدن / بلدان أخرى؟",
+    "settlementType":"نوع التخطيط",
+    "country":"دولة",
+    "haveMoroccanProductsQuestion":"هل تقوم شركتك بتصنيع / توريد منتجات مصنوعة كليًا أو جزئيًا في المغرب؟",
+    "brand":"علامة تجارية",
+    "integrationRate":"معدل الاندماج المحلي"
  
 
 
