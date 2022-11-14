@@ -84,7 +84,7 @@ export class RoomComponent implements OnInit,OnDestroy {
     });
 
     this.websocket.addEventListener('close', (event) => {
-        this.alertify.warning(this.translate.instant('away'));
+        
     });
   }
 
