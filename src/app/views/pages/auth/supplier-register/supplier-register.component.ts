@@ -90,6 +90,7 @@ export class SupplierRegisterComponent implements OnInit {
   isdisableLoadModal:Boolean=true;
   noEdition:Boolean=false;
   NumberCodeForm="212";
+  isMobile = false;
 
   regions = REGIONS;
   villes = VILLES;
@@ -365,6 +366,13 @@ export class SupplierRegisterComponent implements OnInit {
       this.handleService.handleError(err);
     })
     this.initFormValidator();
+    window.addEventListener("resize", ()=>{
+      if(document.documentElement.clientWidth <= 720){
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
   }
 
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;

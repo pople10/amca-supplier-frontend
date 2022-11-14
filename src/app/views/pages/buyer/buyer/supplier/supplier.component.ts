@@ -144,4 +144,14 @@ export class SupplierComponent implements OnInit,AfterViewInit {
     return "Other"
 }
 
+getLength(obj):number
+{
+  return Object.values(obj).length;
+}
+
+getArray(obj):any[]
+{
+  return Object.values(obj);
+}
+
 }

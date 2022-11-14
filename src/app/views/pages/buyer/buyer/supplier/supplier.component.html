@@ -22,26 +22,26 @@
                             {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
                         </div>
                         <div class="col-6">
-                            <ng-container *ngIf="item.value.length==0">
+                            <ng-container *ngIf="getLength(item.value)==0">
                                 {{"null"|translate}}
                             </ng-container>
-                            <ng-container *ngIf="item.value.length>0">
+                            <ng-container *ngIf="getLength(item.value)>0">
                                 <div class="dotted-border table table-striped table-responsive">
                                     <table *ngIf="whatIsIt(item.value[0])=='Object'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
                                        <thead>
                                           <tr>
-                                             <th *ngFor="let key of item.value[0] |keyvalue">{{ key.key | translate }}</th>
+                                             <th *ngFor="let key of item.value[0] |keyvalue">{{ ""+key.key | translate }}</th>
                                           </tr>
                                        </thead>
                                        <tbody>
-                                          <tr class="my-10" *ngFor="let ele of item.value">
+                                          <tr class="my-10" *ngFor="let ele of getArray(item.value)">
                                              <td *ngFor="let sele of ele |keyvalue">{{sele.value}}</td>
                                           </tr>
                                        </tbody>
                                     </table>
                                     <table *ngIf="whatIsIt(item.value[0])=='Other'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
                                         <tbody>
-                                           <tr class="my-10" *ngFor="let ele of item.value">
+                                           <tr class="my-10" *ngFor="let ele of getArray(item.value)">
                                               <td>{{ele}}</td>
                                            </tr>
                                         </tbody>
