@@ -53,7 +53,8 @@
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>shopping_cart
                         </mat-icon>
-                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"buyer" | translate}}</span>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"buyer" | translate}}</span>
                         <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
                     </a>
 
@@ -62,16 +63,18 @@
                         <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/buyer/suppliers">
                             <a class="nav-link">
                                 <i class="link-icon" appFeatherIcon></i>
-                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"suppliers" | translate}}
                                 </span>
                             </a>
                         </li>
 
-                        <li *ngIf="roles && roles.includes('buyer_expert')" class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/buyer/suppliers">
+                        <li *ngIf="roles && roles.includes('buyer_expert')" class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/buyer/suppliers/requests/list">
                             <a class="nav-link">
                                 <i class="link-icon" appFeatherIcon></i>
-                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"requests" | translate}}
                                 </span>
                             </a>
@@ -84,7 +87,8 @@
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             star
                         </mat-icon>
-                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"rate" | translate}}</span>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"rate" | translate}}</span>
                     </a>
                 </li>
             </ng-container>
@@ -96,7 +100,8 @@
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             watch
                         </mat-icon>
-                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"history" | translate}}</span>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"history" | translate}}</span>
                     </a>
             
                 </li>
@@ -106,7 +111,8 @@
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>supervisor_account
                         </mat-icon>
-                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"users" | translate}}</span>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"users" | translate}}</span>
                         <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
                     </a>
 
@@ -115,7 +121,8 @@
                         <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/buyer/add">
                             <a class="nav-link">
                                 <i class="link-icon" appFeatherIcon></i>
-                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"addBuyer" | translate}}
                                 </span>
                             </a>
@@ -129,7 +136,8 @@
                     <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                         send
                     </mat-icon>
-                    <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }">{{"rooms" | translate}}</span>
+                    <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                    && { 'margin-right': '30px','margin-left':'0px' } ">{{"rooms" | translate}}</span>
                 </a>
             </li>
         </ul>

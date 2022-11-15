@@ -209,10 +209,10 @@
                                         </thead>
                                         <tbody>
                                             <tr class="my-10" *ngFor=" let item of supplierRequest.settlements;let  index = index ">
-                                                <td>{{item.settlementType}}</td>
+                                                <td>{{item.settlementType | translate}}</td>
                                                 <td>{{item.email}}</td>
                                                 <td>{{item.city | translate}}</td>
-                                                <td>{{item.country}}</td>
+                                                <td>{{item.country | translate}}</td>
                                                 <td class="d-flex justify-content-center" id="actionsContainer">
                                                     <span (click)="deleteEForm8( confirmRemove, index )"><i data-feather="x" appFeatherIcon></i></span>
                                                 </td>

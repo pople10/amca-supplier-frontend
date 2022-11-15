@@ -35,14 +35,14 @@
                                        </thead>
                                        <tbody>
                                           <tr class="my-10" *ngFor="let ele of getArray(item.value)">
-                                             <td *ngFor="let sele of ele |keyvalue">{{sele.value}}</td>
+                                             <td *ngFor="let sele of ele |keyvalue">{{""+sele.value | translate }}</td>
                                           </tr>
                                        </tbody>
                                     </table>
                                     <table *ngIf="whatIsIt(item.value[0])=='Other'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
                                         <tbody>
                                            <tr class="my-10" *ngFor="let ele of getArray(item.value)">
-                                              <td>{{ele}}</td>
+                                              <td>{{""+ele | translate }}</td>
                                            </tr>
                                         </tbody>
                                      </table>
