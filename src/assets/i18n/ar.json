@@ -417,7 +417,9 @@
      "supplierStatus":"حالة المورد",
      "tradeName":"اسم تجاري",
      "xaxisMap":"خط العرض ",
+     "xAxisMap":"خط العرض ",
      "yaxisMap":"خط الطول", 
+     "yAxisMap":"خط الطول",
      "QUALIFIED":"مؤهل",
      "PENDING":"في الإنتظار",
      "REJECTED":"مرفوض",
@@ -1023,7 +1025,10 @@
 "AGENCY":"Bureau de Représentation / Agence Commerciale",
 "FACTORY":"Usine / Centre de Production",
 "LOGISTIC_CENTER":"Centre Logistique / Stock régional",
-"MAINTENANCE_RISEDENT":"Centre SAV / Maintenance / Personnel Entretien Résident"
+"MAINTENANCE_RISEDENT":"Centre SAV / Maintenance / Personnel Entretien Résident",
+"productsSold":"المنتجات التي تسوقها الشركة",
+"haveOtherLocation":"هل لها مواقع أخرى في مدن / دول أخرى؟",
+"haveMoroccanProducts":"هل تقوم الشركة بتصنيع / توريد منتجات صُنعت كلياً أو جزئياً بالمغرب؟"
  
 
 

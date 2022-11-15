@@ -562,6 +562,8 @@
     "tradeName":"Nom commercial",
     "xaxisMap":"Latitude (Google maps)",
     "yaxisMap":"Longitude (Google maps)",
+    "yAxisMap":"Longitude (Google maps)",
+    "xAxisMap":"Latitude (Google maps)",
     "QUALIFIED":"Qualifié",
     "PENDING":"En attendant", 
     "REJECTED":"Rejeté",
@@ -1167,6 +1169,9 @@
 "AGENCY":"Bureau de Représentation / Agence Commerciale",
 "FACTORY":"Usine / Centre de Production",
 "LOGISTIC_CENTER":"Centre Logistique / Stock régional",
-"MAINTENANCE_RISEDENT":"Centre SAV / Maintenance / Personnel Entretien Résident"
+"MAINTENANCE_RISEDENT":"Centre SAV / Maintenance / Personnel Entretien Résident",
+"productsSold":"Produits commercialisés par la Société",
+"haveOtherLocation":"Dispose-t-elle d'autres implantations sur d'autres Villes/Pays?",
+"haveMoroccanProducts":"Société Fabrique/Fournie t-elle des produits fabriqués Totalement ou Partiellement au Maroc?"
 
 }
