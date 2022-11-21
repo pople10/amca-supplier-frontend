@@ -1,7 +1,7 @@
 
 <div [ngClass]="'currentTheme' | translate">
 <app-public-navbar></app-public-navbar>
-<div class="bannerContainer">
+<div class="bannerContainer mt-4">
   <img src="/assets/images/banner.png" width="100%" class="banner"/>
   <div class="img-text-centered welcomeText" [ngStyle]=" languageService.userLanguage == 'ar' &&{'direction': 'rtl'}">
     <div>{{"welcomeToPortail" |translate}}</div>
