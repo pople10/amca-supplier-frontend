@@ -4,8 +4,7 @@
 }
 #topContainer {
 	display: flex;
-	justify-content: space-around;
-	align-items: center;
+	justify-content: space-between;
 	input {
 		border-color: white !important;
 	}
@@ -24,7 +23,6 @@
 	width: 20%;
 	display: flex;
 	justify-content: flex-end;
-	align-items: center;
 	div {
 		margin: 0 4px;
 	}
@@ -206,25 +204,6 @@ form {
       font-size:1.5em;
     }
 	}
-
-	#b1 {
-		width: 40%;
-		order: 2;
-		font-size: 0.6em;
-		display: flex;
-		justify-content: flex-end;
-	}
-	#b2 {
-		order: 1;
-		width: 20%;
-		margin-right: 10px;
-	}
-	#b3 {
-		order: 3;
-		span {
-			font-size: 0.7em;
-		}
-	}
 	.loginIcon {
 		display: none;
 	}
@@ -264,4 +243,37 @@ form {
       font-size:1em;
     }
 	}
+}
+
+
+.flag-img
+{
+	max-width: 70px;
+}
+
+@media(max-width:790px) {
+	.flag-img
+	{
+		max-width: 50px;
+	}
+	.logoImg
+	{
+		scale:2.5;
+	}
+}
+
+.dropPanel
+{
+	transform:translate(-80px, 40px)!important;
+}
+
+
+.logoImg
+{
+	scale:1.7;
+}
+
+.mw-50px
+{
+	max-width: 50px;
 }

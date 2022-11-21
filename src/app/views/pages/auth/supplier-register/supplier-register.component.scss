@@ -1,8 +1,13 @@
 :host {
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url(/assets/images/bgs/bg1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #64b8d8bf;
 }
 
 .auth-left-wrapper {
@@ -44,4 +49,19 @@
     top: 10%;
     left:10%;
     background-color: white;
+}
+
+
+:host ::ng-deep ul.steps-indicator
+{
+    justify-content: space-between!important;
+}
+
+:host ::ng-deep .horizontal ul.steps-indicator li {
+    margin: 6px!important;
+}
+
+.primaryBtn
+{
+    background-color: #39ABF3!important;
 }

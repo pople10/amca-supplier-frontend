@@ -366,13 +366,19 @@ export class SupplierRegisterComponent implements OnInit {
       this.handleService.handleError(err);
     })
     this.initFormValidator();
+    this.setMobile();
     window.addEventListener("resize", ()=>{
-      if(document.documentElement.clientWidth <= 720){
-        this.isMobile = true;
-      }else{
-        this.isMobile = false;
-      }
+      this.setMobile();
     });
+  }
+
+  setMobile()
+  {
+    if(document.documentElement.clientWidth <= 950){
+      this.isMobile = true;
+    }else{
+      this.isMobile = false;
+    }
   }
 
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;

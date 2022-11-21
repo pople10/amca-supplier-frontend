@@ -4,7 +4,7 @@
             <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
                 <aw-wizard [navigateBackward]="(isDisabled?'deny':'allow')" #wizardForm [navBarDirection]="this.languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
                     <!------------ Page 1 : General Information        ------------>
-                    <aw-wizard-step [stepTitle]="('generalInfo' | translate )" (stepEnter)="onInitPage1()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('generalInfo' | translate ):''" (stepEnter)="onInitPage1()"><br/>
                         <div *ngIf="this.page==1" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep1;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -15,7 +15,7 @@
                         </div>
                     </aw-wizard-step>
                     <!------------ Page 2 : Documents                  ------------>
-                    <aw-wizard-step [stepTitle]="('companyInfo' | translate )" (stepEnter)="page=2;onInitPage2()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('companyInfo' | translate ):''" (stepEnter)="page=2;onInitPage2()"><br/>
                         <div class="row" *ngIf="this.page==2">
                             <ng-container *ngFor="let d of this.inputsStep2;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -26,7 +26,7 @@
                         </div>
                     </aw-wizard-step>
                     <!------------ Page 3 : General Information Member ------------>
-                    <aw-wizard-step [stepTitle]="('address' | translate )" (stepEnter)="onInitPage3()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('address' | translate ):''" (stepEnter)="onInitPage3()"><br/>
                         <div *ngIf="this.page==3" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep3;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -35,7 +35,7 @@
                             </ng-container>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('contact' | translate )" (stepEnter)="onInitPage4()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('contact' | translate ):''" (stepEnter)="onInitPage4()"><br/>
                         <div *ngIf="this.page==4" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep4;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -44,7 +44,7 @@
                             </ng-container>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('financialInfo' | translate )" (stepEnter)="onInitPage5()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('financialInfo' | translate ):''" (stepEnter)="onInitPage5()"><br/>
                         <div *ngIf="this.page==5" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep5;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -53,7 +53,7 @@
                             </ng-container>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('products' | translate )" (stepEnter)="onInitPage6()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('products' | translate ):''" (stepEnter)="onInitPage6()"><br/>
                         <div *ngIf="this.page==6" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep6;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('authorizedContacts' | translate )" (stepEnter)="onInitPage7()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('authorizedContacts' | translate ):''" (stepEnter)="onInitPage7()"><br/>
                         <div *ngIf="this.page==7" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep7;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('settlements' | translate )" (stepEnter)="onInitPage8()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('settlements' | translate ):''" (stepEnter)="onInitPage8()"><br/>
                         <div *ngIf="this.page==8" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <div [ngClass]="{
                                 'd-flex': true,
@@ -223,7 +223,7 @@
                             </div>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('moroccanProduct' | translate )" (stepEnter)="onInitPage9()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('moroccanProduct' | translate ):''" (stepEnter)="onInitPage9()"><br/>
                         <div *ngIf="this.page==9" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <div [ngClass]="{
                                 'd-flex': true,
@@ -311,7 +311,7 @@
                             </div>
                         </div>
                     </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="('formCompleters' | translate )" (stepEnter)="onInitPage10()"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('formCompleters' | translate ):''" (stepEnter)="onInitPage10()"><br/>
                         <div *ngIf="this.page==10" class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">
                             <ng-container *ngFor="let d of this.inputsStep10;let i=index" [ngSwitch]="d.type">
                                 <ng-container *ngSwitchCase="'simpleInput'" [ngTemplateOutlet]="simpleInput" [ngTemplateOutletContext]="{d:d.data}"></ng-container>
@@ -356,7 +356,7 @@
                         </div>
                     </aw-wizard-step>
                     <!--********************************************** END *********************************-->
-                    <aw-wizard-step [stepTitle]="('ValidateRequest' | translate )" (stepEnter)="page=lastPage"><br/>
+                    <aw-wizard-step [stepTitle]="!isMobile? ('ValidateRequest' | translate ):''" (stepEnter)="page=lastPage"><br/>
                         <div *ngIf="page==lastPage" style=" text-align: center; ">
                             <h5 style=" margin: 25px 0; " class="modal-title">{{"ValidateRequest" | translate}}</h5>
                             <p>{{"validationDemande"|translate}}</p><br/>
@@ -366,7 +366,7 @@
                 <!-- Next Back Button -->
                 <div class="row" [ngStyle]="languageService.userLanguage == 'fr' && {direction: 'rtl' }">
                     <div class="m-2" *ngIf="page<lastPage;else btnDone">
-                        <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto" [ngClass]="{'disabled': isDisabled }">
+                        <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto primaryBtn" [ngClass]="{'disabled': isDisabled }">
                             <span [ngStyle]="isDisabled&&{'display':'none'}"   [ngClass]="{ 'rigthrow': languageService.userLanguage == 'ar'}" ><i data-feather="arrow-right" appFeatherIcon></i></span>
                             <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             <span>{{ "Next" | translate }}</span>

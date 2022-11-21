@@ -1,8 +1,13 @@
 :host {
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url(/assets/images/bgs/bg3.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #76528dd1;
 }
 
 :host {
@@ -43,4 +48,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media(max-width:779px) {
+    .auth-left-wrapper img
+    {
+        display: none;
+    }
+    
 }
