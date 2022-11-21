@@ -28,10 +28,11 @@
                             <th *ngFor="let field of this.fieldsStatic">
                                 {{field|translate}}
                             </th>
+                            <th>{{"socialReason"|translate}}</th>
                             <th *ngFor="let field of this.fieldsDates">
                                 {{field|translate}}
                             </th>
-                            <th>ACTIONS</th>
+                            <th>{{"actions" | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,7 @@
                             <td *ngFor="let field of this.fieldsStatic">
                                 {{piece[field].toString() | translate}}
                             </td>
+                            <td>{{piece.supplier.socialReason|translate}}</td>
                             <td *ngFor="let field of this.fieldsDates">
                                 {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
                             </td>

@@ -1174,6 +1174,10 @@
 "haveOtherLocation":"Dispose-t-elle d'autres implantations sur d'autres Villes/Pays?",
 "haveMoroccanProducts":"Société Fabrique/Fournie t-elle des produits fabriqués Totalement ou Partiellement au Maroc?",
 "history":"Historique",
-"welcomeToPortail":"Bienvenue dans le portail de l'AMCA"
+"welcomeToPortail":"Bienvenue dans le portail de l'AMCA",
+"modifyDate":"Date de modification",
+"product":"Produit",
+"approved":"Approuvé(e)",
+"actions": "Actions"
 
 }

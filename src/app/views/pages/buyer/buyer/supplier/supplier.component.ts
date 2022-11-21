@@ -76,7 +76,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
     this.commentService.getMyComment(this.id).subscribe(res=>{
       this.currentComment=res;
     });
-    this.comment.rate=3;
+    this.comment.rate=0;
     this.comment.supplier_id=this.id;
     
     if(this.router.getCurrentNavigation()?.extras?.state?.scroll)

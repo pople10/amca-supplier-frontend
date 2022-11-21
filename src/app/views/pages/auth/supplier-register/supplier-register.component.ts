@@ -155,7 +155,7 @@ export class SupplierRegisterComponent implements OnInit {
     "email":[Validators.required,Validators.email],
     "functionality":[Validators.required],
     "phone":[Validators.required],
-    "fax":[Validators.required]
+    "fax":[]
   };
   DataPage8 = {
     "haveOtherLocation":[Validators.required],
@@ -240,7 +240,7 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"simpleInput",data:{formControlName:"turnoverN1",label:"turnoverN1",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN1,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN1')},required:false}},
       {type:"simpleInput",data:{formControlName:"turnoverN2",label:"turnoverN2",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN2,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN2')},required:false}},
       {type:"simpleInput",data:{formControlName:"turnoverN3",label:"turnoverN3",placeHolder:"",type:"number",ngModel:this.supplierRequest.turnoverN3,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','turnoverN3')},required:false}},
-      {type:"selectInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:'supplierRequest.isoCertification',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:true,options:'isocertificates',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
+      {type:"selectInput",data:{formControlName:"isoCertification",label:"isoCertification",placeHolder:"",type:"text",ngModel:'supplierRequest.isoCertification',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','isoCertification')},required:false,options:'isocertificates',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"otherIsoCertification",label:"otherIsoCertification",placeHolder:"",type:"text",ngModel:this.supplierRequest.otherIsoCertification,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','otherIsoCertification')},required:false}},
       {type:"selectInput",data:{formControlName:"salesFamily",label:"salesFamily",placeHolder:"",type:"text",ngModel:'supplierRequest.salesFamily',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','salesFamily')},required:true,options:'salesFamily',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:true,free:false}},
     ];
@@ -256,7 +256,7 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"email",ngModel:this.authorize.email,onChange:(v)=>{this.onChangevalue(v,'authorize','email')},required:true}},
       {type:"selectInput",data:{formControlName:"functionality",label:"functionality",placeHolder:"",type:"text",ngModel:'authorize.functionality',onChange:(v)=>{this.onChangevalue(v,'authorize','functionality')},required:true,options:'functionality',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"phoneNumber",data:{formControlName:"phone",label:"phone",placeHolder:"",type:"text",ngModel:this.authorize.phone,onChange:(v)=>{this.onChangevalue(v,'authorize','phone')},required:true}},
-      {type:"phoneNumber",data:{formControlName:"fax",label:"fax",placeHolder:"",type:"text",ngModel:this.authorize.fax,onChange:(v)=>{this.onChangevalue(v,'authorize','fax')},required:true}},
+      {type:"phoneNumber",data:{formControlName:"fax",label:"fax",placeHolder:"",type:"text",ngModel:this.authorize.fax,onChange:(v)=>{this.onChangevalue(v,'authorize','fax')},required:false}},
     ];
   }
   initForme8 = ()=>{

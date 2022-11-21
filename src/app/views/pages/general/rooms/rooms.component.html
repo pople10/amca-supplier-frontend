@@ -13,7 +13,7 @@
                             [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }" />
                 </div>
                 <div class="col-9 mx-auto">
-                    <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" class="control-label">
+                    <label data-toggle="tooltip" class="control-label">
                         {{"user" | translate}}
                         <span class="text-danger"> *</span>
                     </label>

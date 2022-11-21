@@ -72,3 +72,122 @@ span.rigthrow {
     display: inline-block;
     transform: rotate(180deg);
 }
+
+
+
+.navbar .navbar-content .navbar-nav .nav-item.nav-profile .dropdown-menu .dropdown-body .profile-nav .nav-item .nav-link {
+    gap: 8px;
+}
+
+
+html[lang="ar"]
+{
+    direction: rtl;
+    .darker {
+        margin-left: unset;
+        margin-right: auto;
+      }
+    .page-content div, .page-content p, .page-content li {
+        text-align: right!important;
+    }
+    .page-wrapper
+    {
+        margin-right: auto;
+        margin-left: unset
+    }
+    .navbar-content
+    {
+        padding-left: 1%!important;
+    }
+    .navbar .navbar-content .navbar-nav .nav-item.dropdown .dropdown-menu {
+        left: -20px!important;
+        right: auto!important;
+    }
+    .navbar .navbar-content .navbar-nav {
+        margin-left: unset!important;
+        margin-right: auto!important;
+    }
+    .dropPanel
+    {
+        transform: translate(80px, 40px) !important;
+    }
+}
+
+
+html[lang="ar"] label.mat-checkbox-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+
+.centerizeText * {
+    text-align: center!important;
+}
+
+.smallText {
+    font-size: 90%;
+}
+
+.w-80px {
+    width: 80px;
+}
+
+.displayInlineBlock {
+    display: inline-block;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.rightSide {
+    text-align: right;
+}
+
+@media(max-width:700px) {
+    .bigSize {
+        font-size: 4vw;
+    }
+}
+
+@media(min-width:700px) {
+    .bigSize {
+        font-size: 2vw;
+    }
+}
+
+.textarea
+{
+    height: 100px!important;
+    resize: none;
+    border-radius: 5px;
+}
+
+.textarea::-webkit-scrollbar {
+    width: 4px!important;
+}
+
+.textarea::-webkit-scrollbar-track {
+    width: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+    width: 4px;
+}
+.overflow-scroll
+{
+    overflow: scroll;
+}
+.divider-top
+{
+    border-top: 0.7px solid rgb(101, 101, 101);
+}
+.custom-pre
+{
+    background: white;
+    border: 1px solid;
+    padding: 10px!important;
+}

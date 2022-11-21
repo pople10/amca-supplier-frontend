@@ -40,7 +40,7 @@
             <ng-container>
                 <li class="nav-item" routerLink="/dashboard">
                     <a class="nav-link" href="javascript:void(0);">
-                        <mat-icon class="link-icon" appFeatherIcon>home</mat-icon>
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>home</mat-icon>
                         <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                         && { 'margin-right': '30px','margin-left':'0px' } ">{{ "Home" | translate }}</span>
                     </a>
@@ -113,7 +113,7 @@
                         </mat-icon>
                         <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                         && { 'margin-right': '30px','margin-left':'0px' } ">{{"users" | translate}}</span>
-                        <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
+                        <span class="link-arrow white" data-feather="chevron-down" appFeatherIcon></span>
                     </a>
 
                     <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">

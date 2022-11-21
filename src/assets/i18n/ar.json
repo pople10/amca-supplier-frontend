@@ -1030,7 +1030,11 @@
 "haveOtherLocation":"هل لها مواقع أخرى في مدن / دول أخرى؟",
 "haveMoroccanProducts":"هل تقوم الشركة بتصنيع / توريد منتجات صُنعت كلياً أو جزئياً بالمغرب؟",
 "history":"سجل",
-"welcomeToPortail":"مرحبًا بكم في بوابة AMCA"
+"welcomeToPortail":"مرحبًا بكم في بوابة AMCA",
+"modifyDate":"تاريخ التعديل",
+"product":"منتج",
+"approved":"موافق عليه(ا)",
+"actions": "عمليات"
  
 
 
