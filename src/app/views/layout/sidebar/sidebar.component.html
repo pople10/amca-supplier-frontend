@@ -15,15 +15,19 @@
       adminSideBarHeader: isAdmin
     }">
         <!--- Logo -->
-        <a routerLink="/dashboard" id="sidebarText" [ngClass]="{
-        'sidebar-brand': true,
-        adminTextColor: isAdmin
-      }">
-            {{ "amca" | translate }}
-        </a>
+        <div id="sidebarText" style="z-index: 2;" [ngClass]="{
+            'sidebar-brand': true,
+            adminTextColor: isAdmin
+          }">
+                <img 
+                id="logo"
+                [src]="isAdmin?'/assets/images/logos/logo-white.png':'/assets/images/logos/logo.png'" 
+                width="90%"
+                class="mx-auto"/>
+        </div>
 
         <!--- Toggler -->
-        <div [ngClass]="{
+        <div style="margin-left:auto;" [ngClass]="{
         'sidebar-toggler': true,
         'active': true,
         adminToggler: isAdmin
@@ -34,6 +38,7 @@
         </div>
     </div>
     <div [perfectScrollbar] [ngClass]="{ 'sidebar-body': true, adminSideBar: isAdmin }">
+        
         <!--- Sidemenu start -->
 
         <ul class="sidebar-nav metismenu" id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>

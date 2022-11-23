@@ -21,9 +21,6 @@
 }
 
 
-.adminSideBarHeader{
-  border-bottom:0.5px solid gray;
-}
 
 .nav-link ::before{
   right: -15px;
@@ -34,4 +31,11 @@
 }
 .sidebar .sidebar-header .sidebar-brand {
   height: fit-content;
+}
+#logo
+{
+  top: 2%;
+  left: 1%;
+  z-index: 1;
+  padding-top: 20px;
 }
