@@ -24,7 +24,7 @@
     <div class="dividerWhite"></div>
     <p>{{ "supplierDescription" | translate }}</p>
   </mat-card>
-  <mat-card class="box newCard" routerLink="/auth/login">
+  <mat-card *ngIf="false" class="box newCard" routerLink="/auth/login">
     <div class="background-card" style="background-image: url('/assets/images/bgs/login_bg.png');"></div>
     <img src="assets/images/login.png" alt="" width="50%"/>
     <h3>{{ "Login" | translate }}</h3>

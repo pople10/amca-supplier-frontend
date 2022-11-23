@@ -1,1 +1,22 @@
-<h4>{{"WelcomeToDashboard" | translate}}</h4>
+<div class="bigContainer">
+    <ng-container *ngIf="roles.includes('buyer')||roles.includes('buyer_expert')">
+        <mat-card class="newCard box">
+            <div class="background-card" style="background-image: url('/assets/images/bgs/buyer_bg.png');"></div>
+            <h2 class="welcome-text">
+                {{ "welcomeBuyer" | translate }}
+                <div class="dividerWhite"></div>
+            </h2>
+          </mat-card>
+    </ng-container>
+</div>
+<div class="bigContainer">
+    <ng-container *ngIf="roles.includes('supplier')">
+        <mat-card class="newCard box">
+            <div class="background-card" style="background-image: url('/assets/images/bgs/supplier_bg.png');"></div>
+            <h2 class="welcome-text">
+                {{ "supplierBuyer" | translate }}
+                <div class="dividerWhite"></div>
+            </h2>
+          </mat-card>
+    </ng-container>
+</div>

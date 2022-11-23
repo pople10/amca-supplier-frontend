@@ -11,6 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {TranslateModule} from "@ngx-translate/core";
 import { HomeArtistComponent } from './home-artist/home-artist.component';
 import { HomePrizeComponent } from './home-prize/home-prize.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 const routes: Routes = [
@@ -28,27 +29,15 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'categorie',
-        component: HomeCategorieComponent
-      },
-      {
-        path: 'artist',
-        component: HomeArtistComponent
-      },
-      {
-        path: 'prize-award',
-        component: HomePrizeComponent
-      },
-      {
-        path: 'export-authorization',
-        component: HomeArtistComponent
+        path: 'contact',
+        component: ContactComponent
       },
     ]
   },
 ]
 
 @NgModule({
-  declarations: [PublicPagesComponent, HomeComponent, PublicNavbarComponent, HomeCategorieComponent, HomeArtistComponent, HomePrizeComponent],
+  declarations: [PublicPagesComponent, HomeComponent, PublicNavbarComponent, HomeCategorieComponent, HomeArtistComponent, HomePrizeComponent, ContactComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

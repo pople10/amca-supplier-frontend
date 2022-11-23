@@ -1,6 +1,6 @@
 <div id="mainContainer">
   <div id="topContainer">
-      <div id="b1">
+      <div id="b1" class="part1">
           <div class="d-flex">
             <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
               <img class="mw-50px" src="/assets/images/linkedin.png"/>
@@ -17,10 +17,16 @@
           </div>
       </div>
       
-      <div id="b2">
-        <img src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+      <div id="b2" class="part2">
+        <a routerLink="/">
+          <img  src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+        </a>
       </div>
-    <div id="b3">
+    <div id="b3" class="part1">
+      <div class="links d-flex">
+        <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
+        <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
+      </div>
       <div 
       placement="bottom-right" id="langMenuBottom" ngbDropdown class="info d-inline-block">
         <div

@@ -72,7 +72,6 @@
 
 .card-body
 {
-    height: 450px!important;
     overflow-y: scroll;
     background: #f2f2f2c9;
 }
@@ -86,6 +85,12 @@
     margin-bottom: 2px;
     color: purple;
 }
+
+.card
+{
+  height:calc(100vh - 150px);
+}
+
 .card-footer
 {
     padding: 0;

@@ -39,7 +39,7 @@
                             id="msg" placeholder="{{ 'sendMessage' | translate }}" 
                             [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }" 
             />
-            <button [disabled]="!msg" (click)="sendMsg()" class="btn btn-primary sendBtn">
+            <button [disabled]="!msg||msg.trim()==''" (click)="sendMsg()" class="btn btn-primary sendBtn">
                 <i data-feather="send" appFeatherIcon class="mr-2 icon-md"></i>
             </button>
         </div>

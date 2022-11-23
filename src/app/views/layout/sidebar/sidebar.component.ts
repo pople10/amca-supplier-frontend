@@ -43,7 +43,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
          */
         if (window.matchMedia('(max-width: 991px)').matches) {
           this.document.body.classList.remove('sidebar-open');
-          console.log(this.document.getElementById("sidebar"));
           this.document.getElementById("sidebar").classList.add("mobile-ar-sidebar");
         }else{
           this.document.getElementById("sidebar").classList.remove("mobile-ar-sidebar");
@@ -101,7 +100,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * Toggle sidebar on hamburger button click
    */
   toggleSidebar(e) {
-    console.log(this.sidebarToggler.nativeElement.classList)
     this.sidebarToggler.nativeElement.classList.toggle('not-active');
     this.sidebarToggler.nativeElement.classList.toggle('active');
     if (window.matchMedia('(min-width: 992px)').matches) {
@@ -150,6 +148,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
    */
   iconSidebar(e) {
+    if(!this.document?.body)
+      return;
     if (e.matches && this.document.body.classList.contains("sidebar-folded")) {
       this.document.body.classList.add('sidebar-folded');
     } else {

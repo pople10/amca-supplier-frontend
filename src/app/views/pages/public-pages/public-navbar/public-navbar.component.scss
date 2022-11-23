@@ -4,7 +4,7 @@
 }
 #topContainer {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	input {
 		border-color: white !important;
 	}
@@ -18,6 +18,14 @@
 }
 #b1 {
 	width: 20%;
+}
+.part1
+{
+	flex:3;
+}
+.part2
+{
+	flex:1;
 }
 #b3 {
 	width: 20%;
@@ -260,6 +268,15 @@ form {
 	{
 		scale:2.5;
 	}
+	.part1
+	{
+		flex:2;
+	}
+	.links
+	{
+		flex-direction: column;
+    	width: 50%;
+	}
 }
 
 .dropPanel
@@ -270,10 +287,15 @@ form {
 
 .logoImg
 {
-	scale:1.7;
+	scale:2;
 }
 
 .mw-50px
 {
 	max-width: 50px;
+}
+
+.links
+{
+	margin-top: 10px!important;
 }

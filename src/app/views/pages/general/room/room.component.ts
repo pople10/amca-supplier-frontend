@@ -95,7 +95,7 @@ export class RoomComponent implements OnInit,OnDestroy {
 
   sendMsg()
   {
-    if(!this.msg||this.msg=="")
+    if(!this.msg||this.msg.trim()=="")
     {
       return;
     }

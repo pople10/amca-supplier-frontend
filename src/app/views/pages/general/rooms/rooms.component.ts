@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { RoomRequest } from 'src/app/entities/RoomRequest';
 import { UserChatResponse } from 'src/app/entities/UserChatResponse';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
@@ -37,11 +38,13 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   searchedUsers:UserChatResponse[]=[];
   dataSent:boolean=false;
   searching:boolean=false;
-  label
+  label:string;
+  isSupplier;
 
   constructor(
     private modalService:NgbModal,
     private chatService:ChatService,
+    private authService:AuthService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,
     private translate:TranslateService,
@@ -49,7 +52,7 @@ export class RoomsComponent implements OnInit,AfterViewInit {
     private snackBar:MatSnackBar
     ) 
     {
-
+      this.isSupplier=this.authService.getUserDataLocalStorage().roles.includes("supplier");
     }
   
   getUsers(val)
