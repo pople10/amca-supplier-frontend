@@ -122,13 +122,32 @@
                     </a>
 
                     <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
-                        
-                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/buyer/add">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/admins">
                             <a class="nav-link">
                                 <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
-                                    {{"addBuyer" | translate}}
+                                    {{"admins" | translate}}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/buyers">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"buyers" | translate}}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/suppliers">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"suppliers" | translate}}
                                 </span>
                             </a>
                         </li>

@@ -2,25 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language/language.service';
-import { RegisterModel } from 'src/app/entities/auth/register-model';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/services/shared/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BuyerRequest } from 'src/app/entities/BuyerRequest';
+import { UserRequest } from 'src/app/entities/UserRequest';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserDataComponent } from '../show-user-data/show-user-data.component';
 
 @Component({
-  selector: 'app-add-buyer',
-  templateUrl: './add-buyer.component.html',
-  styleUrls: ['./add-buyer.component.scss']
+  selector: 'app-admins',
+  templateUrl: './admins.component.html',
+  styleUrls: ['./admins.component.scss']
 })
-export class AddBuyerComponent implements OnInit {
-  data:BuyerRequest = new BuyerRequest();
+export class AdminsComponent implements OnInit {
+
+  data:UserRequest = new UserRequest();
   passwordMessages:string[]=[];
   display:string="CIN";
   loading:boolean=false;
@@ -29,7 +29,7 @@ export class AddBuyerComponent implements OnInit {
   fields:string[]=["firstName","lastName","email"]
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
-  fieldsStatic:string[]=["expert","status"];
+  fieldsStatic:string[]=["status"];
   fieldsDates:string[]=["createDate","modifyDate"];
   sizes:number[]=[5,10,20,50,100];
   isLoad:boolean=true;
@@ -91,7 +91,7 @@ export class AddBuyerComponent implements OnInit {
 
   clear()
   {
-    this.data=new BuyerRequest();
+    this.data=new UserRequest();
     this.isSubmitted=false;
   }
 
@@ -122,11 +122,11 @@ export class AddBuyerComponent implements OnInit {
     this.dataSent=true;
     if(this.registerForm.valid)
     {
-      let whatToSend:Observable<any> = this.userService.createUserBuyer(this.data);
+      let whatToSend:Observable<any> = this.userService.createUserAdmin(this.data);
       if(this.id)
       {
         this.data.id=this.id;
-        whatToSend=this.userService.updateBuyerById(this.data,this.id);
+        whatToSend=this.userService.updateAdminById(this.data,this.id);
       }
       whatToSend.subscribe(response=>{
           this.clear();
@@ -166,7 +166,7 @@ export class AddBuyerComponent implements OnInit {
   private getData(page:number)
   {
     this.isLoad=true;
-    this.userService.getBuyersWithPageAndSize(page,this.currentSize).subscribe(response=>{
+    this.userService.getAdminsWithPageAndSize(page,this.currentSize).subscribe(response=>{
         this.datos=response;
     },err=>{
         this.handleRequestService.handleErrorWithCallBack(err,()=>{
@@ -178,10 +178,10 @@ export class AddBuyerComponent implements OnInit {
     });
   }
 
-  modifyBuyer()
+  modifyAdmin()
   {
     this.dataSent=true;
-    this.userService.updateBuyerById(this.data,this.id).subscribe(
+    this.userService.updateAdminById(this.data,this.id).subscribe(
       res=>{
           if(this.datos.pageDetails.numberOfElements<=1&&this.currentPage!=0)
             this.currentPage=this.currentPage-1;
@@ -206,7 +206,7 @@ export class AddBuyerComponent implements OnInit {
   {
     this.doingAction=true;
     this.doingActionTo=index;
-    this.userService.getBuyerById(refToUpdate).subscribe((res)=>{
+    this.userService.getUser(refToUpdate).subscribe((res)=>{
       this.data=res;
       this.id=refToUpdate;
       document.getElementById("formulaire").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
@@ -287,12 +287,12 @@ export class AddBuyerComponent implements OnInit {
   {
     this.doingAction=true;
     this.doingActionTo=index;
-    this.userService.getBuyerById(id).subscribe(response=>{
+    this.userService.getUser(id).subscribe(response=>{
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
         data: {user: response,
         fields:["id","firstName","lastName","cin","email"],
-        fieldsStatic:["expert","status"],
+        fieldsStatic:["status"],
         fieldsDates:["createDate","modifyDate"],
         fieldsArrays:[],
         fieldsJson:[]
@@ -302,5 +302,4 @@ export class AddBuyerComponent implements OnInit {
     .add(()=>{this.doingAction=false;this.doingActionTo=null;})
   }
 
-  
 }

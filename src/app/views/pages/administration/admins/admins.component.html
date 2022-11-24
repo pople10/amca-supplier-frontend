@@ -1,7 +1,7 @@
 <p class="h5 mb-4" [ngStyle]="
     this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
   ">
-   {{ "buyers" | translate }} 
+   {{ "admins" | translate }} 
 </p>
 
 <div id="formulaire">
@@ -153,19 +153,6 @@
 
                             </div>
 
-
-                            <div [ngStyle]="
-                  this.languageService.userLanguage == 'ar' && {
-                    'text-align': 'right'
-                  }
-                ">
-                <mat-checkbox name="expert" ngDefaultControl id="expert" [(ngModel)]="data.expert" [ngModelOptions]="{standalone: true}">
-                      <label for="expert">{{"isExpert" | translate}}</label>
-        </mat-checkbox>
-                                
-
-                            </div>
-
                             <div class="mt-3 d-flex" [ngStyle]="
                   this.languageService.userLanguage == 'ar' && {
                     'text-align': 'right'
@@ -239,7 +226,7 @@
                         </td>
                           <td>
                             <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-light" style=" color: #000!important; width: 38px; padding: 10px 0px; margin:0 2px">
-                              <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
+                                <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
                             </button>
                             <button [disabled]="doingAction"  *ngIf="piece.status!='CREATED'" (click)="unlockItem(confirmUnlock,piece[refName],i)" type="button" class="btn btn-success" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="unlock" appFeatherIcon></i></span>

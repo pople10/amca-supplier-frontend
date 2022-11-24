@@ -619,6 +619,7 @@
     "moroccanProduct":"Fabrication au Maroc",
     "formCompleters":"Personne Renseignant Le Formulaire",
     "null":"Non spécifié",
+    "undefined":"Non spécifié",
     "noComments":"Aucun avis pour ce fournisseur",
     "noUserFound":"Aucun utilisateur trouvé",
     "searching":"Recherchant...",
@@ -1185,6 +1186,21 @@
     "supplierBuyer":"Bienvenue sur votre Portail Fournisseur",
     "introduction":"L’AMCA est une association professionnelle à but non lucratif crée en 2012 qui à pour objectif de rassembler les acheteurs afin de promouvoir et professionnaliser la fonction achat.\nAvec environ 500 membres de professionnels dans le domaine de l'achat, nous œuvrons afin d'optimiser le secteurs des achats au Maroc tout en rassemblant et favorisant l'échange d'expériences entre les Acheteurs et Fournisseurs.",
     "locationContact":"23, bd Mohamed Abdou, Casablanca, Maroc, 20340",
-    "emailContact":"Email : {{email}}"
+    "emailContact":"Email : {{email}}",
+    "confirmLock":"Voulez vous vraiment désactiver cet utilisateur ?",
+    "lock":"Désactiver",
+    "unlock":"Réactiver",
+    "confirmUnlock":"Voulez vous vraiment réactiver cet utilisateur ?",
+    "lock_done":"Utilisateur est désactivé maintenant",
+    "unlock_done":"Utilisateur est activé maintenant",
+    "CREATED":"Active",
+    "HOLD":"Désactivé",
+    "DELETED":"Supprimé",
+    "admins":"Administrateurs",
+    "status":"Status",
+    "expert":"Expert",
+    "addNew":"Ajouter un élement",
+    "clearAll":"Effacer tous",
+    "noElementFound":"Aucun élement trouvé"
 
 }

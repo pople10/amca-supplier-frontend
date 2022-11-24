@@ -1,5 +1,7 @@
 export class UserRequest
 {
+    public id:number;
+    
     public email:string;
 
     public password:string;

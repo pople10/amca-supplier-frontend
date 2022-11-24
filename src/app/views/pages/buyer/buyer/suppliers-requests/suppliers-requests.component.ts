@@ -54,7 +54,6 @@ export class SuppliersRequestsComponent implements OnInit {
       this.isLoad=true;
       this.buyerService.getApproveRequestsWithPageAndSize(page,this.currentSize).subscribe(response=>{
           this.data=response;
-          console.log(this.data.content,this.data,this.data.pageDetails);
       },err=>{
           this.handleRequestService.handleErrorWithCallBack(err,()=>{
             this.router.navigate(["/error"]);

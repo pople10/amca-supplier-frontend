@@ -2,25 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language/language.service';
-import { RegisterModel } from 'src/app/entities/auth/register-model';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/services/shared/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BuyerRequest } from 'src/app/entities/BuyerRequest';
+import { SupplierRequest } from 'src/app/entities/SupplierRequest';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserDataComponent } from '../show-user-data/show-user-data.component';
-
 @Component({
-  selector: 'app-add-buyer',
-  templateUrl: './add-buyer.component.html',
-  styleUrls: ['./add-buyer.component.scss']
+  selector: 'app-suppliers',
+  templateUrl: './suppliers.component.html',
+  styleUrls: ['./suppliers.component.scss']
 })
-export class AddBuyerComponent implements OnInit {
-  data:BuyerRequest = new BuyerRequest();
+export class SuppliersComponent implements OnInit {
+
+  data:SupplierRequest = new SupplierRequest();
   passwordMessages:string[]=[];
   display:string="CIN";
   loading:boolean=false;
@@ -29,7 +28,7 @@ export class AddBuyerComponent implements OnInit {
   fields:string[]=["firstName","lastName","email"]
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
-  fieldsStatic:string[]=["expert","status"];
+  fieldsStatic:string[]=["status"];
   fieldsDates:string[]=["createDate","modifyDate"];
   sizes:number[]=[5,10,20,50,100];
   isLoad:boolean=true;
@@ -91,7 +90,7 @@ export class AddBuyerComponent implements OnInit {
 
   clear()
   {
-    this.data=new BuyerRequest();
+    this.data=new SupplierRequest();
     this.isSubmitted=false;
   }
 
@@ -118,40 +117,7 @@ export class AddBuyerComponent implements OnInit {
 
   onRegister(e) {
     e.preventDefault();
-    this.isSubmitted=true;
-    this.dataSent=true;
-    if(this.registerForm.valid)
-    {
-      let whatToSend:Observable<any> = this.userService.createUserBuyer(this.data);
-      if(this.id)
-      {
-        this.data.id=this.id;
-        whatToSend=this.userService.updateBuyerById(this.data,this.id);
-      }
-      whatToSend.subscribe(response=>{
-          this.clear();
-          this.isSubmitted=false;
-          this.id=null;
-          this.getData(this.currentPage);
-          Swal.fire(
-            {
-              position: 'center',
-              title: this.translateService.instant("success"),
-              text: this.translateService.instant("done"),
-              showConfirmButton: false,
-              icon: 'success'
-            }
-          );
-        },err=>{
-          this.handleRequestService.handleError(err);
-        }).add(()=>{
-          this.dataSent=false;
-        });
-    }
-    else
-    {
-      this.dataSent=false;
-    }
+    
   }
 
   get form() {
@@ -166,7 +132,7 @@ export class AddBuyerComponent implements OnInit {
   private getData(page:number)
   {
     this.isLoad=true;
-    this.userService.getBuyersWithPageAndSize(page,this.currentSize).subscribe(response=>{
+    this.userService.getSuppliersWithPageAndSize(page,this.currentSize).subscribe(response=>{
         this.datos=response;
     },err=>{
         this.handleRequestService.handleErrorWithCallBack(err,()=>{
@@ -178,10 +144,10 @@ export class AddBuyerComponent implements OnInit {
     });
   }
 
-  modifyBuyer()
+  modifyAdmin()
   {
     this.dataSent=true;
-    this.userService.updateBuyerById(this.data,this.id).subscribe(
+    this.userService.updateAdminById(this.data,this.id).subscribe(
       res=>{
           if(this.datos.pageDetails.numberOfElements<=1&&this.currentPage!=0)
             this.currentPage=this.currentPage-1;
@@ -204,14 +170,8 @@ export class AddBuyerComponent implements OnInit {
 
   updateItem(refToUpdate,index)
   {
-    this.doingAction=true;
-    this.doingActionTo=index;
-    this.userService.getBuyerById(refToUpdate).subscribe((res)=>{
-      this.data=res;
-      this.id=refToUpdate;
-      document.getElementById("formulaire").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-    },err=>{this.handleRequestService.handleError(err);})
-    .add(()=>{this.doingAction=false;this.doingActionTo=null;});
+    this.id=refToUpdate;
+    document.getElementById("formulaire").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   deleteItem(componant,refToDelete,index){
@@ -287,14 +247,18 @@ export class AddBuyerComponent implements OnInit {
   {
     this.doingAction=true;
     this.doingActionTo=index;
-    this.userService.getBuyerById(id).subscribe(response=>{
+    this.userService.getSupplierById(id).subscribe(response=>{
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
         data: {user: response,
-        fields:["id","firstName","lastName","cin","email"],
-        fieldsStatic:["expert","status"],
+        fields:["id","firstName","lastName","cin","email","socialReason","tradeName","lawForm","nrc",
+        "commercialCourt","creationYear","ice","capitalMAD","officeAddress","officeZipCode","officeCountry",
+        "officeCity","xAxisMap","yAxisMap","managerFullName","managerFunction","professionalFax",
+        "professionalPhone","professionalEmail","website","totalEffective","turnoverN1","turnoverN2","turnoverN3","isoCertification",
+        "otherIsoCertification",""],
+        fieldsStatic:["supplierStatus","haveOtherLocation","haveMoroccanProducts"],
         fieldsDates:["createDate","modifyDate"],
-        fieldsArrays:[],
+        fieldsArrays:["activitySector","salesFamily","productsSold","authorizedContacts","formCompleters","settlements","moroccanProduct"],
         fieldsJson:[]
       },
       });
@@ -302,5 +266,4 @@ export class AddBuyerComponent implements OnInit {
     .add(()=>{this.doingAction=false;this.doingActionTo=null;})
   }
 
-  
 }

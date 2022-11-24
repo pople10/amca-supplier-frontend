@@ -49,6 +49,8 @@ export class ResetComponent implements OnInit {
   onChangePassword(event){
     let data = this.password;
     this.passwordMessages=[];
+    if(!data)
+      return;
     if(data.toLowerCase()==data)
       this.passwordMessages.push("upperCaseRequired");
     if(data.toUpperCase()==data)

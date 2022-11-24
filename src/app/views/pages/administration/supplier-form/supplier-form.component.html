@@ -1,5 +1,5 @@
-<div class="row w-100 mx-0 auth-page">
-    <div class="col-md-12 col-xl-11 mx-auto">
+<div id="cccc" class="row w-100">
+    <div class="col-md-12 col-xl-12 mx-auto">
         <div class="card p-4">
             <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
                 <aw-wizard [navigateBackward]="(isDisabled?'deny':'allow')" #wizardForm [navBarDirection]="this.languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
@@ -379,7 +379,7 @@
                         </button>
                     </div>
                     <div class="m-2">
-                        <button [disabled]="isDisabled" routerLink="/" style="min-height: 40px;" class="btn btn-warning mx-auto" [ngClass]="{'disabled': isDisabled }">
+                        <button *ngIf="supplierRequest.id" [disabled]="isDisabled" (click)="cancelShit()" type="button" style="min-height: 40px;" class="btn btn-warning mx-auto" [ngClass]="{'disabled': isDisabled }">
                             <span>{{ "cancel" | translate }}</span>
                         </button>
                     </div>
@@ -414,7 +414,7 @@
                     <div class="col-sm-6 form-group" [id]="d.formControlName">
                         <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="d.required" class="text-danger"> *</span></label>
                         <ng-select notFoundText="{{ 'noElementFound'|translate }}" addTagText="{{ 'addNew'|translate }}" clearAllText="{{ 'clearAll'|translate }}"
-                        [addTag]="d.free ? addCustomValue:null" [ngModel]="getModelValue(d.ngModel)" (ngModelChange)="d.onChange($event)" [multiple]="d.multiple" [formControlName]="d.formControlName" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                         [addTag]="d.free ? addCustomValue:null" [ngModel]="getModelValue(d.ngModel)" (ngModelChange)="d.onChange($event)" [multiple]="d.multiple" [formControlName]="d.formControlName" [ngClass]="{ 'is-invalid': isFormSubmitted && form[d.formControlName].errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
                             [searchable]="true" placeholder="{{ d.placeHolder| translate }}">
                             <ng-option *ngFor="let op of (getOption(d.options))" [value]="op[d.value]">{{ ((d.getLabel(op,languageService.userLanguage)) | translate) }}</ng-option>
                         </ng-select>
@@ -477,7 +477,8 @@
 <ng-template #btnDone>
     <div class="m-2">
         <button type="button" style="min-height: 40px;" class="btn submit validateButton" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }" (click)="valideDemande()">
-            <span>{{"Valider"|translate}}</span>
+            <span *ngIf="!this.id">{{"add"|translate}}</span>
+            <span *ngIf="this.id">{{"update"|translate}}</span>
             <span [ngStyle]="isDisabled&&{'display':'none'}"><i style="margin:0 5px;" data-feather="check" appFeatherIcon></i></span>
             <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           </button>

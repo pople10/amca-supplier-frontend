@@ -91,7 +91,7 @@
                                 <button [disabled]="doingAction" (click)="geItem(piece[refName])" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                                     <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="send" appFeatherIcon></i></span>
                                 </button>
-                                <button [disabled]="doingAction" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                <button *ngIf="!this.isSupplier" [disabled]="doingAction" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                                     <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="x" appFeatherIcon></i></span>
                                 </button>
                             </td>

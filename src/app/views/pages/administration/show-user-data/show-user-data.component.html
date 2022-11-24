@@ -1,0 +1,88 @@
+<div [ngClass]="{
+    'arabe': this.languageService.userLanguage=='ar'}">
+    <h2 mat-dialog-title>
+        <mat-icon (click)="onPrint()" class="dontPrintMe">print</mat-icon>
+        {{data.user.firstName+" "+data.user.lastName}} 
+        <div [ngClass]="{
+            'btn': true,
+            'btn-success': data.user.status=='CREATED',
+            'btn-danger':data.user.status!='CREATED'
+          }">
+          {{data.user.status |translate}}
+        </div>
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="row mt-2" *ngFor="let item of data.fields">
+            <div class="col-md-6">
+                {{item | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
+            </div>
+            <div class="col-md-6">
+                {{""+data.user[item] | translate }}
+            </div>
+        </div>
+        <div class="row mt-2" *ngFor="let item of data.fieldsStatic">
+            <div class="col-md-6">
+                {{item | translate}}
+            </div>
+            <div class="col-md-6">
+                {{""+data.user[item] | translate}}
+            </div>
+        </div>
+        <div class="row mt-2" *ngFor="let item of data.fieldsDates">
+            <div class="col-md-6">
+                {{item | translate}}
+            </div>
+            <div class="col-md-6">
+                {{data.user[item] | date:"yyyy-MM-dd HH:mm:ss"}}
+            </div>
+        </div>
+        <div class="row mt-2" *ngFor="let item of data.fieldsArrays">
+            <div class="col-md-6">
+                {{item | translate}}
+            </div>
+            <div class="col-md-6">
+                <ng-container *ngIf="getLength(data.user[item])==0">
+                    {{"null"|translate}}
+                </ng-container>
+                <ng-container *ngIf="getLength(data.user[item])>0">
+                <div class="dotted-border table table-striped table-responsive">
+                    <table *ngIf="whatIsIt(data.user[item][0])=='Object'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let key of data.user[item][0] |keyvalue">{{ ""+key.key | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="my-10" *ngFor="let ele of getArray(data.user[item])">
+                                <td *ngFor="let sele of ele |keyvalue">{{""+sele.value | translate }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table *ngIf="whatIsIt(data.user[item][0])=='Other'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                        <tbody>
+                           <tr class="my-10" *ngFor="let ele of getArray(data.user[item])">
+                              <td>{{""+ele | translate }}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                 </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="row mt-2" *ngFor="let item of data.fieldsJson">
+            <div class="col-md-6">
+                {{item | translate}}
+            </div>
+            <div class="col-md-6">
+                <div class="row" *ngFor="let ele of data.user[item] |keyvalue">
+                    <div class="col-6">
+                        {{ele.key}}
+                    </div>
+                    <div class="col-6">
+                        {{ele.value}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+</div>

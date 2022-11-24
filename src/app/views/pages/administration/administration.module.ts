@@ -41,8 +41,12 @@ import { HistoryComponent } from './history/history.component';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AddBuyerComponent } from './add-buyer/add-buyer.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AdminsComponent } from './admins/admins.component';
+import { ShowUserDataComponent } from './show-user-data/show-user-data.component';
 
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { SupplierFormComponent } from './supplier-form/supplier-form.component';
+import { SuppliersComponent } from './suppliers/suppliers.component';
 
 
 
@@ -66,8 +70,22 @@ const routes: Routes = [
         }
       },
       {
-        path: 'buyer/add',
+        path: 'buyers',
         component : AddBuyerComponent,
+        data : {
+          role : ["admin"]
+        }
+      },
+      {
+        path: 'admins',
+        component : AdminsComponent,
+        data : {
+          role : ["admin"]
+        }
+      },
+      {
+        path: 'suppliers',
+        component : SuppliersComponent,
         data : {
           role : ["admin"]
         }
@@ -80,7 +98,11 @@ const routes: Routes = [
   declarations: [
     AdministrationComponent,
     HistoryComponent,
-    AddBuyerComponent
+    AddBuyerComponent,
+    AdminsComponent,
+    ShowUserDataComponent,
+    SupplierFormComponent,
+    SuppliersComponent
   ],
   imports: [
     CommonModule,
@@ -104,7 +126,8 @@ const routes: Routes = [
     NgbTooltipModule,
     NgbPaginationModule,
     NgbCollapseModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ]
 })
 export class AdministrationModule { }

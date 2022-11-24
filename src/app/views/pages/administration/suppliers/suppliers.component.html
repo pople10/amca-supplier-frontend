@@ -1,0 +1,144 @@
+<p class="h5 mb-4" [ngStyle]="
+    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+  ">
+   {{ "suppliers" | translate }} 
+</p>
+
+<div id="formulaire">
+    <admin-supplier-form (done)="getData(this.currentPage)" [id]="id"></admin-supplier-form>
+</div>
+<div class="mt-4 col-md-12 stretch-card">
+  <div class="card">
+      <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
+          <div class="table-responsive" style=" position: relative; min-height: 40vh; ">
+              <div class="table_loader loader_container" *ngIf="isLoad">
+                  <div class="table_loader_background"></div>
+                  <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                  </div>
+              </div>
+              <div class="rightSide w-100" *ngIf="!isLoad&&this.datos.content.length>0">
+                  <span class="mr-2 ml-2 displayInlineBlock">{{"elementToDisplay"|translate}} : </span>
+                  <select [ngModel]="currentSize" class="w-80px displayInlineBlock" (change)="onChangeSize($event)">
+                      <option *ngFor="let size of this.sizes" value="{{size}}">{{size}}</option>
+                  </select>
+              </div>
+              <table class="table text-center" *ngIf="!isLoad&&this.datos.content.length>0;else nodata">
+                  <thead>
+                      <tr>
+                        <th *ngFor="let field of this.fields">
+                            {{field|translate}}
+                        </th>
+                        <th *ngFor="let field of this.fieldsStatic">
+                            {{field|translate}}
+                        </th>
+                        <th *ngFor="let field of this.fieldsDates">
+                            {{field|translate}}
+                        </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor=" let piece of datos.content  | paginate : { itemsPerPage: this.datos.pageDetails.size, currentPage: datos.pageDetails.number+1, totalItems: datos.pageDetails.totalElements } ;let i = index  ">
+                        <td *ngFor="let field of this.fields">
+                            {{piece[field]}}
+                        </td>
+                        <td *ngFor="let field of this.fieldsStatic">
+                            {{""+piece[field] | translate}}
+                        </td>
+                        <td *ngFor="let field of this.fieldsDates">
+                            {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
+                        </td>
+                          <td>
+                            <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-light" style=" color: #000!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
+                            </button>
+                            <button [disabled]="doingAction"  *ngIf="piece.status!='CREATED'" (click)="unlockItem(confirmUnlock,piece[refName],i)" type="button" class="btn btn-success" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                              <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="unlock" appFeatherIcon></i></span>
+                            </button>
+                            <button [disabled]="doingAction" (click)="updateItem(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                              <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="edit-2" appFeatherIcon></i></span>
+                            </button>
+                              <button [disabled]="doingAction" *ngIf="piece.status=='CREATED'" (click)="lockItem(confirmLock,piece[refName],i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                              <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="lock" appFeatherIcon></i></span>
+                            </button>
+                            <button [disabled]="doingAction"  *ngIf="piece.status=='CREATED'" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                              <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="trash-2" appFeatherIcon></i></span>
+                            </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div [ngStyle]="isLoad&&{display:'none'}" id="paginationContainer" *ngIf="!isLoad&&this.datos.pageDetails.totalPages>=1">
+              <pagination-controls [maxSize]="this.datos.pageDetails.totalPages" (pageChange)="onChangePage($event)" previousLabel="" nextLabel="" class="my-pagination"></pagination-controls>
+          </div>
+          <div *ngIf="!isLoad&&this.datos.content.length>0" class="centerizeText smallText">
+              <span class="displayBlock">{{"displayedElements" | translate}} : {{this.datos.pageDetails.numberOfElements}}</span>
+              <span class="displayBlock">{{"totalDemandsNumber" | translate}} : {{this.datos.pageDetails.totalElements}}</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #nodata>
+  <div class="table_loader loader_container bigSize" *ngIf="!isLoad">
+      <i data-feather="alert-octagon" appFeatherIcon class="ml-2 mr-2"></i> {{"noData"|translate}}
+  </div>
+</ng-template>
+<ng-template #buttonLoader>
+  <span style=" margin: 3px 2px;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+</ng-template>
+<ng-template #confirmRemove let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+      <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+      <p>{{"confirmDelete"|translate}}</p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+    {{"close" | translate}}
+  </button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+    {{"delete" | translate}}
+  </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmLock let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+      <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+      <p>{{"confirmLock"|translate}}</p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+    {{"close" | translate}}
+  </button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+    {{"lock" | translate}}
+  </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmUnlock let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+      <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+      <p>{{"confirmUnlock"|translate}}</p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+    {{"close" | translate}}
+  </button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+    {{"unlock" | translate}}
+  </button>
+  </div>
+</ng-template>
