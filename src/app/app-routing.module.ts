@@ -10,6 +10,7 @@ import { ExportAuthorizationComponent } from './views/pages/export-authorization
 import { NoLinkPageComponent } from './views/pages/no-link-pages/no-link-page.component';
 import { BuyerComponent } from './views/pages/buyer/buyer/buyer.component';
 import { NonAuthGuard } from './core/guard/non-auth.guard';
+import { SupplierComponent } from './views/pages/supplier/supplier.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,14 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/buyer/buyer/buyer.module').then(m => m.BuyerModule),
         data : {
           role : ["buyer","buyer_expert"]
+        }
+      },
+      {
+        path: 'supplier',
+        component : SupplierComponent,
+        loadChildren: () => import('./views/pages/supplier/supplier.module').then(m => m.SupplierModule),
+        data : {
+          role : ["supplier"]
         }
       },
       {

@@ -1201,6 +1201,25 @@
     "expert":"Expert",
     "addNew":"Ajouter un élement",
     "clearAll":"Effacer tous",
-    "noElementFound":"Aucun élement trouvé"
+    "noElementFound":"Aucun élement trouvé",
+    "normal":"Normale",
+    "buyersType":"Types des acheteurs",
+    "suppliersType":"Types des fournisseurs",
+    "suppliersPerYear":"Les fournisseurs dans l'année {{year}}",
+    "buyersPerYear":"Les acheteurs dans l'année {{year}}",
+    "usersPerYear":"Les utilisateurs dans l'année {{year}}",
+    "Jan":"Janvier",
+    "Fev":"Février",
+    "Mar":"Mars",
+    "Apr":"Avril",
+    "Mai":"Mai",
+    "Juin":"Juin",
+    "Juil":"Juillet",
+    "Aug":"Aout",
+    "Sep":"Septembre",
+    "Nov":"Novembre",
+    "Dec":"Decembre",
+    "statistics":"Statistiques",
+    "maFiche":"Ma fiche"
 
 }

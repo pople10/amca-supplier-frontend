@@ -1,0 +1,45 @@
+.textarea
+{
+    height: 100px!important;
+    resize: none;
+    border-radius: 5px;
+}
+
+.textarea::-webkit-scrollbar {
+    width: 4px!important;
+}
+
+.textarea::-webkit-scrollbar-track {
+    width: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+    width: 4px;
+}
+.overflow-scroll
+{
+    overflow: scroll;
+}
+.divider-top
+{
+    border-top: 0.7px solid rgb(101, 101, 101);
+}
+.custom-pre
+{
+    background: white;
+    border: 1px solid;
+    padding: 10px!important;
+}
+
+.noComments
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.dotted-border
+{
+    border: 1px dotted #000;
+}

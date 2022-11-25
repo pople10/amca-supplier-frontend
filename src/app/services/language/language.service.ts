@@ -7,10 +7,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
 
+  public static callbacks = [];
+
   private keyLanguage = 'userLanguage';
   private _userLanguage = '';
 
-  private supportedLanguages = ['fr', 'ar'];
+  public supportedLanguages = ['fr', 'ar'];
 
   constructor(private translate: TranslateService, @Inject(DOCUMENT) private document: Document) {
     this.initLanguage();
@@ -57,6 +59,10 @@ export class LanguageService {
     this.translate.use(this._userLanguage);
     this.document.documentElement.lang = this._userLanguage;
     this.changeStyle(language);
+    for(let i of LanguageService.callbacks)
+    {
+      i(this._userLanguage);
+    }
   }
 
   get userLanguage(){

@@ -27,6 +27,7 @@ export function HttpLoaderFactory(http: HttpClient){
 }
 
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
+    MatSnackBarModule,
     NgxPaginationModule,
     TranslateModule.forRoot({
       loader : {

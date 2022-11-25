@@ -52,6 +52,19 @@
                 </li>
             </ng-container>
 
+            <ng-container *ngIf="roles && roles.includes('supplier')">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/supplier">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            folder_shared
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"maFiche" | translate}}</span>
+                    </a>
+                </li>
+            </ng-container>
+
             <ng-container *ngIf="roles && roles.includes('buyer') || roles.includes('buyer_expert')">
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);">

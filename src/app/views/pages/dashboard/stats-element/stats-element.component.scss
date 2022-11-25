@@ -1,0 +1,46 @@
+.cont
+{
+    max-width: 400px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-left-width: 3px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 0.3s;
+    margin-bottom: 8px !important;
+    background-color: #ffffff;
+}
+
+.icon-container
+{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-container * 
+{
+    font-size: 40px;
+    height: unset;
+    width: unset;
+}
+
+p 
+{
+    font-size:150%;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.appear-bottom {
+    animation: 1s ease-out 0s 1 slideInFromBottom;
+}

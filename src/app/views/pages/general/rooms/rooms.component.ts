@@ -66,6 +66,7 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    if(this.isSupplier) return;
     const input = this.selectInput.element.children[0].children[0].children[1].children[0];
     input.addEventListener("keyup", (data)=>{
       let val = input?.value;

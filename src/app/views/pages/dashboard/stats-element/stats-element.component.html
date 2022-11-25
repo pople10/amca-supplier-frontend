@@ -1,0 +1,11 @@
+<div class="appear-bottom row cont p-4 mx-auto d-flex" [ngStyle]="{'border-bottom':'solid '+color}">
+    <div style="flex:1">
+        <div class="icon-container" [ngStyle]="{'background-color':color}">
+            <mat-icon appFeatherIcon>{{icon}}</mat-icon>
+        </div>
+    </div>
+    <div class="ml-1" style="flex:4">
+        <h4>{{label}}</h4>
+        <p>{{value}}</p>
+    </div>
+</div>

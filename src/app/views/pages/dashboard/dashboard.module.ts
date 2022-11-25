@@ -17,6 +17,8 @@ import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard.component';
 
 import {MatCardModule} from "@angular/material/card";
+import { StatsElementComponent } from './stats-element/stats-element.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -26,7 +28,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, StatsElementComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -36,6 +38,7 @@ const routes: Routes = [
     NgbDatepickerModule,
     NgApexchartsModule,
     ChartsModule,
+    MatIconModule,
     TranslateModule,
     MatCardModule
   ]

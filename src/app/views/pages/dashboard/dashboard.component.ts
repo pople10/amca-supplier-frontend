@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexGrid, ApexChart, ApexXAxis, ApexYAxis, ApexMarkers, ApexStroke, ApexLegend, ApexResponsive, ApexTooltip, ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexGrid, ApexChart, ApexXAxis, ApexYAxis, ApexMarkers, ApexStroke, ApexLegend, ApexResponsive, ApexTooltip, ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle, ChartComponent } from 'ng-apexcharts';
 
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,18 +8,20 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ChartOptions, ChartType, ChartDataSets, RadialChartOptions } from 'chart.js';
 import { Label, Color, SingleDataSet } from 'ng2-charts';
 
-// Progressbar.js
-import ProgressBar from 'progressbar.js';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { StatisticsService } from 'src/app/services/statstics.service';
+import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
+import { StatsticsModel } from 'src/app/entities/stats/StatisticsModel';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 export type apexChartOptions = {
   series: ApexAxisChartSeries;
   nonAxisSeries: ApexNonAxisChartSeries;
   colors: string[];
   grid: ApexGrid;
-  chart: ApexChart;
+  chart: any;
   xaxis: ApexXAxis;
   yaxis: ApexYAxis;
   markers: ApexMarkers,
@@ -41,7 +43,15 @@ export type apexChartOptions = {
   styleUrls: ['./dashboard.component.scss'],
   preserveWhitespaces: true
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,OnDestroy {
+
+  @ViewChild("chart1") chart1:ChartComponent;
+  @ViewChild("chart2") chart2:ChartComponent;
+  @ViewChild("chart3") chart3:ChartComponent;
+  @ViewChild("chart4") chart4:ChartComponent;
+  @ViewChild("chart5") chart5:ChartComponent;
+
+  statsData:StatsticsModel=new StatsticsModel();
 
   /**
    * Apex chart
@@ -49,7 +59,8 @@ export class DashboardComponent implements OnInit {
   public apexChart1Options: Partial<apexChartOptions>;
   public apexChart2Options: Partial<apexChartOptions>;
   public apexChart3Options: Partial<apexChartOptions>;
-  public apexChart4Options: Partial<apexChartOptions>;
+  public apexChart4Options: Partial<any>;
+  public apexChart5Options: Partial<any>;
 
   /**
    * NgbDatepicker
@@ -60,415 +71,33 @@ export class DashboardComponent implements OnInit {
   /**
    * Ng2 Bar Chart 1
    */
-  public ng2BarChart1Options: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      display: false,
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          fontColor: '#8392a5',
-          fontSize: 10
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          color: 'rgba(77, 138, 240, .1)'
-        },
-        ticks: {
-          fontColor: '#8392a5',
-          fontSize: 10,
-          min: 80,
-          max: 200
-        }
-      }]
+   public toTranslate: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Nov","Dec"];
+  public months: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Nov","Dec"];
+
+  translateMonth()
+  {
+    for(let i=0;i<this.months.length;i++)
+    {
+      this.months[i]=this.translateService.instant(this.toTranslate[i]);
     }
-  };
-  public ng2BarChart1Labels: Label[] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  public ng2BarChart1Type: ChartType = 'bar';
-  public ng2BarChart1Colors: Color[] = [ { backgroundColor: "#727cf5" } ]
-  public ng2BarChart1Legend = false;
-  public ng2BarChart1Data: ChartDataSets[] = [
-    { data: [150,110,90,115,125,160,190,140,100,110,120,120], label: 'Sales', categoryPercentage: .6, barPercentage: .3 }
-  ];
+  }
+
+
+  constructor( private translateService:TranslateService,private handleRequestService:HandleRequestService,private statisticsService:StatisticsService,private authService:AuthService,private calendar: NgbCalendar, private router: Router, public languageService: LanguageService) {
+    this.loading();
+  }
 
 
 
-  constructor(private authService:AuthService,private calendar: NgbCalendar, private router: Router, public languageService: LanguageService) {
-    
-    
-    /**
-     * ApexChart1 options
-     */
-    this.apexChart1Options = {
-      chart: {
-        type: "line",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
-      },
-      series: [{
-          data: [3844, 3855, 3841, 3867, 3822, 3843, 3821, 3841, 3856, 3827, 3843]
-      }],
-      stroke: {
-        width: 2,
-        curve: "smooth"
-      },
-      markers: {
-        size: 0
-      },
-      colors: ["#727cf5"],
-      tooltip: {
-        fixed: {
-          enabled: !1
-        },
-        x: {
-          show: !1
-        },
-        y: {
-          title: {
-            formatter: (e) => {
-              return ""
-            }
-          }
-        },
-        marker: {
-          show: !1
-        }
-      }
-    };
+  year:number=new Date().getFullYear();
 
-
-
-    /**
-     * ApexChart2 options
-     */
-    this.apexChart2Options = {
-      chart: {
-        type: "bar",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: "60%"
-        }
-      },
-      colors: ["#727cf5"],
-      series: [{
-        data: [36, 77, 52, 90, 74, 35, 55, 23, 47, 10, 63]
-      }],
-      labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
-      xaxis: {
-        crosshairs: {
-          width: 1
-        }
-      },
-      tooltip: {
-        fixed: {
-          enabled: !1
-        },
-        x: {
-          show: !1
-        },
-        y: {
-          title: {
-            formatter: (e) => {
-              return ""
-            }
-          }
-        },
-        marker: {
-          show: !1
-        }
-      }
-    };
-
-
-
-    /**
-     * ApexChart3 options
-     */
-    this.apexChart3Options = {
-      chart: {
-        type: "line",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
-      },
-      series: [{
-          data: [41, 45, 44, 46, 52, 54, 43, 74, 82, 82, 89]
-      }],
-      stroke: {
-        width: 2,
-        curve: "smooth"
-      },
-      markers: {
-        size: 0
-      },
-      colors: ["#727cf5"],
-      tooltip: {
-        fixed: {
-          enabled: !1
-        },
-        x: {
-          show: !1
-        },
-        y: {
-          title: {
-            formatter: (e) => {
-              return ""
-            }
-          }
-        },
-        marker: {
-          show: !1
-        }
-      }
-    };
-
-
-
-    /**
-     * ApexChart4 options
-     */
-    this.apexChart4Options = {
-      chart: {
-        type: "line",
-        height: 350,
-        sparkline: {
-          // enabled: !0
-        },
-        toolbar: {
-          show: false
-        }
-      },
-      series: [{
-        data: [
-          49.3,
-          48.7,
-          50.6,
-          53.3,
-          54.7,
-          53.8,
-          54.6,
-          56.7,
-          56.9,
-          56.1,
-          56.5,
-          60.3,
-          58.7,
-          61.4,
-          61.1,
-          58.5,
-          54.7,
-          52.0,
-          51.0,
-          47.4,
-          48.5,
-          48.9,
-          53.5,
-          50.2,
-          46.2,
-          48.6,
-          51.7,
-          51.3,
-          50.2,
-          54.6,
-          52.4,
-          53.0,
-          57.0,
-          52.9,
-          48.7,
-          52.6,
-          53.5,
-          58.5,
-          55.1,
-          58.0,
-          61.3,
-          57.7,
-          60.2,
-          61.0,
-          57.7,
-          56.8,
-          58.9,
-          62.4,
-          58.7,
-          58.4,
-          56.7,
-          52.7,
-          52.3,
-          50.5,
-          55.4,
-          50.4,
-          52.4,
-          48.7,
-          47.4,
-          43.3,
-          38.9,
-          34.7,
-          31.0,
-          32.6,
-          36.8,
-          35.8,
-          32.7,
-          33.2,
-          30.8,
-          28.6,
-          28.4,
-          27.7,
-          27.7,
-          25.9,
-          24.3,
-          21.9,
-          22.0,
-          23.5,
-          27.3,
-          30.2,
-          27.2,
-          29.9,
-          25.1,
-          23.0,
-          23.7,
-          23.4,
-          27.9,
-          23.2,
-          23.9,
-          19.2,
-          15.1,
-          15.0,
-          11.0,
-          9.20,
-          7.47,
-          11.6,
-          15.7,
-          13.9,
-          12.5,
-          13.5,
-          15.0,
-          13.9,
-          13.2,
-          18.1,
-          20.6,
-          21.0,
-          25.3,
-          25.3,
-          20.9,
-          18.7,
-          15.3,
-          14.5,
-          17.9,
-          15.9,
-          16.3,
-          14.1,
-          12.1,
-          14.8,
-          17.2,
-          17.7,
-          14.0,
-          18.6,
-          18.4,
-          22.6,
-          25.0,
-          28.1,
-          28.0,
-          24.1,
-          24.2,
-          28.2,
-          26.2,
-          29.3,
-          26.0,
-          23.9,
-          28.8,
-          25.1,
-          21.7,
-          23.0,
-          20.7,
-          29.7,
-          30.2,
-          32.5,
-          31.4,
-          33.6,
-          30.0,
-          34.2,
-          36.9,
-          35.5,
-          34.7,
-          36.9
-        ]
-      }],
-      stroke: {
-        width: 2,
-        curve: "straight"
-      },
-      markers: {
-        size: 0
-      },
-      grid: {
-        borderColor: "rgba(77, 138, 240, .1)",
-        padding: {
-          bottom: -10
-        }
-      },
-      xaxis: {
-        categories: ["Jan","","","","","","","","","","","","","","","","Feb","","","","","","","","","","","","","","","","Mar","","","","","","","","","","","","","","","","Apr","","","","","","","","","","","","","","","","May","","","","","","","","","","","","","","","","Jun","","","","","","","","","","","","","","","","Jul","","","","","","","","","","","","","","","","Aug","","","","","","","","","","","","","","","","Sep","","","","","","","","","","","","","","","","Oct","","","","",""],
-        labels: {
-          style: {
-            colors: '#686868',
-            fontSize: '13px',
-            fontFamily: 'Overpass, sans-serif',
-            fontWeight: 400,
-          },
-        },
-        axisBorder: {
-          show: false
-        }
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: '#686868',
-            fontSize: '11px',
-            fontFamily: 'Overpass, sans-serif',
-            fontWeight: 400,
-          }
-        },
-      },
-      colors: ["#727cf5"],
-      tooltip: {
-        fixed: {
-          enabled: !1
-        },
-        x: {
-          show: !1
-        },
-        y: {
-          title: {
-            formatter: function(e) {
-              return ""
-            }
-          }
-        },
-        marker: {
-          show: !1
-        }
-      }
-    };
-
-
+  ngOnDestroy(): void {
+    LanguageService.callbacks=[];
   }
 
   roles:string[];
+
+  dataLoaded:boolean=false;
 
   ngOnInit(): void {
     let userData = localStorage.getItem("userData");
@@ -480,8 +109,330 @@ export class DashboardComponent implements OnInit {
     }
     this.currentDate = this.calendar.getToday();
 
-    
+    if(!this.roles.includes("admin"))
+      return;
+
+    this.statisticsService.getStatsAdmin().subscribe(response=>{
+      this.statsData=response;
+      this.dataLoaded=true;
+      this.loadOptions(this.languageService.userLanguage);
+    },err=>{this.handleRequestService.handleError(err)});
+    LanguageService.callbacks.push(()=>{
+      window.location.reload();
+    })
 
   }
 
+  loadOptions(lang,refresh=false)
+  {
+    this.apexChart1Options.series=[{
+      name:this.translateService.instant("buyers"),
+      data:this.statsData.years.buyers.map(e=>e.count)
+    }]
+    this.apexChart2Options.series=[{
+      name:this.translateService.instant("suppliers"),
+      data:this.statsData.years.suppliers.map(e=>e.count)
+    }]
+    this.apexChart3Options.series=[{
+      name:this.translateService.instant("users"),
+      data:this.statsData.years.users.map(e=>e.count)
+    }]
+
+    this.apexChart1Options.title={
+      text: this.translateService.instant("buyersPerYear",{year:this.year}),
+      align:"center"
+    }
+    this.apexChart2Options.title={
+      text: this.translateService.instant("suppliersPerYear",{year:this.year}),
+      align:"center"
+    }
+    this.apexChart3Options.title={
+      text: this.translateService.instant("usersPerYear",{year:this.year}),
+      align:"center"
+    }
+    this.apexChart4Options.title={
+      text: this.translateService.instant("buyersType"),
+      align:"center"
+    }
+    this.apexChart5Options.title={
+      text: this.translateService.instant("suppliersType"),
+      align:"center"
+    }
+    
+    this.apexChart4Options.series=this.statsData.categories.buyers.map(e=>e.count);
+    this.apexChart4Options.labels=this.statsData.categories.buyers.map(e=>this.translateService.instant(e.label));
+    this.apexChart5Options.series=this.statsData.categories.suppliers.map(e=>e.count);
+    this.apexChart5Options.labels=this.statsData.categories.suppliers.map(e=>this.translateService.instant(e.label));
+    if(refresh)
+    {
+      this.apexChart1Options.xaxis.categories=this.months;
+      this.apexChart2Options.xaxis.categories=this.months;
+      this.apexChart3Options.xaxis.categories=this.months;
+    }
+  }
+
+
+
+  loading()
+  {
+    
+    this.translateMonth();
+
+    /**
+     * ApexChart1 options
+     */
+     this.apexChart1Options = {
+      series: [
+        {
+          name: this.translateService.instant("buyers"),
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar",
+        stacked: true,
+        locales: [{
+          "name": "fr",
+          "options": {
+            "toolbar": {
+                "download": "Télécharger",
+                "selection": "Séléction",
+                "exportToSVG": "Exporter SVG",
+                "exportToPNG": "Exporter PNG",
+                "exportToCSV": "Exporter CSV",
+                "menu": "Menu",
+                "selectionZoom": "Séléction Zoom",
+                "zoomIn": "Agrandir",
+                "zoomOut": "Dézoomer",
+                "pan": "Panoramique",
+                "reset": "Réinitialiser le zoom"
+            }
+          }
+        },
+        {
+          "name": "ar",
+          "options": {
+            "toolbar": {
+                "download": "تحميل",
+                "selection": "اختيار",
+                "exportToSVG": "تصدير SVG",
+                "exportToPNG": "تصدير PNG",
+                "exportToCSV": "تصدير CSV",
+                "menu": "القائمة",
+                "selectionZoom": "اختيار التكبير",
+                "zoomIn": "تكبير",
+                "zoomOut": "تصغير",
+                "pan": "بانورامي",
+                "reset": "إعادة تعيين التكبير"
+            }
+          }
+        }],
+        defaultLocale: this.languageService.userLanguage
+      },
+      title: {
+        text: this.translateService.instant("buyersPerYear",{year:this.year}),
+        align:"center"
+      },
+      xaxis: {
+        categories: this.months
+      },
+      plotOptions: {
+        bar: {
+          distributed: true
+        }
+      }
+    };
+
+
+
+    /**
+     * ApexChart2 options
+     */
+    this.apexChart2Options = {
+      series: [
+        {
+          name: this.translateService.instant("suppliers"),
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar",
+        stacked: true,
+        locales: [{
+          "name": "fr",
+          "options": {
+            "toolbar": {
+                "download": "Télécharger",
+                "selection": "Séléction",
+                "exportToSVG": "Exporter SVG",
+                "exportToPNG": "Exporter PNG",
+                "exportToCSV": "Exporter CSV",
+                "menu": "Menu",
+                "selectionZoom": "Séléction Zoom",
+                "zoomIn": "Agrandir",
+                "zoomOut": "Dézoomer",
+                "pan": "Panoramique",
+                "reset": "Réinitialiser le zoom"
+            }
+          }
+        },
+        {
+          "name": "ar",
+          "options": {
+            "toolbar": {
+                "download": "تحميل",
+                "selection": "اختيار",
+                "exportToSVG": "تصدير SVG",
+                "exportToPNG": "تصدير PNG",
+                "exportToCSV": "تصدير CSV",
+                "menu": "القائمة",
+                "selectionZoom": "اختيار التكبير",
+                "zoomIn": "تكبير",
+                "zoomOut": "تصغير",
+                "pan": "بانورامي",
+                "reset": "إعادة تعيين التكبير"
+            }
+          }
+        }],
+        defaultLocale: this.languageService.userLanguage
+      },
+      title: {
+        text: this.translateService.instant("suppliersPerYear",{year:this.year}),
+        align:"center"
+      },
+      xaxis: {
+        categories: this.months
+      },
+      plotOptions: {
+        bar: {
+          distributed: true
+        }
+      }
+    };
+
+
+
+    /**
+     * ApexChart3 options
+     */
+     this.apexChart3Options = {
+      series: [
+        {
+          name: this.translateService.instant("users"),
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "line",
+        stacked: true,
+        locales: [{
+          "name": "fr",
+          "options": {
+            "toolbar": {
+                "download": "Télécharger",
+                "selection": "Séléction",
+                "exportToSVG": "Exporter SVG",
+                "exportToPNG": "Exporter PNG",
+                "exportToCSV": "Exporter CSV",
+                "menu": "Menu",
+                "selectionZoom": "Séléction Zoom",
+                "zoomIn": "Agrandir",
+                "zoomOut": "Dézoomer",
+                "pan": "Panoramique",
+                "reset": "Réinitialiser le zoom"
+            }
+          }
+        },
+        {
+          "name": "ar",
+          "options": {
+            "toolbar": {
+                "download": "تحميل",
+                "selection": "اختيار",
+                "exportToSVG": "تصدير SVG",
+                "exportToPNG": "تصدير PNG",
+                "exportToCSV": "تصدير CSV",
+                "menu": "القائمة",
+                "selectionZoom": "اختيار التكبير",
+                "zoomIn": "تكبير",
+                "zoomOut": "تصغير",
+                "pan": "بانورامي",
+                "reset": "إعادة تعيين التكبير"
+            }
+          }
+        }],
+        defaultLocale: this.languageService.userLanguage
+      },
+      title: {
+        text: this.translateService.instant("usersPerYear",{year:this.year}),
+        align:"center"
+      },
+      xaxis: {
+        categories: this.months
+      },
+      plotOptions: {
+        bar: {
+          distributed: true
+        }
+      }
+     }
+
+
+
+    /**
+     * ApexChart4 options
+     */
+    this.apexChart4Options =
+    {
+      series: [{
+        data:[]
+      }],
+      chart: {
+        type: "donut"
+      },
+      title: {
+        text: this.translateService.instant("buyersType"),
+        align:"center"
+      },
+      labels: [],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+
+
+    this.apexChart5Options={...this.apexChart4Options}
+
+    this.apexChart5Options.title={
+      text: this.translateService.instant("suppliersType"),
+      align:"center"
+    }
+  }
+
+  getIcon(label:string)
+  {
+    if(label=='CREATED')
+      return "lock_open";
+    return "lock";
+  }
+
+  getColor(label:string)
+  {
+    if(label=='CREATED')
+      return "green";
+    return "red";
+  }
 }

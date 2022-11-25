@@ -20,3 +20,94 @@
           </mat-card>
     </ng-container>
 </div>
+<ng-container *ngIf="roles.includes('admin')&&!dataLoaded">
+    <div class="table_loader loader_container">
+        <div class="table_loader_background"></div>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="roles.includes('admin')&&dataLoaded">
+    <p class="h5 mb-4" [ngStyle]="
+        this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+    ">
+    {{ "statistics" | translate }} 
+    </p>
+    <div class="row">
+        <div class="col-md-4 mx-auto mt-2">
+            <stats-element icon="supervisor_account" 
+                color="#57c7d4"
+                [value]="statsData.users.otherUserNumber-statsData.users.supplierNumber-statsData.users.buyerNumber" 
+                label="{{'admins'|translate}}"></stats-element>
+        </div>
+        <div class="col-md-4 mx-auto mt-2">
+            <stats-element icon="local_shipping" 
+                color="#434a54"
+                [value]="statsData.users.supplierNumber" 
+                label="{{'suppliers'|translate}}"></stats-element>
+        </div>
+        <div class="col-md-4 mx-auto mt-2">
+            <stats-element icon="shopping_basket" 
+                color="#727cf5"
+                [value]="statsData.users.buyerNumber" 
+                label="{{'buyers'|translate}}"></stats-element>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mx-auto mt-2" *ngFor="let i of statsData.categories.active">
+            <stats-element [icon]="getIcon(i.label)" 
+                [color]="getColor(i.label)"
+                [value]="i.count" 
+                label="{{i.label|translate}}"></stats-element>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 card mx-auto p-2 mt-2">
+            <apx-chart
+                #chart4
+                [series]="apexChart4Options.series"
+                [chart]="apexChart4Options.chart"
+                [xaxis]="apexChart4Options.xaxis"
+                [labels]="apexChart4Options.labels"
+                [responsive]="apexChart4Options.responsive"
+                [title]="apexChart4Options.title"></apx-chart>
+        </div>
+        <div class="col-lg-5 card mx-auto p-2 mt-2">
+            <apx-chart
+                #chart5
+                [series]="apexChart5Options.series"
+                [chart]="apexChart5Options.chart"
+                [xaxis]="apexChart5Options.xaxis"
+                [labels]="apexChart5Options.labels"
+                [responsive]="apexChart5Options.responsive"
+                [title]="apexChart5Options.title"></apx-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 card mx-auto p-2 mt-2">
+            <apx-chart
+                #chart1
+                [series]="apexChart1Options.series"
+                [chart]="apexChart1Options.chart"
+                [xaxis]="apexChart1Options.xaxis"
+                [title]="apexChart1Options.title"></apx-chart>
+        </div>
+        <div class="col-lg-5 card mx-auto p-2 mt-2">
+            <apx-chart
+                #chart2
+                [series]="apexChart2Options.series"
+                [chart]="apexChart2Options.chart"
+                [xaxis]="apexChart2Options.xaxis"
+                [title]="apexChart2Options.title"></apx-chart>
+        </div>
+        <div class="col-lg-8 card mx-auto p-2 mt-2">
+            <apx-chart
+                #chart3
+                [series]="apexChart3Options.series"
+                [chart]="apexChart3Options.chart"
+                [xaxis]="apexChart3Options.xaxis"
+                [title]="apexChart3Options.title"></apx-chart>
+        </div>
+    </div>
+</ng-container>

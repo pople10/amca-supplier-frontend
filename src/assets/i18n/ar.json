@@ -1057,7 +1057,26 @@
     "expert":"خبير",
     "addNew":"أضف عنصرًا",
     "clearAll":"حذف الكل",
-    "noElementFound":"لم يتم العثور على عنصر"
+    "noElementFound":"لم يتم العثور على عنصر",
+    "normal":"عادي",
+    "buyersType":"أنواع المشترين",
+    "suppliersType":"أنواع الموردين",
+    "suppliersPerYear":"الموردون في العام {{year}}",
+    "buyersPerYear":"المشترون في العام {{year}}",
+    "usersPerYear":"المستخدمون في العام {{year}}",
+    "Jan":"يناير", 
+    "Fev":"فبراير",
+    "Mar":"مارس",
+    "Apr":"أبريل",
+    "Mai":"مايو",
+    "Juin":"يونيو",
+    "Juil":"يوليو",
+    "Aug":"أغسطس",
+    "Sep":"سبتمبر",
+    "Nov":"نوفمبر",
+    "Dec":"ديسمبر",
+    "statistics":"إحصائيات",
+    "maFiche":"ملفي"
 
  
 
