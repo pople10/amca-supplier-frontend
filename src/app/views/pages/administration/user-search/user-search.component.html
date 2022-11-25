@@ -1,0 +1,22 @@
+<p class="h5 mb-4" [ngStyle]="
+    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+  ">
+   {{ "searchUsers" | translate }} 
+</p>
+<div class="col-md-12 stretch-card mb-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <label data-toggle="tooltip" class="control-label">
+                        {{"user" | translate}}
+                    </label>
+                    <ng-select #addMail id="search" loadingText="{{ 'searching'|translate }}" [loading]="searching" notFoundText="{{ 'noUserFound'|translate }}" [(ngModel)]="toBeAdd" (change)="onChangeKeyword($event)"  [multiple]="false" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                            [searchable]="true" placeholder="{{ 'searchUserLabel'| translate }}">
+                            <ng-option *ngFor="let op of searchedUsers" [value]="op.id">{{ op.firstName+" "+op.lastName }}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

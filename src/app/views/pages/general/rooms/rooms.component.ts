@@ -39,7 +39,7 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   dataSent:boolean=false;
   searching:boolean=false;
   label:string;
-  isSupplier;
+  isSupplier:boolean;
 
   constructor(
     private modalService:NgbModal,

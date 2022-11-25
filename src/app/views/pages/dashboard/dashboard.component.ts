@@ -71,8 +71,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   /**
    * Ng2 Bar Chart 1
    */
-   public toTranslate: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Nov","Dec"];
-  public months: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Nov","Dec"];
+   public toTranslate: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Oct","Nov","Dec"];
+  public months: Label[] = ["Jan","Fev","Mar","Apr","Mai","Juin","Juil","Aug","Sep","Nov","Oct","Dec"];
 
   translateMonth()
   {

@@ -47,6 +47,7 @@ import { ShowUserDataComponent } from './show-user-data/show-user-data.component
 import {MatDialogModule} from '@angular/material/dialog';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 
 
@@ -89,6 +90,13 @@ const routes: Routes = [
         data : {
           role : ["admin"]
         }
+      },
+      {
+        path: 'users/search',
+        component : UserSearchComponent,
+        data : {
+          role : ["admin"]
+        }
       }
     ]
   }
@@ -102,7 +110,8 @@ const routes: Routes = [
     AdminsComponent,
     ShowUserDataComponent,
     SupplierFormComponent,
-    SuppliersComponent
+    SuppliersComponent,
+    UserSearchComponent
   ],
   imports: [
     CommonModule,

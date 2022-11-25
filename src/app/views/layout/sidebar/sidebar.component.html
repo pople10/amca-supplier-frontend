@@ -164,6 +164,15 @@
                                 </span>
                             </a>
                         </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/users/search">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"searchUsers" | translate}}
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ng-container>

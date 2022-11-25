@@ -1217,9 +1217,17 @@
     "Juil":"Juillet",
     "Aug":"Aout",
     "Sep":"Septembre",
+    "Oct":"Octobre",
     "Nov":"Novembre",
     "Dec":"Decembre",
     "statistics":"Statistiques",
-    "maFiche":"Ma fiche"
+    "maFiche":"Ma fiche",
+    "room":"Discussion",
+    "roommessage":"Message",
+    "member":"Membre d'un fournisseur",
+    "settlement":"Régionalisation d'un fournisseur",
+    "notification":"Notification",
+    "searchUsers":"Cherche un utilisateur",
+    "searchUserLabel":"Taper au moin une lettre ou email totale"
 
 }
