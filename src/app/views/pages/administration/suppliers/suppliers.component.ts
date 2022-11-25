@@ -129,7 +129,7 @@ export class SuppliersComponent implements OnInit {
     this.getData(0);
   }
 
-  private getData(page:number)
+  public getData(page:number)
   {
     this.isLoad=true;
     this.userService.getSuppliersWithPageAndSize(page,this.currentSize).subscribe(response=>{

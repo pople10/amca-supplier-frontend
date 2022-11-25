@@ -78,7 +78,7 @@
             </div>
             <div *ngFor="let rate of currentComments">
                 <mat-divider></mat-divider>
-                <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} <star-rating [rating]="rate.rate" [starCount]="1" [color]="starColor"></star-rating></h6>
+                <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} ({{rate.rate}} <mat-icon>star</mat-icon>)</h6>
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-9">
