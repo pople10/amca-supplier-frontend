@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
   sendMessageWS(type:NotificationCode)
   {
-    if (this.websocket.readyState !== WebSocket.CLOSED) {
+    if (this.websocket.readyState === WebSocket.OPEN) {
       this.websocket.send(type);
     }
   }

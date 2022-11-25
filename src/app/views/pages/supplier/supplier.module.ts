@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { BuyerModule } from '../buyer/buyer/buyer.module';
+import { StarRatingComponent } from '../form-elements/star-rating/star-rating.component';
 
 
 @NgModule({
