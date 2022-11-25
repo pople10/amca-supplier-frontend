@@ -10,6 +10,13 @@
     background-color: #64b8d8bf;
 }
 
+@media only screen and (max-width: 790px) {
+    :host
+    {
+        height: max-content;
+    }
+}
+
 .auth-left-wrapper {
     display: flex;
     justify-content: center;
@@ -69,4 +76,9 @@
 .row.w-100.mx-0.auth-page *
 {
     direction: initial;
+}
+.centerize
+{
+    align-items: center;
+    justify-content: center;
 }

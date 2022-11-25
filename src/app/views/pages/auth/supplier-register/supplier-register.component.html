@@ -2,6 +2,11 @@
     <div class="col-md-12 col-xl-11 mx-auto">
         <div class="card p-4">
             <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
+                <ng-container *ngIf="isMobile">
+                    <div class="d-flex centerize" style="font-size: 140%;border-bottom: #aab2bd 1px solid;">
+                        {{formTitleMobile | translate}}
+                    </div>
+                </ng-container>
                 <aw-wizard [navigateBackward]="(isDisabled?'deny':'allow')" #wizardForm [navBarDirection]="this.languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
                     <!------------ Page 1 : General Information        ------------>
                     <aw-wizard-step [stepTitle]="!isMobile? ('generalInfo' | translate ):''" (stepEnter)="onInitPage1()"><br/>

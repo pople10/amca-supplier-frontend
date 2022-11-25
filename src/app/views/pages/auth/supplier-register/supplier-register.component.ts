@@ -886,4 +886,19 @@ export class SupplierRegisterComponent implements OnInit {
       this.isDisabled=false;
     })
   }
+
+  get formTitleMobile()
+  {
+    if(this.page==1) return "generalInfo"
+    if(this.page==2) return "companyInfo"
+    if(this.page==3) return "address"
+    if(this.page==4) return "contact"
+    if(this.page==5) return "financialInfo"
+    if(this.page==6) return "products"
+    if(this.page==7) return "authorizedContacts"
+    if(this.page==8) return "settlements"
+    if(this.page==9) return "moroccanProduct"
+    if(this.page==10) return  "formCompleters"
+    return "ValidateRequest"
+  }
 }

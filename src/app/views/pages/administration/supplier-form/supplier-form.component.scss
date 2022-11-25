@@ -69,3 +69,17 @@
 {
     direction: initial;
 }
+
+@media only screen and (max-width: 790px) {
+    :host
+    {
+        height: max-content;
+    }
+}
+
+.centerize
+{
+    align-items: center;
+    justify-content: center;
+}
+
