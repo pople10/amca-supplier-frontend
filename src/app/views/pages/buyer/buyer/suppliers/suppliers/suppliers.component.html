@@ -60,7 +60,7 @@
             </div>
 
             <div [ngStyle]="isLoad&&{display:'none'}" id="paginationContainer" *ngIf="!isLoad&&this.data.pageDetails.totalPages>=1">
-                <pagination-controls [maxSize]="9" responsive="true" autoHide="true" (pageChange)="onChangePage($event)" previousLabel="" nextLabel="" class="my-pagination"></pagination-controls>
+                <pagination-controls [maxSize]="9" [responsive]="true" [autoHide]="true" (pageChange)="onChangePage($event)" previousLabel="" nextLabel="" class="my-pagination"></pagination-controls>
             </div>
             <div *ngIf="!isLoad&&this.data.content.length>0" class="centerizeText smallText">
                 <span class="displayBlock">{{"displayedElements" | translate}} : {{this.data.pageDetails.numberOfElements}}</span>
