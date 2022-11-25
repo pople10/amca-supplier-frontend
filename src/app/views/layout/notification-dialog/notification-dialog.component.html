@@ -1,0 +1,15 @@
+<div [ngClass]="{
+    'arabe': this.languageService.userLanguage=='ar'}">
+    <h2 mat-dialog-title>
+        {{"notifications" | translate}}
+        <button (click)="clear()" class="btn btn-light">{{"clearAll"|translate}}</button>
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <mat-list  *ngIf="data.notifications">
+            <mat-list-item [routerLink]="getNavigation(item.notificationType,item.idNavigation)" class="pointer" *ngFor="let item of data.notifications">
+                <mat-icon [ngStyle]="{'color':getColor(item.notificationType)}" class="m-2" matListItemIcon>{{getIcon(item.notificationType)}}</mat-icon>
+                <p>{{item.notificationType | translate: { id: item.idNavigation } }}</p>
+              </mat-list-item>
+        </mat-list>
+    </mat-dialog-content>
+</div>

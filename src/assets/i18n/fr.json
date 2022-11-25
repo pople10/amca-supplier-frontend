@@ -1228,6 +1228,10 @@
     "settlement":"Régionalisation d'un fournisseur",
     "notification":"Notification",
     "searchUsers":"Cherche un utilisateur",
-    "searchUserLabel":"Taper au moin une lettre ou email totale"
+    "searchUserLabel":"Taper au moin une lettre ou email totale",
+    "MESSAGE_RECEIVED":"Vous avez reçu un message, idetifiant du discussion: {{id}}",
+    "REQUEST_ADDED":"Vous avez une demande à accepter",
+    "REQUEST_APPROVED":"Votre compte à été approuvé avec succès",
+    "notifications":"Notifications"
 
 }

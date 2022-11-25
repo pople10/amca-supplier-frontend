@@ -48,6 +48,6 @@ export class ChatService {
 
   getRoomWebSocket(id:number)
   {
-    return new WebSocket(`${ENV["backend-api-websocket-url"]}/ws/chat/${id}?token=${this.authService.getToken()}`);
+    return new WebSocket(`${ENV["backend-api-websocket-url"]}/ws/chat/${id}?token=${this.authService.getToken()}&service=chat`);
   }
 }

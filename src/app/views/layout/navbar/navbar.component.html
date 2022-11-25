@@ -27,6 +27,9 @@
                         <span class="ml-1">Français</span></a>
                 </div>
             </li>
+            <li (click)="openNotification()" class="nav-item notification-container">
+                <mat-icon [matBadge]="notifications.length==0?null:notifications.length" matBadgeColor="warn">notification_important</mat-icon>
+            </li>
             <li class="nav-item nav-profile" ngbDropdown>
                 <a class="nav-link" ngbDropdownToggle id="profileDropdown">
                     <img src="/assets/images/default_user.png" alt="profile" />

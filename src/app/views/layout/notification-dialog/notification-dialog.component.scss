@@ -1,0 +1,27 @@
+.arabe
+{
+    direction: rtl;
+    text-align: right;
+}
+
+@media print {
+    .dontPrintMe {display: none;}
+}
+.dontPrintMe
+{
+    cursor: pointer;
+    color: rebeccapurple;
+    margin: 5px;
+}
+
+.mt-2.row
+{
+    border-bottom: 1px solid #e8dede;
+}
+
+.pointer
+{
+    cursor: pointer;
+    border-top: 1px solid grey;
+    outline: none;
+}

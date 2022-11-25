@@ -20,6 +20,10 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {TranslateModule} from "@ngx-translate/core";
 
 import {MatIconModule} from "@angular/material/icon";
+import {MatBadgeModule} from '@angular/material/badge';
+import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -29,7 +33,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 @NgModule({
-  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective],
+  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -39,7 +43,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FeahterIconModule,
     TranslateModule,
-    MatIconModule
+    MatIconModule,
+    MatBadgeModule,
+    MatDialogModule,
+    MatListModule
   ],
   providers: [
     {

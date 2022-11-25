@@ -1084,7 +1084,11 @@
     "settlement":"أقلمة المورد",
     "notification":"إشعار",
     "searchUsers":"ابحث عن مستخدم",
-    "searchUserLabel":"اكتب حرفًا أو بريدًا إلكترونيًا واحدًا على الأقل"
+    "searchUserLabel":"اكتب حرفًا أو بريدًا إلكترونيًا واحدًا على الأقل",
+    "MESSAGE_RECEIVED":"لقد تلقيت رسالة ، معرف المناقشة: {{id}}",
+    "REQUEST_ADDED":"لديك طلب لقبوله",
+    "REQUEST_APPROVED":"تمت الموافقة على حسابك بنجاح",
+    "notifications":"إشعارات"
 
  
 
