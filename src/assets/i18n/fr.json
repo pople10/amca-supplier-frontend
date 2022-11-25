@@ -543,7 +543,7 @@
     "suppliersRequest":"Demandes d'acceptation des fournisseurs",
     "approving":"Approuvant",
     "confirmApprove":"Vous êtes sûr d'approuver?",
-    "approve":"Approuver",
+    "approve":"Demande d'acceptation d'un fournisseur",
     "approved_done":"Approuvé avec succès",
     "false":"Non",
     "true":"Oui",
