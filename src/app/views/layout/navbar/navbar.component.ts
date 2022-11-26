@@ -80,7 +80,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
     setInterval(()=>{
       this.sendMessageWS(NotificationCode.check);
-    },10000)
+    },100000)
   }
 
   sendMessageWS(type:NotificationCode)
