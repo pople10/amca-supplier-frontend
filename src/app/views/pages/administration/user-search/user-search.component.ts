@@ -19,6 +19,7 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
   toBeAdd:string;
   searchedUsers:UserChatResponse[]=[];
   dataSent:boolean=false;
+  loadData:boolean=false;
   searching:boolean=false;
   @ViewChild('addMail') selectInput;
 
@@ -26,6 +27,7 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
   {
     if(!e) return;
     this.dataSent=true;
+    this.loadData=true;
     this.userService.getUser(e).subscribe(response=>{
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
@@ -38,7 +40,7 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
       },
       });
     },error=>{ this.handleRequestService.handleError(error)})
-    .add(()=>{this.dataSent=false;})
+    .add(()=>{this.dataSent=false;this.loadData=false;})
   }
 
   constructor(
