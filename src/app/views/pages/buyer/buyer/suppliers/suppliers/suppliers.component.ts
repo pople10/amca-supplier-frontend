@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from 'rxjs/operators';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
+import { ValueLabelModel } from 'src/app/entities/shared/ValueLabelModel';
+import { Specification } from 'src/app/entities/Specification';
 import { BuyerService } from 'src/app/services/buyer.service';
 import { LanguageService } from 'src/app/services/language/language.service';
+import { GeneralService } from 'src/app/services/shared/general.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 
 @Component({
@@ -27,16 +31,80 @@ export class SuppliersComponent implements OnInit {
   currentPage:number=0;
   currentSize:number=10;
 
+  spec:Specification=new Specification();
+
+  selectedSocials:string[]=[];
+  selectedFunctions:string[]=[];
+  selectedActivities:string[]=[];
+  selectedFamily:string[]=[];
+
+  socials:string[]=[];
+  family:ValueLabelModel[]=[];
+  functions:ValueLabelModel[]=[];
+  activities:ValueLabelModel[]=[];
+
+  filter()
+  {
+    this.spec.values={};
+    if(this.selectedSocials&&this.selectedSocials.length!=0)
+    {
+      this.spec.values["socialReason"]=this.selectedSocials;
+    }
+    
+    if(this.selectedFamily&&this.selectedFamily.length!=0)
+    {
+      this.spec.values["salesFamily"]=this.selectedFamily;
+    }
+
+    if(this.selectedActivities&&this.selectedActivities.length!=0)
+    {
+      this.spec.values["activitySector"]=this.selectedActivities;
+    }
+    if(this.selectedFunctions&&this.selectedFunctions.length!=0)
+    {
+      this.spec.values["managerFunction"]=this.selectedFunctions;
+    }
+    if(!this.emptyJson(this.spec.values))
+    {
+      this.currentPage=0;
+      this.getData(this.currentPage);
+    }
+  }
+
+  cancelFilter()
+  {
+    this.spec=new Specification();
+    this.selectedActivities=[];
+    this.selectedFamily=[];
+    this.selectedFunctions=[];
+    this.selectedSocials=[];
+    this.currentPage=0;
+    this.getData(this.currentPage);
+  }
+
+  emptyJson(json:any):boolean
+  {
+    return Object.keys(json).length==0;
+  }
+
   constructor(
     private modalService:NgbModal,
     private buyerService:BuyerService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,
     private translate:TranslateService,
+    private generalService:GeneralService,
     private router:Router
     ) 
     {
-
+      this.buyerService.getSocialReasons().subscribe(response=>{
+        this.socials=response;
+      })
+      this.generalService.getSupplierConsts().subscribe(response=>{
+        this.family=response.filter(e=>e.name=="salesfamily")[0].data;
+        this.activities=response.filter(e=>e.name=="sectoractivity")[0].data;
+        this.functions=response.filter(e=>e.name=="managerfunctions")[0].data;
+      });
     }
 
     ngOnInit(): void {
@@ -51,7 +119,7 @@ export class SuppliersComponent implements OnInit {
     private getData(page:number)
     {
       this.isLoad=true;
-      this.buyerService.getSuppliersWithPageAndSize(page,this.currentSize).subscribe(response=>{
+      this.buyerService.getSuppliersWithPageAndSize(page,this.currentSize,this.spec).subscribe(response=>{
           this.data=response;
       },err=>{
           this.handleRequestService.handleErrorWithCallBack(err,()=>{

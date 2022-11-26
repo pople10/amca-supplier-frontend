@@ -2,7 +2,10 @@
     'arabe': this.languageService.userLanguage=='ar'}">
     <h2 mat-dialog-title>
         {{"notifications" | translate}}
-        <button (click)="clear()" class="btn btn-light">{{"clearAll"|translate}}</button>
+        <button (click)="clear()" class="btn btn-light inOneLine">
+            <mat-icon class="iconCustom">delete</mat-icon>
+            <span>{{"clearAll"|translate}}</span>
+        </button>
     </h2>
     <mat-dialog-content class="mat-typography">
         <mat-list  *ngIf="data.notifications">

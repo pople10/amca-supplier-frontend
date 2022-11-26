@@ -3,6 +3,44 @@
   ">
    {{ "suppliers" | translate }} 
 </p>
+<div class="row mx-auto text-center m-2">
+    <div class="col-xl-2 mx-auto">
+        <mat-form-field appearance="fill">
+            <mat-label>{{"socialReason"|translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedSocials" multiple>
+              <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="col-xl-2 mx-auto">
+        <mat-form-field appearance="fill">
+            <mat-label>{{"activitySector"|translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedActivities" multiple>
+              <mat-option *ngFor="let i of activities" [value]="i.value">{{i.label|translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="col-xl-2 mx-auto">
+        <mat-form-field appearance="fill">
+            <mat-label>{{"managerFunction"|translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedFunctions" multiple>
+              <mat-option *ngFor="let i of functions" [value]="i.value">{{i.label|translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="col-xl-2 mx-auto">
+        <mat-form-field appearance="fill">
+            <mat-label>{{"salesFamily"|translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedFamily" multiple>
+              <mat-option *ngFor="let i of family" [value]="i.value">{{i.label|translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="col-xl-4">
+        <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
+        <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+    </div>
+</div>
 <div class="col-md-12 stretch-card">
     <div class="card">
         <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">

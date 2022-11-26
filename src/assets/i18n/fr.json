@@ -1232,6 +1232,7 @@
     "MESSAGE_RECEIVED":"Vous avez reçu un message, idetifiant du discussion: {{id}}",
     "REQUEST_ADDED":"Vous avez une demande à accepter",
     "REQUEST_APPROVED":"Votre compte à été approuvé avec succès",
-    "notifications":"Notifications"
+    "notifications":"Notifications",
+    "filter":"Filtrer"
 
 }

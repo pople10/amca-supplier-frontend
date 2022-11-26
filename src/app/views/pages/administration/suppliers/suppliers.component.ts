@@ -86,7 +86,9 @@ export class SuppliersComponent implements OnInit {
     private handleRequestService:HandleRequestService,
     private modalService:NgbModal,
     public dialog: MatDialog,
-    private translate:TranslateService) { }
+    private translate:TranslateService) { 
+      
+    }
 
   clear()
   {

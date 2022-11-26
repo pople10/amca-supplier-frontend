@@ -27,7 +27,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
   dataSent:boolean=false;
   currentComments:CommentResponse[];
   avg:number=0;
-  doNotDisplay:string[]=["id","roles","comments"];
+  doNotDisplay:string[]=["id","roles","comments","createDate","modifyDate"];
   scrollInto:string;
   thisYear:number=new Date().getFullYear();
 

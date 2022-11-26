@@ -1088,7 +1088,8 @@
     "MESSAGE_RECEIVED":"لقد تلقيت رسالة ، معرف المناقشة: {{id}}",
     "REQUEST_ADDED":"لديك طلب لقبوله",
     "REQUEST_APPROVED":"تمت الموافقة على حسابك بنجاح",
-    "notifications":"إشعارات"
+    "notifications":"إشعارات",
+    "filter":"تصفية"
 
  
 

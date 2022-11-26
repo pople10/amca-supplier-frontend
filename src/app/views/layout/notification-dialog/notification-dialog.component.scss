@@ -25,3 +25,19 @@
     border-top: 1px solid grey;
     outline: none;
 }
+.pointer:hover
+{
+    background-color: rgba(196, 196, 196, 0.427);
+}
+
+.iconCustom
+{
+    height: unset;
+    width: unset;
+}
+.inOneLine
+{
+    align-items: center;
+    justify-content: center;
+    display: inline-flex!important;
+}

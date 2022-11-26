@@ -7,7 +7,6 @@ import { LanguageService } from './services/language/language.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'nobleui-angular';
 
   public constructor(private languageService:LanguageService)
   {

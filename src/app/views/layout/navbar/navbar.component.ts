@@ -40,9 +40,13 @@ export class NavbarComponent implements OnInit,OnDestroy {
         localStorage.setItem("userData",JSON.stringify({...datos,...reponse}));
       }
     )
+    this.setMobile();
+    window.addEventListener("resize", ()=>{
+      this.setMobile();
+    });
    }
   ngOnDestroy(): void {
-    console.log("closed")
+    this.attempts=100000000;
     this.websocket.close();
   }
 
@@ -76,7 +80,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
     setInterval(()=>{
       this.sendMessageWS(NotificationCode.check);
-    },500)
+    },10000)
   }
 
   sendMessageWS(type:NotificationCode)
@@ -91,7 +95,6 @@ export class NavbarComponent implements OnInit,OnDestroy {
     
     this.websocket=this.generalService.getNotificationWebSocket();
     this.websocket.addEventListener('open', (event) => {
-      this.attempts=0;
     });
 
     this.websocket.addEventListener("error",(event)=>{
@@ -100,14 +103,15 @@ export class NavbarComponent implements OnInit,OnDestroy {
     
     // Listen for messages
     this.websocket.addEventListener('message', (event) => {
+      this.attempts=0;
         let received = JSON.parse(event.data);
         this.notifications=received;
     });
 
     this.websocket.addEventListener('close', (event) => {
         this.attempts++;
-        console.info("Attempting to reconnect")
-        if(this.attempts<50)
+        console.info("Attempting to reconnect",this.attempts)
+        if(this.attempts<5)
           this.openNotificationWS();
     });
 
@@ -117,8 +121,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
   {
     if(!this.notifications||this.notifications.length==0||this.notifications["constructor"]!=Array) return;
     const dialogRef = this.dialog.open(NotificationDialogComponent, {
-      width: '50%',
-      maxHeight:'50%',
+      width: this.isMobile?'100%':'50%',
       data: {'notifications':this.notifications,'callback':()=>{
         this.sendMessageWS(NotificationCode.clear);
       }},
@@ -142,6 +145,18 @@ export class NavbarComponent implements OnInit,OnDestroy {
     e.preventDefault();
     this.authService.logOut();
     this.router.navigate(['/auth/login']);
+  }
+
+  
+  isMobile = false;
+
+  setMobile()
+  {
+    if(document.documentElement.clientWidth <= 950){
+      this.isMobile = true;
+    }else{
+      this.isMobile = false;
+    }
   }
 
 }
