@@ -12,8 +12,23 @@ export class PublicNavbarComponent implements OnInit {
 
   userDetails:any=null;
   img:string="assets/images/default_user.png";
+  isMobile=false;
 
-  constructor(public domSanitizer: DomSanitizer,private languageService: LanguageService,private authService:AuthService) { }
+  setMobile()
+  {
+    if(document.documentElement.clientWidth <= 950){
+      this.isMobile = true;
+    }else{
+      this.isMobile = false;
+    }
+  }
+
+  constructor(public domSanitizer: DomSanitizer,private languageService: LanguageService,private authService:AuthService) {
+    this.setMobile();
+    window.addEventListener("resize", ()=>{
+      this.setMobile();
+    });
+   }
 
   ngOnInit(): void {
     if(localStorage.getItem("userData") != null){

@@ -1,68 +1,142 @@
-<div id="mainContainer">
-  <div id="topContainer">
-      <div id="b1" class="part1">
-          <div class="d-flex">
-            <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
-              <img class="mw-50px" src="/assets/images/linkedin.png"/>
-            </a>
-            <a target="_blank" href="https://www.facebook.com/Association-Marocaine-de-La-Communauté-Achats-AMCA-102453701526495/">
-              <img class="mw-50px" src="/assets/images/facebook.png"/>
-            </a>
-            <a target="_blank" href="https://youtube.com/channel/UCv3FXHT_11esmxe17_0dGuQ">
-              <img class="mw-50px" src="/assets/images/youtube.png"/>            
-            </a>
-            <a target="_blank" href="http://amcamaroc.org/">
-              <img class="mw-50px" src="/assets/images/website.png"/>
-            </a>
+<ng-container *ngIf="!isMobile">
+  <div id="mainContainer">
+    <div id="topContainer">
+        <div id="b1" class="part1">
+            <div class="d-flex">
+              <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
+                <img class="mw-50px" src="/assets/images/linkedin.png"/>
+              </a>
+              <a target="_blank" href="https://www.facebook.com/Association-Marocaine-de-La-Communauté-Achats-AMCA-102453701526495/">
+                <img class="mw-50px" src="/assets/images/facebook.png"/>
+              </a>
+              <a target="_blank" href="https://youtube.com/channel/UCv3FXHT_11esmxe17_0dGuQ">
+                <img class="mw-50px" src="/assets/images/youtube.png"/>            
+              </a>
+              <a target="_blank" href="http://amcamaroc.org/">
+                <img class="mw-50px" src="/assets/images/website.png"/>
+              </a>
+            </div>
+        </div>
+        
+        <div id="b2" class="part2">
+          <a routerLink="/">
+            <img  src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+          </a>
+        </div>
+      <div id="b3" class="part1">
+        <div class="links d-flex">
+          <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
+          <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
+        </div>
+        <div 
+        placement="bottom-right" id="langMenuBottom" ngbDropdown class="info d-inline-block">
+          <div
+            class="dropdown-toggle"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            <ng-container *ngIf="getCurrentLanguage() == 'fr'">
+              <img
+              src="/assets/icons/fr.png"
+              class="flag-img"
+              alt="fr"/>
+              <span>FR</span>
+            </ng-container>
+            <ng-container *ngIf="getCurrentLanguage() == 'ar'">
+              <img
+              src="/assets/icons/ar.png"
+              class="flag-img"
+              alt="ar"/>
+              <span>AR</span>
+            </ng-container>
+            <span
+              class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
+            ></span>
           </div>
-      </div>
-      
-      <div id="b2" class="part2">
-        <a routerLink="/">
-          <img  src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+          <div ngbDropdownMenu aria-labelledby="languageDropdown" class="dropPanel">
+            <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
+              ><img src="/assets/icons/ar.png" class="flag-img" alt="ar" />
+              <span class="ml-1">Arabe</span></a
+            >
+            <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
+              <img src="/assets/icons/fr.png" class="flag-img" alt="fr" />
+              <span class="ml-1">Francais</span></a
+            >
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isMobile">
+  <div id="mainContainer">
+    <div id="topContainer">
+        
+        <div id="b2" class="part2">
+          <a routerLink="/">
+            <img  src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+          </a>
+        </div>
+      <div id="b3" class="part1">
+        <div class="links d-flex">
+          <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
+          <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
+        </div>
+        <div 
+        placement="bottom-right" id="langMenuBottom" ngbDropdown class="info d-inline-block">
+          <div
+            class="dropdown-toggle"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            <ng-container *ngIf="getCurrentLanguage() == 'fr'">
+              <img
+              src="/assets/icons/fr.png"
+              class="flag-img"
+              alt="fr"/>
+              <span>FR</span>
+            </ng-container>
+            <ng-container *ngIf="getCurrentLanguage() == 'ar'">
+              <img
+              src="/assets/icons/ar.png"
+              class="flag-img"
+              alt="ar"/>
+              <span>AR</span>
+            </ng-container>
+            <span
+              class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
+            ></span>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="languageDropdown" class="dropPanel">
+            <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
+              ><img src="/assets/icons/ar.png" class="flag-img" alt="ar" />
+              <span class="ml-1">Arabe</span></a
+            >
+            <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
+              <img src="/assets/icons/fr.png" class="flag-img" alt="fr" />
+              <span class="ml-1">Francais</span></a
+            >
+          </div>
+        </div>
+    </div>
+  </div>
+  
+    <div id="b1 b1-mobile" class="part1" >
+      <div class="d-flex" style="justify-content: center;">
+        <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
+          <img class="mw-50px" src="/assets/images/linkedin.png"/>
+        </a>
+        <a target="_blank" href="https://www.facebook.com/Association-Marocaine-de-La-Communauté-Achats-AMCA-102453701526495/">
+          <img class="mw-50px" src="/assets/images/facebook.png"/>
+        </a>
+        <a target="_blank" href="https://youtube.com/channel/UCv3FXHT_11esmxe17_0dGuQ">
+          <img class="mw-50px" src="/assets/images/youtube.png"/>            
+        </a>
+        <a target="_blank" href="http://amcamaroc.org/">
+          <img class="mw-50px" src="/assets/images/website.png"/>
         </a>
       </div>
-    <div id="b3" class="part1">
-      <div class="links d-flex">
-        <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
-        <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
-      </div>
-      <div 
-      placement="bottom-right" id="langMenuBottom" ngbDropdown class="info d-inline-block">
-        <div
-          class="dropdown-toggle"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
-          <ng-container *ngIf="getCurrentLanguage() == 'fr'">
-            <img
-            src="/assets/icons/fr.png"
-            class="flag-img"
-            alt="fr"/>
-            <span>FR</span>
-          </ng-container>
-          <ng-container *ngIf="getCurrentLanguage() == 'ar'">
-            <img
-            src="/assets/icons/ar.png"
-            class="flag-img"
-            alt="ar"/>
-            <span>AR</span>
-          </ng-container>
-          <span
-            class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
-          ></span>
-        </div>
-        <div ngbDropdownMenu aria-labelledby="languageDropdown" class="dropPanel">
-          <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
-            ><img src="/assets/icons/ar.png" class="flag-img" alt="ar" />
-            <span class="ml-1">Arabe</span></a
-          >
-          <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
-            <img src="/assets/icons/fr.png" class="flag-img" alt="fr" />
-            <span class="ml-1">Francais</span></a
-          >
-        </div>
-      </div>
+    </div>
   </div>
-</div>
-</div>
+</ng-container>

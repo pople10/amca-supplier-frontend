@@ -299,3 +299,28 @@ form {
 {
 	margin-top: 10px!important;
 }
+
+div#b1-mobile {
+    display: none;
+    padding: 5px 0;
+    border-top: 2px solid #eeeeee;
+    border-bottom: 2px solid #eeeeeea1;
+}
+
+div#b1-mobile .d-flex {
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+@media only screen and (max-width: 600px) {
+  div#b1-mobile{display:block;}
+	div#b1{display:none;}
+div#dropdownBasic1 span {
+    display: none;
+}
+div#b3 {
+    align-items: center;
+}
+
+}
