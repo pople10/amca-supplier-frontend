@@ -25,7 +25,8 @@
         </div>
       <div id="b3" class="part1">
         <div class="links d-flex">
-          <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
+          <a routerLink="/auth/login" class="m-1" *ngIf="!authService.isLoggedIn()">{{ "Login" | translate }}</a>
+          <a routerLink="/dashboard" class="m-1" *ngIf="authService.isLoggedIn()">{{ "dashboard" | translate }}</a>
           <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
         </div>
         <div 
@@ -80,7 +81,8 @@
         </div>
       <div id="b3" class="part1">
         <div class="links d-flex">
-          <a routerLink="/auth/login" class="m-1">{{ "Login" | translate }}</a>
+          <a routerLink="/auth/login" class="m-1" *ngIf="!authService.isLoggedIn()">{{ "Login" | translate }}</a>
+          <a routerLink="/dashboard" class="m-1" *ngIf="authService.isLoggedIn()">{{ "dashboard" | translate }}</a>
           <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
         </div>
         <div 
