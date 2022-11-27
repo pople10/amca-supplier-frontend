@@ -105,7 +105,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
     this.websocket.addEventListener('message', (event) => {
       this.attempts=0;
         let received = JSON.parse(event.data);
-        this.notifications=received;
+        if(received["constructor"]==Array)
+          this.notifications=received;
     });
 
     this.websocket.addEventListener('close', (event) => {
