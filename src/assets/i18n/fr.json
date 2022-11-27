@@ -544,6 +544,7 @@
     "approving":"Approuvant",
     "confirmApprove":"Vous êtes sûr d'approuver?",
     "approve":"Demande d'acceptation d'un fournisseur",
+    "approveBtn":"Accepter",
     "approved_done":"Approuvé avec succès",
     "false":"Non",
     "true":"Oui",

@@ -1089,7 +1089,8 @@
     "REQUEST_ADDED":"لديك طلب لقبوله",
     "REQUEST_APPROVED":"تمت الموافقة على حسابك بنجاح",
     "notifications":"إشعارات",
-    "filter":"تصفية"
+    "filter":"تصفية",
+    "approveBtn":"أوافق"
 
  
 
