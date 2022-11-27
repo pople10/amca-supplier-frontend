@@ -145,6 +145,8 @@ html[lang="ar"] label.mat-checkbox-layout {
 
 .rightSide {
     text-align: right;
+    position: sticky;
+    left: 0;
 }
 
 @media(max-width:700px) {
