@@ -23,7 +23,7 @@ export class PublicNavbarComponent implements OnInit {
     }
   }
 
-  constructor(public domSanitizer: DomSanitizer,private languageService: LanguageService,private authService:AuthService) {
+  constructor(public domSanitizer: DomSanitizer,private languageService: LanguageService,public authService:AuthService) {
     this.setMobile();
     window.addEventListener("resize", ()=>{
       this.setMobile();
