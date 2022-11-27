@@ -41,8 +41,9 @@
     justify-content: center;
     display: inline-flex!important;
 }
-
-.maxWidth
-{
-    width: max-content;
+@media(max-width:790px) {
+    .maxWidth
+    {
+        width: max-content;
+    }
 }
