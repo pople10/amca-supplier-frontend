@@ -88,7 +88,7 @@
 
 .card
 {
-  height:calc(100vh - 150px);
+  height:calc(100vh - 200px);
 }
 
 .card-footer
@@ -156,4 +156,12 @@
 {
     top: 6%;
     position: relative;
+}
+
+.deleteIcon
+{
+  color:red;
+  cursor: pointer;
+  height: unset;
+  width: unset;
 }

@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UserChatResponse } from 'src/app/entities/UserChatResponse';
-import { ChatService } from 'src/app/services/chat.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import { UserService } from 'src/app/services/shared/users.service';
@@ -44,7 +43,6 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
   }
 
   constructor(
-    private chatService:ChatService,
     private handleRequestService:HandleRequestService,
     private userService:UserService,
     public dialog: MatDialog,
@@ -61,7 +59,7 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
   {
     this.searching=true;
         this.dataSent=true;
-        this.chatService.getUsersByKeyword(val).subscribe(data=>{
+        this.userService.getUsersByKeyword(val).subscribe(data=>{
           this.searchedUsers=data;
         },err=>{this.searchedUsers=[];})
         .add(()=>{this.dataSent=false;this.searching=false;})

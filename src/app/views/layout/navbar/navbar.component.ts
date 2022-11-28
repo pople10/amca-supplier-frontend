@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 import { NotificationCode } from 'src/app/entities/enum/NotificationCode';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
     public domSanitizer: DomSanitizer,
     private authService: AuthService,
     public dialog: MatDialog,
-    private route: ActivatedRoute,
+    private notificationService:NotificationService,
     private generalService:GeneralService,
     public languageService: LanguageService
   ) {
@@ -80,7 +81,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
     setInterval(()=>{
       this.sendMessageWS(NotificationCode.check);
-    },100000)
+    },30000)
   }
 
   sendMessageWS(type:NotificationCode)
@@ -106,7 +107,10 @@ export class NavbarComponent implements OnInit,OnDestroy {
       this.attempts=0;
         let received = JSON.parse(event.data);
         if(received["constructor"]==Array)
+        {
           this.notifications=received;
+          this.notificationService.setNotification(this.notifications);
+        }
     });
 
     this.websocket.addEventListener('close', (event) => {

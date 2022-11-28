@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import MetisMenu from 'metismenujs/dist/metismenujs';
@@ -8,13 +8,15 @@ import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
 
@@ -29,7 +31,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   roles:string[];
 
-  constructor(private authService:AuthService,@Inject(DOCUMENT) private document: Document,private renderer: Renderer2, public router: Router, public languageService: LanguageService) {
+  messageNumber:number=0;
+
+  constructor(
+    private authService:AuthService,
+    @Inject(DOCUMENT) private document: Document,
+    private notificationService:NotificationService, 
+    public router: Router, 
+    public languageService: LanguageService) 
+    {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
 
@@ -59,6 +69,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.notificationService.clearCallbacks();
+  }
 
   ngOnInit(): void {
     let userData = localStorage.getItem("userData");
@@ -78,6 +91,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     const desktopMedium = window.matchMedia('(min-width:992px) and (max-width: 1199px)');
     desktopMedium.addListener(this.iconSidebar);
     this.iconSidebar(desktopMedium);
+    if(this.notificationService.Notifications)
+    {
+      this.notificationService.addCallBack((notifications)=>{
+        this.messageNumber=notifications?.filter(e=>e.notificationType=="MESSAGE_RECEIVED")?.length;
+      })
+
+    }
   }
 
   ngAfterViewInit() {

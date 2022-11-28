@@ -161,6 +161,14 @@ html[lang="ar"] label.mat-checkbox-layout {
     }
 }
 
+@media(max-width:800px) {
+    .mobile-w-100
+    {
+        width: 100%;
+    }
+    
+}
+
 .textarea
 {
     height: 100px!important;
@@ -197,3 +205,4 @@ html[lang="ar"] label.mat-checkbox-layout {
 mat-dialog-container {
     overflow-y: hidden!important;
   }
+

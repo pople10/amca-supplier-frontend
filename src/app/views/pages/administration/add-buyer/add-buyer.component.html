@@ -241,6 +241,12 @@
                             <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-light" style=" color: #000!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
                             </button>
+                            <button [ngbTooltip]="(piece.expert? 'makeNonExpert' : 'makeExpert') | translate" [disabled]="doingAction" (click)="toggleExpert(piece[refName],piece.expert,i)" type="button" class="btn btn-light" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px;background-color:#17a2b8">
+                              <span *ngIf="doingActionTo!=i;else buttonLoader">
+                                <i *ngIf="!piece.expert" data-feather="user-check" appFeatherIcon></i>
+                                <i *ngIf="piece.expert" data-feather="x-circle" appFeatherIcon></i>
+                              </span>
+                            </button>
                             <button [disabled]="doingAction"  *ngIf="piece.status!='CREATED'" (click)="unlockItem(confirmUnlock,piece[refName],i)" type="button" class="btn btn-success" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="unlock" appFeatherIcon></i></span>
                             </button>

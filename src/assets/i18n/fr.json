@@ -624,7 +624,7 @@
     "noComments":"Aucun avis pour ce fournisseur",
     "noUserFound":"Aucun utilisateur trouvé",
     "searching":"Recherchant...",
-    "selectAtLeast3":"Ajoutez au moins 3 caractères",
+    "selectAtLeast3":"Ajoutez au moins 3 caractères ou email complet",
     "alreadyEntered":"Vous avez déjà saisi l'élement",
     "rooms":"Discussions",
     "participants":"Participants",
@@ -1235,6 +1235,9 @@
     "REQUEST_APPROVED":"Votre compte à été approuvé avec succès",
     "notifications":"Notifications",
     "filter":"Filtrer",
-    "dashboard":"Tableau de bord"
+    "dashboard":"Tableau de bord",
+    "makeExpert":"Rendre l'acheteur expert",
+    "makeNonExpert":"Supprimer du privilège d'expert de l'acheteur",
+    "addPersonsToRoom":"Ajouter des personnes à la discussion"
 
 }

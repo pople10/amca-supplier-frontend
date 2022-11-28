@@ -5,6 +5,7 @@ import { UserResponse } from 'src/app/entities/auth/user-response';
 import { BuyerRequest } from 'src/app/entities/BuyerRequest';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { SupplierRequest } from 'src/app/entities/SupplierRequest';
+import { UserChatResponse } from 'src/app/entities/UserChatResponse';
 import { UserRequest } from 'src/app/entities/UserRequest';
 import { ENV } from 'src/env';
 
@@ -92,6 +93,16 @@ export class UserService {
     return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/user/admin`, data, {
       headers: new HttpHeaders().set('Content-type', 'application/json'),
     });
+  }
+
+  toggleBuyerExpert(id:number,expert:boolean)
+  {
+    return this.http.put<UserRequest>(`${ENV["backend-api-base-url"]}/api/user/buyer/${id}/expert/toggle`,{'expert':expert});
+  }
+
+  getUsersByKeyword(keyword:string)
+  {
+    return this.http.get<UserChatResponse[]>(`${ENV["backend-api-base-url"]}/api/user/${keyword}`);
   }
 
   constructor(private http:HttpClient) { }

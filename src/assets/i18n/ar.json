@@ -479,7 +479,7 @@
     "noComments":"لا مراجعة لهذا المورد",
     "noUserFound":"لم يتم العثور على مستخدمين",
     "searching":"جاري البحث...",
-    "selectAtLeast3":"أضف 3 أحرف على الأقل",
+    "selectAtLeast3":"أضف 3 أحرف على الأقل أو بريد إلكتروني كامل",
     "alreadyEntered":"لقد قمت بالفعل بإدخال العنصر",
     "rooms":"مناقشات",
     "participants":"الحاضرين",
@@ -1091,7 +1091,10 @@
     "notifications":"إشعارات",
     "filter":"تصفية",
     "approveBtn":"أوافق",
-    "dashboard":"القائمة الرئيسية"
+    "dashboard":"القائمة الرئيسية",
+    "makeExpert":"اجعل المشتري خبيرًا",
+    "makeNonExpert":"إزالة من امتياز خبير المشتري",
+    "addPersonsToRoom":"أضف أشخاصًا للدردشة"
 
  
 

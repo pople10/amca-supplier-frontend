@@ -1,4 +1,47 @@
 <div class="row">
+    <div *ngIf="!opened" class="col-12 mb-4">
+        <button ngbTooltip="{{ 'addPersonsToRoom' | translate }}" (click)="opened=true" style=" min-height: 43px; " type="button" class="btn btn-primary">
+            <i  data-feather="plus-circle" appFeatherIcon></i>
+        </button>
+    </div>
+    <mat-card class="w-100 mb-4" [ngClass]="{'d-none':!opened}">
+        <div class="col-12 mx-auto mobile-w-100">
+            <label data-toggle="tooltip" class="control-label">
+                {{"user" | translate}}
+                <span class="text-danger"> *</span>
+            </label>
+            <ng-select #addMail id="search" loadingText="{{ 'searching'|translate }}" [loading]="searching" notFoundText="{{ 'noUserFound'|translate }}" [(ngModel)]="toBeAdd" (change)="onChangeKeyword($event)"  [multiple]="false" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                    [searchable]="true" placeholder="{{ 'selectAtLeast3'| translate }}">
+                    <ng-option *ngFor="let op of searchedUsers" [value]="op.email">{{ op.firstName+" "+op.lastName }}</ng-option>
+            </ng-select>
+        </div>
+        <div class="col-12">
+            <div class="mt-2 mx-2" style="float:right;">
+                <button (click)="this.onAddEmail($event)" [disabled]="!toBeAdd" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                    <i  data-feather="plus-circle" appFeatherIcon></i>
+                </button>
+            </div>
+            <div class="clear:both;"></div>
+        </div>
+        <div class="col-12" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+            <div class="table table-striped table-responsive" *ngIf="request.emails.length>0">
+                <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                    <tbody>
+                        <tr class="my-10" *ngFor=" let item of request.emails;let  index = index ">
+                            <td>{{item}}</td>
+                            <td class="d-flex justify-content-center" id="actionsContainer">
+                                <span (click)="deleteEmail( confirmRemove, item )"><i data-feather="x" appFeatherIcon></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 d-flex mt-4" style="justify-content:center">
+            <button [disabled]="dataSent" (click)="addPersons()" class="btn btn-success m-2">{{"add"|translate}}</button>
+            <button [disabled]="dataSent" (click)="opened=false" class="btn btn-warning m-2">{{"cancel"|translate}}</button>
+        </div>
+    </mat-card>
     <div class="col-md-12">
       <div class="card">
         <div class="right-side-card" *ngIf="showParticipients">
@@ -7,7 +50,7 @@
             </div>
             <div class="list">
                 <ul class="ul-li">
-                    <li *ngFor="let part of participients">{{part.firstName+" "+part.lastName}}</li>
+                    <li *ngFor="let part of participients"><span>{{part.firstName+" "+part.lastName}}</span> <mat-icon class="deleteIcon" (click)="removePerson(part.email)">delete</mat-icon></li>
                 </ul>
             </div>
         </div>
@@ -48,3 +91,25 @@
 </div>
 
 <div id="ss" class="d-none"></div>
+
+
+<ng-template #buttonLoader>
+    <span style=" margin: 3px 2px;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+</ng-template>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>

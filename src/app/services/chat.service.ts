@@ -31,9 +31,14 @@ export class ChatService {
     return this.http.post<RoomResponse>(`${ENV["backend-api-base-url"]}/api/chat/room`,data);
   }
 
-  addPersons(emails:string[],id:number)
+  addPersons(data:RoomRequest,id:number):Observable<RoomResponse>
   {
-    return this.http.put<RoomResponse>(`${ENV["backend-api-base-url"]}/api/chat/room/${id}`,{emails});
+    return this.http.put<RoomResponse>(`${ENV["backend-api-base-url"]}/api/chat/room/${id}`,data);
+  }
+
+  deletePersons(id:number,email:string):Observable<RoomResponse>
+  {
+    return this.http.delete<RoomResponse>(`${ENV["backend-api-base-url"]}/api/chat/room/${id}/persons/${email}`);
   }
     
   closeRoom(id:number)

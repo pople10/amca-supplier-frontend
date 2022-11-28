@@ -302,5 +302,17 @@ export class AddBuyerComponent implements OnInit {
     .add(()=>{this.doingAction=false;this.doingActionTo=null;})
   }
 
+  toggleExpert(id,expert,index)
+  {
+    this.doingAction=true;
+    this.doingActionTo=index;
+    this.userService.toggleBuyerExpert(id,!expert).subscribe(response=>{
+      if(this.datos.pageDetails.numberOfElements<=1&&this.currentPage!=0)
+        this.currentPage=this.currentPage-1;
+      this.getData(this.currentPage);
+      Swal.fire( { position: 'center', title: this.translate.instant("done"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+    },error=>{ this.handleRequestService.handleError(error)})
+    .add(()=>{this.doingAction=false;this.doingActionTo=null;})
+  }
   
 }

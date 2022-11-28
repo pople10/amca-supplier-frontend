@@ -117,7 +117,8 @@ export class RoomsComponent implements OnInit,AfterViewInit {
 
     onChangeKeyword(e)
     {
-      
+      if(!e)
+        this.searchedUsers=[];
     }
 
     geItem(id)
