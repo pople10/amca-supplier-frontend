@@ -102,7 +102,7 @@ export class UserService {
 
   getUsersByKeyword(keyword:string)
   {
-    return this.http.get<UserChatResponse[]>(`${ENV["backend-api-base-url"]}/api/user/${keyword}`);
+    return this.http.get<UserChatResponse[]>(`${ENV["backend-api-base-url"]}/api/user/keyword/${keyword}`);
   }
 
   constructor(private http:HttpClient) { }
