@@ -1,4 +1,4 @@
 export const ENV = {
-  "backend-api-base-url" : "https://localhost",
-  "backend-api-websocket-url":"wss://localhost"
+  "backend-api-base-url" : "https://amca.live",
+  "backend-api-websocket-url":"wss://amca.live"
 };

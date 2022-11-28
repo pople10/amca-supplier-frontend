@@ -50,7 +50,7 @@
             </div>
             <div class="list">
                 <ul class="ul-li">
-                    <li *ngFor="let part of participients"><span>{{part.firstName+" "+part.lastName}}</span> <mat-icon class="deleteIcon" (click)="removePerson(part.email)">delete</mat-icon></li>
+                    <li *ngFor="let part of participients"><span>{{part.firstName+" "+part.lastName}}</span> <mat-icon class="deleteIcon" *ngIf="myEmail!=part.email" (click)="removePerson(part.email)">delete</mat-icon></li>
                 </ul>
             </div>
         </div>

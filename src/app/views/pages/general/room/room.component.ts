@@ -36,6 +36,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
   dataSent:boolean=false;
   searching:boolean=false;
   opened:boolean=false;
+  myEmail:string=null;
 
   constructor(
     private chatService:ChatService,
@@ -50,6 +51,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
     private authService:AuthService
   ) { 
     this.id=parseInt(this.route.snapshot.paramMap.get('id'));
+    this.myEmail=this.authService.getEmailLocalStorage();
     this.chatService.getRoom(this.id).subscribe(data=>{
       this.participients=data.participants;
       this.data=data;
