@@ -7,8 +7,9 @@
     <div class="col-xl-2 mx-auto">
         <mat-form-field appearance="fill">
             <mat-label>{{"socialReason"|translate}}</mat-label>
-            <mat-select [(ngModel)]="selectedSocials" multiple>
-              <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
+            <mat-select  [(ngModel)]="selectedSocials" multiple (openedChange)="openChanged($event)">
+                <input [(ngModel)]="search" placeholder="{{'search' | translate}}" class="form-control" (keyup)="onKey($event)">
+                <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
             </mat-select>
           </mat-form-field>
     </div>
