@@ -234,10 +234,10 @@
                             <button [disabled]="doingAction" (click)="updateItem(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="edit-2" appFeatherIcon></i></span>
                             </button>
-                              <button [disabled]="doingAction" *ngIf="piece.status=='CREATED'" (click)="lockItem(confirmLock,piece[refName],i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                              <button [disabled]="doingAction" *ngIf="piece.status=='CREATED'&&myemail!=piece.email" (click)="lockItem(confirmLock,piece[refName],i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="lock" appFeatherIcon></i></span>
                             </button>
-                            <button [disabled]="doingAction"  *ngIf="piece.status=='CREATED'" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                            <button [disabled]="doingAction"  *ngIf="piece.status=='CREATED'&&myemail!=piece.email" (click)="deleteItem(confirmRemove,piece[refName],i)" type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="trash-2" appFeatherIcon></i></span>
                             </button>
                           </td>

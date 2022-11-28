@@ -12,6 +12,7 @@ import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserDataComponent } from '../show-user-data/show-user-data.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-admins',
@@ -40,6 +41,7 @@ export class AdminsComponent implements OnInit {
   id:number;
   dataSent:boolean=false;
   isSubmitted:boolean=false;
+  myemail:string=null;
 
 
   registerForm = new FormGroup({
@@ -87,7 +89,10 @@ export class AdminsComponent implements OnInit {
     private handleRequestService:HandleRequestService,
     private modalService:NgbModal,
     public dialog: MatDialog,
-    private translate:TranslateService) { }
+    private authService:AuthService,
+    private translate:TranslateService) { 
+      this.myemail=this.authService.getEmailLocalStorage();
+    }
 
   clear()
   {
