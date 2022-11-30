@@ -31,7 +31,7 @@ export class NotificationDialogComponent implements OnInit {
   getNavigation(type,id)
   {
     if(type=="MESSAGE_RECEIVED") return `/general/room/${id}`;
-    if(type=="REQUEST_ADDED") return "/buyer/rooms";
+    if(type=="REQUEST_ADDED") return "/buyer/suppliers/requests/list";
     return "#";
   }
 
