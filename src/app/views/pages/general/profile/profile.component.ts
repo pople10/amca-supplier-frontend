@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ValidatorService } from 'src/app/services/shared/validator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FileService } from 'src/app/services/shared/file.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public domSanitizer: DomSanitizer,private matSnack:MatSnackBar,private validatorService:ValidatorService,private translateService:TranslateService,private handleRequest:HandleRequestService,private authService:AuthService,private router: Router, public formBuilder: FormBuilder) { }
+  constructor(public fileService:FileService,public domSanitizer: DomSanitizer,private matSnack:MatSnackBar,private validatorService:ValidatorService,private translateService:TranslateService,private handleRequest:HandleRequestService,private authService:AuthService,private router: Router, public formBuilder: FormBuilder) { }
 
   validationEditForm:FormGroup;
   userData;
