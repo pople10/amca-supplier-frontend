@@ -1,9 +1,14 @@
-<p class="h5 mb-4" [ngStyle]="
-    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
-  ">
-   {{ "suppliersRequest" | translate }} 
-</p>
-<div class="col-md-12 stretch-card">
+
+
+<div class="header">
+    <div class="nav-type2">
+        <div class="nav-2-element active" >
+            {{ "suppliersRequest" | translate }}
+        </div>
+    </div>
+</div>
+<br/>
+<div class="col-md-12 stretch-card body-container">
     <div class="card">
         <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
             <div class="table-responsive" style=" position: relative; min-height: 40vh; ">
@@ -48,7 +53,7 @@
                                 {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
                             </td>
                             <td>
-                                <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                                <button [disabled]="doingAction" (click)="view(piece[refName],i)" type="button" class="btn btn-primary view" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                                     <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
                                 </button>
                                 <button *ngIf="!piece['approved']" [disabled]="doingAction" (click)="approveItem(confirmApprove,piece[refName],i)" type="button" class="btn btn-success" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">

@@ -1,12 +1,89 @@
-<p class="h5 mb-4" [ngStyle]="
-    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
-  ">
-  <a (click)="goBack()"><i style="color:blue;" data-feather="corner-up-left" appFeatherIcon></i></a> {{ "supplier" | translate }} 
-  ({{avg | number : '1.2-2' }} <mat-icon>star</mat-icon>)
-</p>
+<!-- Header -->
+<!-- <a (click)="goBack()"><i style="color:blue;" data-feather="corner-up-left" appFeatherIcon></i></a>  -->
 
-<div>
-    <div class="card">
+<div class="header">
+    <div class="nav-type2">
+        <div class="nav-2-element" [ngClass]="{'active':page==0}" (click)="page=0">
+             {{ "supplier" | translate }} {{avg | number : '1.2-2' }}  <mat-icon class="star-icon">star</mat-icon>
+        </div>
+        <div class="nav-2-element" [ngClass]="{'active':page==1}" (click)="page=1">
+           {{ "rate" | translate }} 
+        </div>
+    </div>
+    <div class="for-header-card"></div>
+</div>
+<div class="card-header-elements">
+    <div class="card-header-1">
+        <div class="c-h-title">{{ "activitySector" | translate }}</div>
+        <div class="c-h-body green">{{ data.activitySector[0] | translate }}</div>
+    </div>
+    <div class="card-header-1">
+        <div class="c-h-title">{{ "capitalMAD" | translate }}</div>
+        <div class="c-h-body">{{ data.capitalMAD }}</div>
+    </div>
+    <div class="card-header-1">
+        <div class="c-h-title">{{ "creationYear" | translate }}</div>
+        <div class="c-h-body">{{ data.creationYear }}</div>
+    </div>
+    <div class="card-header-1">
+        <div class="c-h-title">{{ "cin" | translate }}</div>
+        <div class="c-h-body">{{ data.cin }}</div>
+    </div>
+    <div class="card-header-1">
+        <div class="c-h-title">{{ "commercialCourt" | translate }}</div>
+        <div class="c-h-body" [ngClass]="{'no-data':(data.commercialCourt==null)}">{{ data.commercialCourt }}</div>
+    </div>
+</div>
+<!-- end Header -->
+
+<div class=" body-container">
+    <div class="title-type1">{{ "authorizedContacts" | translate }}</div>
+    <div class="fournisseur-container-1">
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "email" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].email ==null)}" >{{ data.authorizedContacts[0].email }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "fax" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fax ==null)}">{{ data.authorizedContacts[0].fax }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "fullName" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fullName ==null)}">{{ data.authorizedContacts[0].fullName }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "functionality" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].functionality ==null)}">{{ data.authorizedContacts[0].functionality | translate}}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "id" | translate }}</div>
+            <div class="fournisseur-body" [ngClass]="{'no-data':(data.authorizedContacts[0].id ==null)}">{{ data.authorizedContacts[0].id }}</div>
+        </div>
+    </div>
+    <div class="title-type1">{{ "formCompleters" | translate }}</div>
+    <div class="fournisseur-container-1">
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "email" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].email ==null)}" >{{ data.formCompleters[0].email }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "fax" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fax ==null)}">{{ data.formCompleters[0].fax }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "fullName" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fullName ==null)}">{{ data.formCompleters[0].fullName }}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "functionality" | translate }}</div>
+            <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].functionality ==null)}">{{ data.formCompleters[0].functionality | translate}}</div>
+        </div>
+        <div class="fournisseur-el1">
+            <div class="fournisseur-title">{{ "id" | translate }}</div>
+            <div class="fournisseur-body" [ngClass]="{'no-data':(data.formCompleters[0].id ==null)}">{{ data.formCompleters[0].id }}</div>
+        </div>
+    </div>
+    <div class="card" style="border-radius:15px;">
         <div class="card-body hCustom" *ngIf="loading">
             <div class="w-100 d-flex justify-content-center align-items-center mt-5">
                 <div class="spinner-border text-primary" role="status">
@@ -14,60 +91,56 @@
                 </div>
             </div>
         </div>
-
-        <div class="card-body" *ngIf="!loading">
-                <div class="row mt-2" *ngFor="let item of data |keyvalue">
-                    <ng-container *ngIf="whatIsIt(item.value)=='Array'">
-                        <div class="col-6">
-                            {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
-                        </div>
-                        <div class="col-6">
-                            <ng-container *ngIf="getLength(item.value)==0">
-                                {{"null"|translate}}
-                            </ng-container>
-                            <ng-container *ngIf="getLength(item.value)>0">
-                                <div class="dotted-border table table-striped table-responsive">
-                                    <table *ngIf="whatIsIt(item.value[0])=='Object'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
-                                       <thead>
-                                          <tr>
-                                             <th *ngFor="let key of item.value[0] |keyvalue">{{ ""+key.key | translate }}</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr class="my-10" *ngFor="let ele of getArray(item.value)">
-                                             <td *ngFor="let sele of ele |keyvalue">{{""+sele.value | translate }}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                    <table *ngIf="whatIsIt(item.value[0])=='Other'" class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
-                                        <tbody>
-                                           <tr class="my-10" *ngFor="let ele of getArray(item.value)">
-                                              <td>{{""+ele | translate }}</td>
-                                           </tr>
-                                        </tbody>
-                                     </table>
-                                 </div>
-                            </ng-container>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="whatIsIt(item.value)=='Object'">
-                        <div class="row" *ngFor="let ele of item.value |keyvalue">
-                            <div class="col-6">
-                                {{ele.key}}
-                            </div>
-                            <div class="col-6">
-                                {{ele.value}}
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="whatIsIt(item.value)=='Other'">
-                        <div class="col-6">
-                            {{""+item.key | translate : { year1: thisYear-1,year2:thisYear-2,year3:thisYear-3 } }}
-                        </div>
-                        <div class="col-6">
-                            {{""+item.value | translate}}
-                        </div>
-                    </ng-container>
+        <div class="card-body" *ngIf="!loading" >
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "haveMoroccanProducts" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.haveMoroccanProducts ==null)}">
+                        <div *ngIf="data.haveMoroccanProducts" class="oui">Oui</div>
+                        <div *ngIf="!data.haveMoroccanProducts" class="non">Non</div>
+                    </div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "haveOtherLocation" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.haveOtherLocation ==null)}">
+                        <div *ngIf="data.haveOtherLocation" class="oui">Oui</div>
+                        <div *ngIf="!data.haveOtherLocation" class="non">Non</div>
+                    </div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "ice" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.ice ==null)}">{{ data.ice }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "isoCertification" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.isoCertification ==null)}">{{ data.isoCertification }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "lawForm" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.lawForm ==null)}">{{ data.lawForm }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "managerFullName" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.managerFullName ==null)}">{{ data.managerFullName }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "managerFunction" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.managerFunction ==null)}">{{ data.managerFunction }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "officeAddress" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.officeAddress ==null)}">{{ data.officeAddress }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "officeCity" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.officeCity ==null)}">{{ data.officeCity }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "officeCountry" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.officeCountry ==null)}">{{ data.officeCountry }}</div>
+                </div>
+                <div class="row mt-2 rowFournisseur">
+                    <div class="col-8">{{ "officeZipCode" | translate }}</div>
+                    <div class="col-4"  [ngClass]="{'no-data':(data.officeZipCode ==null)}">{{ data.officeZipCode }}</div>
                 </div>
         </div>
     </div>
