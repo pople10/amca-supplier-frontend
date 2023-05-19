@@ -63,6 +63,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
   attempts:number=0;
 
+  messageNumber:number=0;
+
   ngOnInit(): void {
 
     let userData = localStorage.getItem("userData") ?? null;
@@ -82,6 +84,14 @@ export class NavbarComponent implements OnInit,OnDestroy {
     setInterval(()=>{
       this.sendMessageWS(NotificationCode.check);
     },30000)
+    if(this.notificationService.Notifications)
+    {
+      this.notificationService.addCallBack((notifications)=>{
+        this.messageNumber=notifications?.filter(e=>e.notificationType=="MESSAGE_RECEIVED")?.length;
+      })
+
+    }
+
   }
 
   sendMessageWS(type:NotificationCode)
