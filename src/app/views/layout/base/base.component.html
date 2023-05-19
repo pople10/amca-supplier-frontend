@@ -1,7 +1,5 @@
 <div class="main-wrapper">
-    <!-- partial:sidebar -->
-    <app-sidebar></app-sidebar>
-    <!-- partial -->
+  
 
     <div [ngClass]="{
       'page-wrapper': true,
@@ -13,8 +11,10 @@
           direction: 'rtl'
         }
       "></app-navbar>
-        <!-- partial -->
-
+      <div class="header">
+        <div class="title-header">Bienvenue sur votre Portail </div>
+        <div class="title-header">Acheteur</div>
+      </div>
         <div class="page-content">
             <!-- Spinner for lazyload modules -->
             <div *ngIf="isLoading" class="spinner-wrapper">
@@ -26,8 +26,5 @@
             </div>
         </div>
 
-        <!-- partial:footer -->
-        <!-- <app-footer></app-footer> -->
-        <!-- partial -->
     </div>
 </div>

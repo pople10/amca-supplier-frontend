@@ -1,48 +1,57 @@
-<p class="h5 mb-4" [ngStyle]="
-    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
-  ">
-   {{ "suppliers" | translate }} 
-</p>
-<div class="row mx-auto text-center m-2">
-    <div class="col-xl-2 mx-auto">
-        <mat-form-field appearance="fill">
-            <mat-label>{{"socialReason"|translate}}</mat-label>
-            <mat-select  [(ngModel)]="selectedSocials" multiple (openedChange)="openChanged($event)">
-                <input [(ngModel)]="search" placeholder="{{'search' | translate}}" class="form-control" (keyup)="onKey($event)">
-                <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+<!-- Header -->
+
+<div class="header">
+    <div class="nav-type2">
+        <div class="nav-2-element active">
+            {{ "suppliers" | translate }}
+        </div>
     </div>
-    <div class="col-xl-2 mx-auto">
-        <mat-form-field appearance="fill">
-            <mat-label>{{"activitySector"|translate}}</mat-label>
-            <mat-select [(ngModel)]="selectedActivities" multiple>
-              <mat-option *ngFor="let i of activities" [value]="i.value">{{i.label|translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    <div class="col-xl-2 mx-auto">
-        <mat-form-field appearance="fill">
-            <mat-label>{{"managerFunction"|translate}}</mat-label>
-            <mat-select [(ngModel)]="selectedFunctions" multiple>
-              <mat-option *ngFor="let i of functions" [value]="i.value">{{i.label|translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    <div class="col-xl-2 mx-auto">
-        <mat-form-field appearance="fill">
-            <mat-label>{{"salesFamily"|translate}}</mat-label>
-            <mat-select [(ngModel)]="selectedFamily" multiple>
-              <mat-option *ngFor="let i of family" [value]="i.value">{{i.label|translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    <div class="col-xl-4">
-        <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
-        <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+    
+    <div class="header-filters">
+       <div class="filters-container">
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"socialReason"|translate}}</mat-label>
+                <mat-select  [(ngModel)]="selectedSocials" multiple (openedChange)="openChanged($event)">
+                    <input [(ngModel)]="search" placeholder="{{'search' | translate}}" class="form-control" (keyup)="onKey($event)">
+                    <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"activitySector"|translate}}</mat-label>
+                <mat-select [(ngModel)]="selectedActivities" multiple>
+                <mat-option *ngFor="let i of activities" [value]="i.value">{{i.label|translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"managerFunction"|translate}}</mat-label>
+                <mat-select [(ngModel)]="selectedFunctions" multiple>
+                <mat-option *ngFor="let i of functions" [value]="i.value">{{i.label|translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"salesFamily"|translate}}</mat-label>
+                <mat-select [(ngModel)]="selectedFamily" multiple>
+                <mat-option *ngFor="let i of family" [value]="i.value">{{i.label|translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+       </div>
+        <div class="filter-element">
+            <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
+            <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+        </div>
     </div>
 </div>
-<div class="col-md-12 stretch-card">
+<br/>
+<!-- end Header -->
+<div class="col-md-12 stretch-card body-container">
     <div class="card">
         <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
             <div class="table-responsive" style=" position: relative; min-height: 40vh; ">
@@ -77,7 +86,7 @@
                     <tbody>
                         <tr *ngFor=" let piece of data.content  | paginate : { itemsPerPage: this.data.pageDetails.size, currentPage: data.pageDetails.number+1, totalItems: data.pageDetails.totalElements } ;let i = index  ">
                             <td>
-                                {{getRate(piece['comments']) | number : '1.2-2'}} <mat-icon>star</mat-icon>
+                                <div class="rate-table">{{getRate(piece['comments']) | number : '1.2-2'}} <mat-icon class="star-icon">star</mat-icon></div>
                             </td>
                             <td *ngFor="let field of this.fields">
                                 {{piece[field]}}
@@ -89,9 +98,9 @@
                                 {{piece[field] | date:"yyyy-MM-dd HH:mm:ss"}}
                             </td>
                             <td>
-                                <button [disabled]="doingAction" (click)="view(piece[refName])" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
-                                    <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="eye" appFeatherIcon></i></span>
-                                </button>
+                                <button class="more-btn" [disabled]="doingAction" (click)="view(piece[refName])" type="button" >
+                                    {{"more" | translate}}
+                               </button>
                             </td>
                         </tr>
                     </tbody>

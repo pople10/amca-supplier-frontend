@@ -1,9 +1,164 @@
 <nav class="navbar" [ngClass]="{
     'mobile-ar-sidebar-open': this.languageService.userLanguage == 'ar'
   }">
-    <a href="" class="sidebar-toggler" (click)="toggleSidebar($event)">
-        <i class="feather icon-menu"></i>
-    </a>
+       <div id="sidebarText" style="z-index: 2;" [ngClass]="{
+            'sidebar-brand': true,
+            adminTextColor: isAdmin
+          }">
+                <img 
+                id="logo"
+                [src]="isAdmin?'/assets/images/logos/logo-white.png':'/assets/images/logos/logo.png'" 
+                width="95%"
+                class="mx-auto"/>
+        </div>
+        <div  [ngClass]="{ 'sidebar-body': true, adminSideBar: isAdmin }">
+        
+            <!--- Sidemenu start -->
+    
+          
+        <ul class="sidebar-nav metismenu" id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
+            <ng-container>
+                <li class="nav-item" routerLink="/dashboard">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>home</mat-icon>
+                        <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{ "Home" | translate }}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="roles && roles.includes('supplier')">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/supplier">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            folder_shared
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"maFiche" | translate}}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="roles && roles.includes('buyer') || roles.includes('buyer_expert')">
+                <li class="nav-item" ngbDropdown>
+                    <a class="nav-link" ngbDropdownToggle id="buyerLink" role="button">
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>settings
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"buyer" | translate}}</span>
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="buyerLink" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+                        <a style="text-align: center;" ngbDropdownItem class="py-2" routerLink="/buyer/suppliers">
+                            <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"suppliers" | translate}}
+                                </span>
+                        </a>
+                        <a *ngIf="roles && roles.includes('buyer_expert')"style="text-align: center;" ngbDropdownItem class="py-2" routerLink="/buyer/suppliers/requests/list">
+                            <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"requests" | translate}}
+                                </span>
+                        </a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/buyer/rates">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            star
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"rate" | translate}}</span>
+                    </a>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="isAdmin">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/admin/history">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            watch
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"history" | translate}}</span>
+                    </a>
+            
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>supervisor_account
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                        && { 'margin-right': '30px','margin-left':'0px' } ">{{"users" | translate}}</span>
+                        <span class="link-arrow white" data-feather="chevron-down" appFeatherIcon></span>
+                    </a>
+
+                    <ul class="sidebar-nav sub-menu nav-second-level" aria-expanded="false">
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/admins">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"admins" | translate}}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/buyers">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"buyers" | translate}}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/suppliers">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"suppliers" | translate}}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" [ngClass]="{ 'side-nav-item': true }" routerLink="/admin/users/search">
+                            <a class="nav-link">
+                                <i class="link-icon" appFeatherIcon></i>
+                                <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                                && { 'margin-right': '30px','margin-left':'0px' } ">
+                                    {{"searchUsers" | translate}}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="!roles.includes('supplier')">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/general/rooms">
+                        <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            send
+                        </mat-icon>
+                        <span [matBadge]="(messageNumber&&messageNumber!=0)?messageNumber:null" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                            && { 'margin-right': '30px','margin-left':'0px' } ">
+                            {{"rooms" | translate}}
+                        </span>
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+        </div>
     <div class="navbar-content" [ngStyle]="
       this.languageService.userLanguage == 'ar' && {
         'padding-left': '180px'
@@ -12,27 +167,26 @@
         <ul class="navbar-nav">
             <li class="nav-item" ngbDropdown>
                 <a class="nav-link" ngbDropdownToggle id="languageDropdown" role="button">
-                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'fr'">Français</span>
-                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'ar'">العربية</span>
-                    <span class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"></span>
+                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'fr'">FR</span>
+                    <span class="ml-1" title="fr" *ngIf="getCurrentLanguage() == 'ar'">AR</span>
+                    <!-- <span class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"></span> -->
+                    <mat-icon class="top-icons" appFeatherIcon>
+                        play_arrow
+                    </mat-icon>
                 </a>
-                <div ngbDropdownMenu aria-labelledby="languageDropdown" [ngStyle]="
-            this.languageService.userLanguage == 'ar' && {
-              'text-align': 'right'
-            }
-          ">
+                <div ngbDropdownMenu aria-labelledby="languageDropdown" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
                     <a style="text-align: center;" ngbDropdownItem class="py-2" (click)="changeLanguage('ar')">
                         <span class="ml-1">العربية</span></a>
                     <a style="text-align: center;" ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
                         <span class="ml-1">Français</span></a>
                 </div>
             </li>
-            <li (click)="openNotification()" class="nav-item notification-container">
-                <mat-icon class="notif-icon" [matBadge]="notifications.length==0?null:notifications.length" matBadgeColor="warn">notification_important</mat-icon>
-            </li>
             <li class="nav-item nav-profile" ngbDropdown>
-                <a class="nav-link" ngbDropdownToggle id="profileDropdown">
-                    <img src="/assets/images/default_user.png" alt="profile" />
+                <a class="nav-link"  ngbDropdownToggle id="profileDropdown">
+                    <span class="ml-1">Profile</span>
+                    <mat-icon class="top-icons" appFeatherIcon>
+                        play_arrow
+                    </mat-icon>
                 </a>
                 <div ngbDropdownMenu aria-labelledby="profileDropdown">
                     <div class="dropdown-header d-flex flex-column align-items-center">
@@ -66,6 +220,9 @@
                         </ul>
                     </div>
                 </div>
+            </li>
+            <li (click)="openNotification()" class="nav-item notification-container">
+                <mat-icon class="notif-icon" [matBadge]="notifications.length==0?null:notifications.length" matBadgeColor="warn">notification_important</mat-icon>
             </li>
         </ul>
     </div>

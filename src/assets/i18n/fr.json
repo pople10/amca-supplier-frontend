@@ -1239,6 +1239,7 @@
     "makeExpert":"Rendre l'acheteur expert",
     "makeNonExpert":"Supprimer du privilège d'expert de l'acheteur",
     "addPersonsToRoom":"Ajouter des personnes à la discussion",
-    "search":"Recherche"
+    "search":"Recherche",
+    "more":"Savoir plus"
 
 }
