@@ -460,3 +460,25 @@ button.btn.delete:hover {
     display: block;
     margin-top: 10px;
 }
+.card-body.rating-container {
+    position: relative;
+    padding: 0!important;
+}
+.rating-container button {
+    position: absolute;
+    top: 35%;
+    right: 10px;
+    height: 40px;
+    width: 100px;
+    background: #7d5895;
+    border: #7d5895;
+}
+.rating-container button:hover {
+    background: #643d7d;
+    border: #643d7d;
+}
+.rating-container textarea {
+    padding: 40px!important;
+    padding-left: 15px!important;
+    padding-bottom: 0!important;
+}
