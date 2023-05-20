@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./supplier.component.scss']
 })
 export class SupplierComponent implements OnInit,AfterViewInit {
+  page=0;
   loading:boolean;
   data:any;
   id:number;
