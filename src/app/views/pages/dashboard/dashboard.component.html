@@ -29,85 +29,105 @@
     </div>
 </ng-container>
 <ng-container *ngIf="roles.includes('admin')&&dataLoaded">
-    <p class="h5 mb-4" [ngStyle]="
-        this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
-    ">
-    {{ "statistics" | translate }} 
-    </p>
-    <div class="row">
-        <div class="col-md-4 mx-auto mt-2">
-            <stats-element icon="supervisor_account" 
-                color="#57c7d4"
-                [value]="statsData.users.otherUserNumber-statsData.users.supplierNumber-statsData.users.buyerNumber" 
-                label="{{'admins'|translate}}"></stats-element>
-        </div>
-        <div class="col-md-4 mx-auto mt-2">
-            <stats-element icon="local_shipping" 
-                color="#434a54"
-                [value]="statsData.users.supplierNumber" 
-                label="{{'suppliers'|translate}}"></stats-element>
-        </div>
-        <div class="col-md-4 mx-auto mt-2">
-            <stats-element icon="shopping_basket" 
-                color="#727cf5"
-                [value]="statsData.users.buyerNumber" 
-                label="{{'buyers'|translate}}"></stats-element>
-        </div>
+    <div class="header">
+        <div class="nav-type2">
+            <div class="nav-2-element active">
+                 {{ "statistics" | translate }} 
+            </div>
+        </div> 
+        <div class="for-header-card"></div>
     </div>
-    <div class="row">
-        <div class="col-md-4 mx-auto mt-2" *ngFor="let i of statsData.categories.active">
-            <stats-element [icon]="getIcon(i.label)" 
-                [color]="getColor(i.label)"
-                [value]="i.count" 
-                label="{{i.label|translate}}"></stats-element>
+    <div class="card-header-elements" >
+        <div class="card-header-1">
+            <div class="c-h-title">{{ "admins" | translate }}</div>
+            <div class="c-h-body">{{ statsData.users.otherUserNumber-statsData.users.supplierNumber-statsData.users.buyerNumber}}</div>
         </div>
+        <div class="card-header-1">
+            <div class="c-h-title">{{ "suppliers" | translate }}</div>
+            <div class="c-h-body">{{ statsData.users.supplierNumber }}</div>
+        </div>
+        <div class="card-header-1">
+            <div class="c-h-title">{{ "buyers" | translate }}</div>
+            <div class="c-h-body">{{ statsData.users.buyerNumber}}</div>
+        </div>
+        <div class="card-header-1"  *ngFor="let i of statsData.categories.active">
+            <div class="c-h-title">{{ i.label | translate }}</div>
+            <div class="c-h-body">{{ i.count }}</div>
+        </div>
+        <!-- 
+        <div class="card-header-1">
+            <div class="c-h-title">{{ "commercialCourt" | translate }}</div>
+            <div class="c-h-body" [ngClass]="{'no-data':(data.commercialCourt==null)}">{{ data.commercialCourt }}</div>
+        </div> -->
     </div>
-    <div class="row">
-        <div class="col-lg-5 card mx-auto p-2 mt-2">
-            <apx-chart
+    <!-- end Header -->
+    <div class="charts-cont">
+        <div class="apex-element" style=" max-height: 500px; ">
+            <div class="title-apex"> {{ apexChart4Options.title.text }}</div>
+            <div style="max-width:500px;margin:auto">
+                <apx-chart
                 #chart4
                 [series]="apexChart4Options.series"
                 [chart]="apexChart4Options.chart"
                 [xaxis]="apexChart4Options.xaxis"
                 [labels]="apexChart4Options.labels"
                 [responsive]="apexChart4Options.responsive"
-                [title]="apexChart4Options.title"></apx-chart>
+                [title]=""></apx-chart>
+            </div>
         </div>
-        <div class="col-lg-5 card mx-auto p-2 mt-2">
-            <apx-chart
+        <div class="apex-element" style=" max-height: 500px; ">
+            <div class="title-apex"> {{ apexChart5Options.title.text  }}</div>
+            <div style="max-width:500px;margin:auto">
+                <apx-chart
                 #chart5
                 [series]="apexChart5Options.series"
                 [chart]="apexChart5Options.chart"
                 [xaxis]="apexChart5Options.xaxis"
                 [labels]="apexChart5Options.labels"
                 [responsive]="apexChart5Options.responsive"
-                [title]="apexChart5Options.title"></apx-chart>
+                [title]=""></apx-chart>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-5 card mx-auto p-2 mt-2">
-            <apx-chart
-                #chart1
+    <div class="charts-cont">
+        <div class="apex-element" style="  ">
+            <div class="title-apex"> {{ apexChart1Options.title.text }}</div>
+            <div style="margin:auto">
+                <apx-chart
+                #chart4
                 [series]="apexChart1Options.series"
                 [chart]="apexChart1Options.chart"
                 [xaxis]="apexChart1Options.xaxis"
-                [title]="apexChart1Options.title"></apx-chart>
+                [labels]="apexChart1Options.labels"
+                [responsive]="apexChart1Options.responsive"
+                [title]=""></apx-chart>
+            </div>
         </div>
-        <div class="col-lg-5 card mx-auto p-2 mt-2">
-            <apx-chart
-                #chart2
+        <div class="apex-element" style=" ">
+            <div class="title-apex"> {{ apexChart2Options.title.text  }}</div>
+            <div style="margin:auto">
+                <apx-chart
+                #chart5
                 [series]="apexChart2Options.series"
                 [chart]="apexChart2Options.chart"
                 [xaxis]="apexChart2Options.xaxis"
-                [title]="apexChart2Options.title"></apx-chart>
+                [labels]="apexChart2Options.labels"
+                [responsive]="apexChart2Options.responsive"
+                [title]=""></apx-chart>
+            </div>
+           
         </div>
-        <div class="col-lg-8 card mx-auto p-2 mt-2">
+    </div>
+    <div class="charts-cont">
+        <div class="apex-element">
+            <div class="title-apex"> {{ apexChart3Options.title.text  }}</div>
             <apx-chart
                 #chart3
                 [series]="apexChart3Options.series"
                 [chart]="apexChart3Options.chart"
                 [xaxis]="apexChart3Options.xaxis"
-                [title]="apexChart3Options.title"></apx-chart>
+                [title]=""></apx-chart>
         </div>
     </div>
+    
 </ng-container>

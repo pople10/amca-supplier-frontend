@@ -1,9 +1,12 @@
-<p class="h5 mb-4" [ngStyle]="
-    this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }
-  ">
-   {{ "suppliers" | translate }} 
-</p>
 
+<div class="header">
+  <div class="nav-type2">
+      <div class="nav-2-element active" >
+          {{ "suppliers" | translate }}
+      </div>
+  </div>
+</div> 
+<br/>
 <div id="formulaire">
     <admin-supplier-form (done)="getData(this.currentPage)" [id]="id"></admin-supplier-form>
 </div>

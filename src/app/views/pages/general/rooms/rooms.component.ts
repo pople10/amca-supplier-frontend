@@ -11,6 +11,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-rooms',
@@ -49,12 +50,33 @@ export class RoomsComponent implements OnInit,AfterViewInit {
     public languageService:LanguageService,
     private translate:TranslateService,
     private router:Router,
-    private snackBar:MatSnackBar
+    private snackBar:MatSnackBar,
+    private dialog: MatDialog
     ) 
     {
       this.isSupplier=this.authService.getUserDataLocalStorage().roles.includes("supplier");
     }
-  
+    openDialog(dialogTemplate: any): void {
+      this.dialog.open(dialogTemplate);
+      setTimeout(() => {
+        if(this.isSupplier) return;
+      const input = this.selectInput.element.children[0].children[0].children[1].children[0];
+      input.addEventListener("keyup", (data)=>{
+        let val = input?.value;
+        if(val&&val.length>=3)
+        {
+          this.getUsers(val);
+          return;
+        }
+        this.searchedUsers=[];
+      });
+      }, 700);
+    }
+    closeDialog(): void {
+      if (this.dialog) {
+        this.dialog.closeAll();
+      }
+    }
   getUsers(val)
   {
     this.searching=true;
@@ -66,17 +88,17 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if(this.isSupplier) return;
-    const input = this.selectInput.element.children[0].children[0].children[1].children[0];
-    input.addEventListener("keyup", (data)=>{
-      let val = input?.value;
-      if(val&&val.length>=3)
-      {
-        this.getUsers(val);
-        return;
-      }
-      this.searchedUsers=[];
-    });
+    // if(this.isSupplier) return;
+    // const input = this.selectInput.element.children[0].children[0].children[1].children[0];
+    // input.addEventListener("keyup", (data)=>{
+    //   let val = input?.value;
+    //   if(val&&val.length>=3)
+    //   {
+    //     this.getUsers(val);
+    //     return;
+    //   }
+    //   this.searchedUsers=[];
+    // });
   }
 
   onAddEmail(e)
