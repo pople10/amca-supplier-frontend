@@ -1,0 +1,4 @@
+<div class="avatar-ui" [title]="name">
+    <img *ngIf="src" [src]="src"  />
+    <span *ngIf="!src">{{ short }}</span>
+</div>

@@ -24,6 +24,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
+import { AvatMarComponent } from './avatar/avatar.component';
 
 
 
@@ -33,7 +34,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 @NgModule({
-  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent],
+  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent,AvatMarComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -46,13 +47,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatIconModule,
     MatBadgeModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    
+    
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
-  ]
+  ],
+  exports:[AvatMarComponent,]
 })
 export class LayoutModule { }

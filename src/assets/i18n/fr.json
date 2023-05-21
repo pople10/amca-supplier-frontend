@@ -1240,6 +1240,9 @@
     "makeNonExpert":"Supprimer du privilège d'expert de l'acheteur",
     "addPersonsToRoom":"Ajouter des personnes à la discussion",
     "search":"Recherche",
-    "more":"Savoir plus"
+    "more":"Savoir plus",
+    "newroom":"Nouvelle discussion",
+    "newusers":"Ajouter des utilisateurs",
+    "welcome2":"Bienvenue sur votre Portail"
 
 }

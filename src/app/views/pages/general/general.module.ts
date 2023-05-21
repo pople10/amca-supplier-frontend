@@ -25,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RoomComponent } from './room/room.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { LayoutModule } from '../../layout/layout.module';
 
 const routes: Routes = [
   {
@@ -78,7 +79,8 @@ const routes: Routes = [
     NgbModalModule,
     NgxPaginationModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    LayoutModule
   ]
 })
 export class GeneralModule { }

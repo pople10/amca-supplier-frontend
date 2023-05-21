@@ -32,7 +32,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    
   ],
   imports: [
     BrowserModule,

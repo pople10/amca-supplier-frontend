@@ -25,6 +25,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { CommentsComponent } from './comments/comments.component';
 
 import {MatSelectModule} from '@angular/material/select';
+import { LayoutModule } from '../../../layout/layout.module';
 
 
 
@@ -52,7 +53,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatFormFieldModule,
     MatSnackBarModule,
     MatDividerModule,
-    MatSelectModule
+    MatSelectModule,
+    LayoutModule
   ]
 })
 export class BuyerModule { }
+ 

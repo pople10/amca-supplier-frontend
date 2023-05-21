@@ -1,60 +1,61 @@
-<div class="row">
-    <div *ngIf="!opened" class="col-12 mb-4">
-        <button ngbTooltip="{{ 'addPersonsToRoom' | translate }}" (click)="opened=true" style=" min-height: 43px; " type="button" class="btn btn-primary">
-            <i  data-feather="plus-circle" appFeatherIcon></i>
-        </button>
+<div class="header">
+    <div class="nav-type2">
+        <div class="nav-2-element active" >
+             {{ "rooms" | translate }} 
+        </div>
     </div>
-    <mat-card class="w-100 mb-4" [ngClass]="{'d-none':!opened}">
-        <div class="col-12 mx-auto mobile-w-100">
-            <label data-toggle="tooltip" class="control-label">
-                {{"user" | translate}}
-                <span class="text-danger"> *</span>
-            </label>
-            <ng-select #addMail id="search" loadingText="{{ 'searching'|translate }}" [loading]="searching" notFoundText="{{ 'noUserFound'|translate }}" [(ngModel)]="toBeAdd" (change)="onChangeKeyword($event)"  [multiple]="false" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
-                    [searchable]="true" placeholder="{{ 'selectAtLeast3'| translate }}">
-                    <ng-option *ngFor="let op of searchedUsers" [value]="op.email">{{ op.firstName+" "+op.lastName }}</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-12">
-            <div class="mt-2 mx-2" style="float:right;">
-                <button (click)="this.onAddEmail($event)" [disabled]="!toBeAdd" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
-                    <i  data-feather="plus-circle" appFeatherIcon></i>
-                </button>
+    <div class="btn white-btn" (click)="openDialog(dialogTemplate)" >
+        <div>{{ "newusers" | translate }}</div>
+        <div class="plus">+</div>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <ng-template #dialogTemplate>
+        <div style=" display: flex; flex-direction: column; margin: 10px 0; gap: 10px; min-width: 70vw; ">
+            <div class="col-12 mx-auto mobile-w-100">
+                <label data-toggle="tooltip" class="control-label">
+                    {{"user" | translate}}
+                    <span class="text-danger"> *</span>
+                </label>
+                <ng-select #addMail id="search" loadingText="{{ 'searching'|translate }}" [loading]="searching" notFoundText="{{ 'noUserFound'|translate }}" [(ngModel)]="toBeAdd" (change)="onChangeKeyword($event)"  [multiple]="false" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } "
+                        [searchable]="true" placeholder="{{ 'selectAtLeast3'| translate }}">
+                        <ng-option *ngFor="let op of searchedUsers" [value]="op.email">{{ op.firstName+" "+op.lastName }}</ng-option>
+                </ng-select>
             </div>
-            <div class="clear:both;"></div>
-        </div>
-        <div class="col-12" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
-            <div class="table table-striped table-responsive" *ngIf="request.emails.length>0">
-                <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
-                    <tbody>
-                        <tr class="my-10" *ngFor=" let item of request.emails;let  index = index ">
-                            <td>{{item}}</td>
-                            <td class="d-flex justify-content-center" id="actionsContainer">
-                                <span (click)="deleteEmail( confirmRemove, item )"><i data-feather="x" appFeatherIcon></i></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-12">
+                <div class="mt-2 mx-2" style="float:right;">
+                    <button (click)="this.onAddEmail($event)" [disabled]="!toBeAdd" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                        <i  data-feather="plus-circle" appFeatherIcon></i>
+                    </button>
+                </div>
+                <div class="clear:both;"></div>
             </div>
-        </div>
-        <div class="col-12 d-flex mt-4" style="justify-content:center">
-            <button [disabled]="dataSent" (click)="addPersons()" class="btn btn-success m-2">{{"add"|translate}}</button>
-            <button [disabled]="dataSent" (click)="opened=false" class="btn btn-warning m-2">{{"cancel"|translate}}</button>
-        </div>
-    </mat-card>
-    <div class="col-md-12">
-      <div class="card">
-        <div class="right-side-card" *ngIf="showParticipients">
-            <div (click)="showParticipients=false" class="closeIcon">
-                <mat-icon>close</mat-icon>
-            </div>
-            <div class="list">
-                <ul class="ul-li">
-                    <li *ngFor="let part of participients"><span>{{part.firstName+" "+part.lastName}}</span> <mat-icon class="deleteIcon" *ngIf="myEmail!=part.email" (click)="removePerson(part.email)">delete</mat-icon></li>
-                </ul>
+            <div class="col-12" [ngStyle]=" languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="table table-striped table-responsive" *ngIf="request.emails.length>0">
+                    <table class="table text-center" [ngStyle]="languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                        <tbody>
+                            <tr class="my-10" *ngFor=" let item of request.emails;let  index = index ">
+                                <td>{{item}}</td>
+                                <td class="d-flex justify-content-center" id="actionsContainer">
+                                    <span (click)="deleteEmail( confirmRemove, item )"><i data-feather="x" appFeatherIcon></i></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="card-header">
+        <div class="dialog-footer" >
+            <button [disabled]="dataSent" style="color:#fff" (click)="closeDialog()" class="btn btn-warning delete">{{"cancel"|translate}}</button>
+            <button [disabled]="dataSent" (click)="addPersons()" class="btn btn-success">{{"add"|translate}}</button>
+        </div>
+    </ng-template>
+    <div class="col-md-12 body-container" style="border-radius: 15px;">
+      <div class="card " style=" border-radius: 15px; padding: 10px; ">
+        
+        <!-- <div class="card-header">
             <div id="chatHeader">
                 <div class="label">
                     {{data.label}}
@@ -63,32 +64,69 @@
                     <mat-icon aria-hidden="false" aria-label="Participients">group</mat-icon>
                 </div>
             </div>
-        </div>
-        <div class="card-body" id="room" (click)="showParticipients=false">
-            <ng-container *ngFor="let message of messages">
-                <div class="container" *ngIf="!isMe(message.sender)">
-                    <p class="sender">{{message.sender.firstName+" "+message.sender.lastName}}</p>
-                    <p>{{message.message}}</p>
-                    <span class="time-right">{{message.createDate | date:getFormat(message.createDate) }}</span>
+        </div> -->
+        <div class="room-container" >
+            <div class="left-side">
+                <div class="room-part-container" >
+                    <div class="part-title">{{ "participants" | translate }}</div>
+                    <div class="list room-part">
+                        <ul class="ul-li">
+                            <li *ngFor="let part of participients">
+                                <div class="room-partic">
+                                    <div class="room-avatar-part">
+                                        <app-avatar 
+                                            [name]="part.firstName+' '+part.lastName"
+                                            [short]="part.firstName[0].toUpperCase()+part.lastName[0].toUpperCase()">
+                                        </app-avatar>
+                                        {{ part.firstName+' '+part.lastName }}
+                                    </div> 
+                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(part.email)">delete</mat-icon>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                        <a class="to-rooms" routerLink="/general/rooms">
+                            {{ "rooms" | translate }}
+                        </a>
                 </div>
-                <div class="container darker" *ngIf="isMe(message.sender)">
-                    <p>{{message.message}}</p>
-                    <span class="time-left">{{message.createDate | date:getFormat(message.createDate) }}</span>
+            </div>
+            <div class="right-side">
+                <div class="card-body" id="room" (click)="showParticipients=false">
+                    <ng-container *ngFor="let message of messages">
+                        <div class="message-container" [ngClass]="{'my-message':isMe(message.sender)}">
+                            <div class="avata-message">
+                                <app-avatar
+                                    [name]="message.sender.firstName+' '+message.sender.lastName"
+                                    [short]="message.sender.firstName[0].toUpperCase()+message.sender.lastName[0].toUpperCase()">
+                                </app-avatar>
+                            </div>
+                            <div class="message-data">
+                                <div class="top-message">
+                                    <p class="sender">{{message.sender.firstName+" "+message.sender.lastName}}</p>
+                                    <span class="time">{{message.createDate | date:getFormat(message.createDate) }}</span>
+                                </div>
+                                <div class="container-mess" >
+                                    <p>{{message.message}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-            </ng-container>
-        </div>
-        <div class="card-footer w-100 d-flex">
-            <input (keyup.enter)="sendMsg()" [(ngModel)]="msg" type="text" class="form-control sendMessage"
-                            id="msg" placeholder="{{ 'sendMessage' | translate }}" 
-                            [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }" 
-            />
-            <button [disabled]="!msg||msg.trim()==''" (click)="sendMsg()" class="btn btn-primary sendBtn">
-                <i data-feather="send" appFeatherIcon class="mr-2 icon-md"></i>
-            </button>
+                <div class="send-message-container">
+                    <input (keyup.enter)="sendMsg()" [(ngModel)]="msg" type="text" 
+                                    id="msg" placeholder="{{ 'sendMessage' | translate }}" 
+                                    [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }" 
+                    />
+                    <button [disabled]="!msg||msg.trim()==''" (click)="sendMsg()" class="btn btn-primary sendBtn">
+                        <i data-feather="send" appFeatherIcon class="mr-2 icon-md"></i>
+                    </button>
+                </div>
+            </div>
         </div>
       </div>
     </div>
 </div>
+<br>
 
 <div id="ss" class="d-none"></div>
 

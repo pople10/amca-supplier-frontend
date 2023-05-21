@@ -76,6 +76,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
     this.authService.userData$.subscribe((res)=>{
       this.username = res.firstName;
       this.roles = res.roles;
+      if(this.roles.includes('admin')) this.document.body.classList.add("admin");
+      else this.document.body.classList.remove("admin")
       this.isAdmin = (res.roles.includes("admin") != null) ? res.roles.includes("admin") : false;
     });
 

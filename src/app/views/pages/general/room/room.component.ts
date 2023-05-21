@@ -15,6 +15,7 @@ import { LanguageService } from 'src/app/services/language/language.service';
 import { AlertifyService } from 'src/app/services/shared/alertify.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-room',
@@ -48,7 +49,8 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
     private snackBar:MatSnackBar,
     private router:Router,
     private modalService:NgbModal,
-    private authService:AuthService
+    private authService:AuthService,
+    private dialog: MatDialog
   ) { 
     this.id=parseInt(this.route.snapshot.paramMap.get('id'));
     this.myEmail=this.authService.getEmailLocalStorage();
@@ -59,6 +61,26 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
       this.handleRequestService.handleError(err);
       this.router.navigate(["/general/rooms"]);
     })
+  }
+  openDialog(dialogTemplate: any): void {
+    this.dialog.open(dialogTemplate);
+    setTimeout(() => {
+      const input = this.selectInput.element.children[0].children[0].children[1].children[0];
+      input.addEventListener("keyup", (data)=>{
+        let val = input?.value;
+        if(val&&val.length>=3)
+        {
+          this.getUsers(val);
+          return;
+        }
+        this.searchedUsers=[];
+      });
+    }, 500);
+  }
+  closeDialog(): void {
+    if (this.dialog) {
+      this.dialog.closeAll();
+    }
   }
   ngOnDestroy(): void {
     this.websocket.close();
@@ -208,16 +230,16 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const input = this.selectInput.element.children[0].children[0].children[1].children[0];
-    input.addEventListener("keyup", (data)=>{
-      let val = input?.value;
-      if(val&&val.length>=3)
-      {
-        this.getUsers(val);
-        return;
-      }
-      this.searchedUsers=[];
-    });
+    // const input = this.selectInput.element.children[0].children[0].children[1].children[0];
+    // input.addEventListener("keyup", (data)=>{
+    //   let val = input?.value;
+    //   if(val&&val.length>=3)
+    //   {
+    //     this.getUsers(val);
+    //     return;
+    //   }
+    //   this.searchedUsers=[];
+    // });
   }
 
   addPersons()

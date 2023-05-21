@@ -3,7 +3,8 @@
 
     <div [ngClass]="{
       'page-wrapper': true,
-      'mobile-fr-page-wrapper-open': this.languageService.userLanguage != 'ar'
+      'mobile-fr-page-wrapper-open': this.languageService.userLanguage != 'ar',
+      'arabic': this.languageService.userLanguage == 'ar'
     }">
         <!-- partial:navbar -->
         <app-navbar [ngStyle]="
@@ -12,8 +13,9 @@
         }
       "></app-navbar>
       <div class="header">
-        <div class="title-header">Bienvenue sur votre Portail </div>
-        <div class="title-header">Acheteur</div>
+        <div class="title-header">{{ "welcome2"|translate }}</div>
+        <div class="title-header admin">{{ "admin" | translate }}</div>
+        <div class="title-header not-admin">{{ "buyer" | translate }}</div>
       </div>
         <div class="page-content">
             <!-- Spinner for lazyload modules -->
