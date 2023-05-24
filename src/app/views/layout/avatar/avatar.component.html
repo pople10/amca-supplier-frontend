@@ -1,4 +1,4 @@
-<div class="avatar-ui" [title]="name">
+<div class="avatar-ui" #tooltip="matTooltip" [matTooltip]="name" matTooltipPosition="above">
     <img *ngIf="src" [src]="src"  />
     <span *ngIf="!src">{{ short }}</span>
 </div>

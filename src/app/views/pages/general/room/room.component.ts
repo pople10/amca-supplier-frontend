@@ -16,6 +16,7 @@ import { AlertifyService } from 'src/app/services/shared/alertify.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-room',
@@ -40,6 +41,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
   myEmail:string=null;
 
   constructor(
+    public fileService:FileService,
     private chatService:ChatService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,

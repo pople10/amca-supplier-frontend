@@ -133,4 +133,10 @@ export class AuthService {
   {
     return this.http.get<UserResponse>(`${ENV["backend-api-base-url"]}/api/auth/me`);
   }
+
+  uploadPhoto(data):Observable<any>{
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/auth/photo`,data, { headers });
+  }
 }

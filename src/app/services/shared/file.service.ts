@@ -10,7 +10,7 @@ export class FileService {
 
   getPhotoPath(name):string{
     if(!name)
-      name = "default.png";
+      return null;
     return `${ENV['backend-api-base-url']}/api/file/photo/${name}`;
   }
 }

@@ -11,6 +11,7 @@ import { CommentRequest } from 'src/app/entities/CommentRequest';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-supplier',
@@ -33,6 +34,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
   thisYear:number=new Date().getFullYear();
 
   constructor(
+    public fileService:FileService,
     private buyerService:BuyerService, 
     private route: ActivatedRoute,
     private handler:HandleRequestService,

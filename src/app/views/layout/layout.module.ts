@@ -25,6 +25,7 @@ import { NotificationDialogComponent } from './notification-dialog/notification-
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { AvatMarComponent } from './avatar/avatar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -48,7 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatBadgeModule,
     MatDialogModule,
     MatListModule,
-    
+    MatTooltipModule
     
   ],
   providers: [

@@ -181,7 +181,7 @@
                 <div class="rating-element-lst" *ngFor="let rate of currentComments">
                     <app-avatar [short]="rate.buyer.firstName[0].toUpperCase()+rate.buyer.lastName[0].toUpperCase()"
                         [name]="rate.buyer.firstName+' '+rate.buyer.lastName"
-                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                        [src]="fileService.getPhotoPath(rate.buyer.photo)"
                       ></app-avatar>
 
                     <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} </h6>

@@ -75,6 +75,7 @@
                                 <div class="room-partic">
                                     <div class="room-avatar-part">
                                         <app-avatar 
+                                            [src]="fileService.getPhotoPath(part.photo)"
                                             [name]="part.firstName+' '+part.lastName"
                                             [short]="part.firstName[0].toUpperCase()+part.lastName[0].toUpperCase()">
                                         </app-avatar>
@@ -96,6 +97,7 @@
                         <div class="message-container" [ngClass]="{'my-message':isMe(message.sender)}">
                             <div class="avata-message">
                                 <app-avatar
+                                    [src]="fileService.getPhotoPath(message.sender.photo)"
                                     [name]="message.sender.firstName+' '+message.sender.lastName"
                                     [short]="message.sender.firstName[0].toUpperCase()+message.sender.lastName[0].toUpperCase()">
                                 </app-avatar>

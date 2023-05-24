@@ -12,6 +12,7 @@ import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-rooms',
@@ -43,6 +44,7 @@ export class RoomsComponent implements OnInit,AfterViewInit {
   isSupplier:boolean;
 
   constructor(
+    public fileService:FileService,
     private modalService:NgbModal,
     private chatService:ChatService,
     private authService:AuthService,
