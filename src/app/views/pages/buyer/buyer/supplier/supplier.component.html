@@ -39,51 +39,52 @@
     <!-- PAGE 1-->
     <div [ngStyle]="{'display':(page==0)?'block':'none'}"  *ngIf="!loading">
         <div class="title-type1">{{ "authorizedContacts" | translate }}</div>
-        <div class="fournisseur-container-1">
+        <div class="fournisseur-container-1" *ngFor="let authCont of data.authorizedContacts">
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "email" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].email ==null)}" >{{ data.authorizedContacts[0].email }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.email ==null)}" >{{ authCont.email }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fax" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fax ==null)}">{{ data.authorizedContacts[0].fax }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.fax ==null)}">{{ authCont.fax }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fullName" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fullName ==null)}">{{ data.authorizedContacts[0].fullName }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.fullName ==null)}">{{ authCont.fullName }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].functionality ==null)}">{{ data.authorizedContacts[0].functionality | translate}}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.functionality ==null)}">{{ authCont.functionality | translate}}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(data.authorizedContacts[0].id ==null)}">{{ data.authorizedContacts[0].id }}</div>
+                <div class="fournisseur-body" [ngClass]="{'no-data':(authCont.id ==null)}">{{ authCont.id }}</div>
             </div>
         </div>
         <div class="title-type1">{{ "formCompleters" | translate }}</div>
-        <div class="fournisseur-container-1">
+        <div class="fournisseur-container-1" *ngFor="let formCompleter of data.formCompleters">
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "email" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].email ==null)}" >{{ data.formCompleters[0].email }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.email ==null)}" >{{ formCompleter.email }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fax" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fax ==null)}">{{ data.formCompleters[0].fax }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.fax ==null)}">{{ formCompleter.fax }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fullName" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fullName ==null)}">{{ data.formCompleters[0].fullName }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.fullName ==null)}">{{ formCompleter.fullName }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].functionality ==null)}">{{ data.formCompleters[0].functionality | translate}}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.functionality ==null)}">{{ formCompleter.functionality | translate}}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(data.formCompleters[0].id ==null)}">{{ data.formCompleters[0].id }}</div>
+                <div class="fournisseur-body" [ngClass]="{'no-data':(formCompleter.id ==null)}">{{ formCompleter.id }}</div>
             </div>
         </div>
+        <hr/>
         <div class="card" style="border-radius:15px;">
             <div class="card-body hCustom" *ngIf="loading">
                 <div class="w-100 d-flex justify-content-center align-items-center mt-5">
