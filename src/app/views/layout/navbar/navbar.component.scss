@@ -109,3 +109,62 @@ li.nav-item.notification-container {
     display: flex;
     align-items: center;
 }
+
+@keyframes slideFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+@media(max-width:950px) {
+    // Here we consider it as mobile
+    .navbar{
+        flex-direction: column!important;
+    }
+    #sidebar-menu{
+        flex-direction: column!important;
+        gap: 10px;
+        margin: 0px;
+    }
+    .dd-none{
+        display: block!important;
+    }
+    .menu-hidden{
+        display: none!important;
+        opacity: 0;
+    }
+    .menu-displayed{
+        animation: slideFromTop 0.3s ease-in-out;
+    }
+    .navbar-content{
+        position: unset!important;
+        align-self: center!important;
+    }
+}
+
+.menu{
+    position: absolute;
+    top: 5%;
+    left: 2%;
+}
+.menu-icon{
+    font-size: 40px;
+    color: #868687;
+}
+.dd-none{
+    display: none;
+}

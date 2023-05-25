@@ -26,6 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { AvatMarComponent } from './avatar/avatar.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { StarRatingComponent } from '../pages/form-elements/star-rating/star-rating.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -35,7 +37,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 @NgModule({
-  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent,AvatMarComponent],
+  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent,AvatMarComponent,StarRatingComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -49,7 +51,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatBadgeModule,
     MatDialogModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule,
     
   ],
   providers: [
@@ -58,6 +61,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  exports:[AvatMarComponent,]
+  exports:[AvatMarComponent,StarRatingComponent]
 })
 export class LayoutModule { }

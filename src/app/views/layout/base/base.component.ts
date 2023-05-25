@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 
 @Component({
@@ -10,8 +11,9 @@ import { LanguageService } from 'src/app/services/language/language.service';
 export class BaseComponent implements OnInit {
 
   isLoading: boolean;
+  label:string;
 
-  constructor(private router: Router, public languageService: LanguageService) {
+  constructor(private router: Router, public languageService: LanguageService,private authService:AuthService) {
 
     // Spinner for lazyload modules
     router.events.forEach((event) => {
@@ -26,6 +28,8 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.authService.checkRole("supplier")) this.label = "supplier";
+    else this.label = "buyer";
   }
 
 }

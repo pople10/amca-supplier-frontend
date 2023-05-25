@@ -1,6 +1,9 @@
 <nav class="navbar" [ngClass]="{
     'mobile-ar-sidebar-open': this.languageService.userLanguage == 'ar'
   }">
+        <a class="dd-none menu" (click)="hideMenu=!hideMenu">
+            <mat-icon class="menu-icon" [@FadeIn]="getMenuIcon">{{getMenuIcon}}</mat-icon>
+        </a>
        <div id="sidebarText" style="z-index: 2;min-width: 250px;" [ngClass]="{
             'sidebar-brand': true,
             adminTextColor: isAdmin
@@ -16,8 +19,8 @@
             <!--- Sidemenu start -->
     
           
-        <ul class="sidebar-nav metismenu" id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
-            <ng-container>
+        <ul class="sidebar-nav metismenu" [ngClass]="{ 'menu-hidden': !hideMenu,'menu-displayed':hideMenu}"  id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
+            <ng-container *ngIf="isAdmin">
                 <li class="nav-item" routerLink="/dashboard">
                     <a class="nav-link" href="javascript:void(0);">
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>home</mat-icon>

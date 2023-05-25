@@ -28,12 +28,14 @@
 
 footer
 {
-    background: #403f3f!important;
+    background: transparent!important;
     width: 100%!important;
     display: flex!important;
     align-items: center!important;
-    justify-content: space-around!important;
-    color: white!important;
+    justify-content: space-between!important;
+    padding-right: 10px!important;
+    padding-left: 10px!important;
+    color: #000!important;
     padding-top: 15px!important;
     padding-bottom: 15px!important;
 }
@@ -74,7 +76,7 @@ footer
 .welcomeText
 {
   font-size: 300%;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 @media(max-width:790px)
@@ -96,20 +98,16 @@ footer
   flex-direction: column;
   background: transparent;
   overflow: hidden;
-  color: white;
   padding-bottom: 50px!important;
 }
 
 .background-card
 {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   background-position: center;
   background-size: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -3;
+  z-index: 0;
   transition: all .5s;
   background-repeat: no-repeat;
   -webkit-transition: all .5s;
@@ -118,10 +116,7 @@ footer
   transition: all .5s;
 }
 
-.newCard:hover .background-card,
-.newCard:focus .background-card {
-  transform: scale(1.4);
-}
+
 
 .dividerWhite
 {
@@ -130,4 +125,76 @@ footer
   border-bottom: 6px solid white;
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.mt-big{
+  margin-top: 12%;
+  margin-bottom: 7%;
+}
+
+.mb-big{
+  margin-bottom: 10%;
+  margin-top: 15%!important;
+}
+
+.newCard{
+  z-index: 10000;
+  max-width: 600px;
+  border-radius: 30px;
+  border: unset!important;
+  padding: 0px !important;
+}
+
+.overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(359.43deg, #FFFFFF 0.77%, #FFFFFF 18.9%, rgba(255, 255, 255, 0) 99.57%);
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.25));
+}
+
+.newCard-content{
+  z-index: 1000;
+  margin-top: -30px;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin-right: auto!important;
+  margin-left: auto!important;
+  margin-bottom: 10px!important;
+}
+
+.newCard-content h3{
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 33px;
+  color: #431B5E;
+}
+
+.newCard-content p{
+  font-size: 16px;
+}
+
+
+.newCard-content a{
+  align-self: flex-end;
+  background: #7D5895;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+}
+
+.newCard-content a:hover{
+  background: #fff;
+  color: black;
+  border: 1px solid #7D5895;
 }

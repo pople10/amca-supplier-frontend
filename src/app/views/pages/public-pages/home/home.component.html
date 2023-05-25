@@ -1,39 +1,40 @@
 
 <div [ngClass]="'currentTheme' | translate">
-<app-public-navbar></app-public-navbar>
-<div class="bannerContainer mt-4">
-  <img src="/assets/images/banner.png" width="100%" class="banner"/>
-  <div class="img-text-centered welcomeText" [ngStyle]=" languageService.userLanguage == 'ar' &&{'direction': 'rtl'}">
-    <div>{{"welcomeToPortail" |translate}}</div>
-    <div class="dividerWhite  mx-auto"></div>
+  <app-public-navbar></app-public-navbar>
+  <div class="bannerContainer mt-big">
+    <div class="img-text-centered welcomeText"
+      [ngStyle]=" languageService.userLanguage == 'ar' &&{'direction': 'rtl'}">
+      <div class="w-90 mx-auto">{{"welcomeToPortail" |translate}}</div>
+    </div>
   </div>
-</div>
-<div id="cardsContainer">
-  <mat-card class="box newCard" routerLink="/auth/register">
-    <div class="background-card" style="background-image: url('/assets/images/bgs/buyer_bg.png');"></div>
-    <img src="assets/images/buyer.png" alt="" width="50%"/>
-    <h3>{{ "buyerAttribute" | translate }}</h3>
-    <div class="dividerWhite"></div>
-    <p>{{ "buyerDescription" | translate }}</p>
-  </mat-card>
-  
-  <mat-card class="box newCard" routerLink="/auth/register/supplier">
-    <div class="background-card" style="background-image: url('/assets/images/bgs/supplier_bg.png');"></div>
-    <img src="assets/images/supplier.png" alt="" width="50%"/>
-    <h3>{{ "supplierAttribute" | translate }}</h3>
-    <div class="dividerWhite"></div>
-    <p>{{ "supplierDescription" | translate }}</p>
-  </mat-card>
-  <mat-card *ngIf="false" class="box newCard" routerLink="/auth/login">
-    <div class="background-card" style="background-image: url('/assets/images/bgs/login_bg.png');"></div>
-    <img src="assets/images/login.png" alt="" width="50%"/>
-    <h3>{{ "Login" | translate }}</h3>
-    <div class="dividerWhite"></div>
-    <p>{{ "alreadyHaveAccount" | translate }}</p>
-  </mat-card>
-</div>
+  <div id="cardsContainer" class="mb-big">
+    <mat-card class="box newCard overlay" routerLink="/auth/register">
+      <img class="background-card" src='/assets/images/bgs/buyer_home.jpeg' />
+      <div class="newCard-content">
+        <h3>{{ "buyerAttribute" | translate }}</h3>
+        <p>{{ "buyerDescription" | translate }}</p>
+        <a (click)="blockPropagation($event)" routerLink="/auth/login">{{ "Login" | translate }}</a>
+      </div>
+    </mat-card>
 
-<footer>
+    <mat-card class="box newCard overlay" routerLink="/auth/register/supplier">
+      <img class="background-card" src='/assets/images/bgs/supplier_home.jpeg' />
+      <div class="newCard-content">
+        <h3>{{ "supplierAttribute" | translate }}</h3>
+        <p>{{ "supplierDescription" | translate }}</p>
+        <a (click)="blockPropagation($event)" routerLink="/auth/login">{{ "Login" | translate }}</a>
+      </div>
+    </mat-card>
+    <mat-card *ngIf="false" class="box newCard" routerLink="/auth/login">
+      <div class="background-card"
+        style="background-image: url('/assets/images/bgs/login_bg.png');"></div>
+      <img src="assets/images/login.png" alt width="50%" />
+      <h3>{{ "Login" | translate }}</h3>
+      <div class="dividerWhite"></div>
+      <p>{{ "alreadyHaveAccount" | translate }}</p>
+    </mat-card>
+  </div>
+  <footer>
     <div class="d-flex">
       <p style="margin-right: 10px;">{{ "GeneralConditions" | translate }}</p>
       <p>{{ "LegalMentions" | translate }}</p>
@@ -42,5 +43,5 @@
     <div>
       <p>&copy; {{"COPYRIGHT"|translate}} {{thisYear}}</p>
     </div>
-</footer>
+  </footer>
 </div>

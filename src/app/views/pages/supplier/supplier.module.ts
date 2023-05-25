@@ -16,30 +16,31 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { BuyerModule } from '../buyer/buyer/buyer.module';
-import { StarRatingComponent } from '../form-elements/star-rating/star-rating.component';
+import { LayoutModule } from '../../layout/layout.module';
 
 
 @NgModule({
-  declarations: [SupplierComponent, MyDataComponent],
-  imports: [
-    CommonModule,
-    SupplierRoutingModule,
-    NgbDropdownModule,
-    MatCardModule,
-    NgbCollapseModule,
-    TranslateModule,
-    MatIconModule,
-    NgbAccordionModule,
-    NgbTooltipModule,
-    NgbNavModule,
-    NgxPaginationModule,
-    NgbPaginationModule,
-    FormsModule,
-    FeahterIconModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatDividerModule
-  ]
+    declarations: [SupplierComponent, MyDataComponent],
+    imports: [
+        CommonModule,
+        SupplierRoutingModule,
+        NgbDropdownModule,
+        MatCardModule,
+        NgbCollapseModule,
+        TranslateModule,
+        MatIconModule,
+        NgbAccordionModule,
+        NgbTooltipModule,
+        NgbNavModule,
+        NgxPaginationModule,
+        NgbPaginationModule,
+        FormsModule,
+        FeahterIconModule,
+        MatTooltipModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatDividerModule,
+        LayoutModule
+    ]
 })
 export class SupplierModule { }

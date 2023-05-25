@@ -17,4 +17,9 @@ export class HomeComponent implements OnInit {
 
   }
 
+  blockPropagation(event)
+  {
+    event.stopPropagation();
+  }
+
 }
