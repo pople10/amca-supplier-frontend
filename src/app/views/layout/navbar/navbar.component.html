@@ -4,7 +4,8 @@
         <a class="dd-none menu" (click)="hideMenu=!hideMenu">
             <mat-icon class="menu-icon" [@FadeIn]="getMenuIcon">{{getMenuIcon}}</mat-icon>
         </a>
-       <div id="sidebarText" style="z-index: 2;min-width: 250px;" [ngClass]="{
+       <div id="sidebarText" style="z-index: 2;min-width: 250px;" 
+                routerLink="/" [ngClass]="{
             'sidebar-brand': true,
             adminTextColor: isAdmin
           }">
