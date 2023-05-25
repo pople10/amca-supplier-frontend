@@ -142,6 +142,26 @@
     {
         width: 60%;
     }
+    .room-container{
+      flex-direction: column;
+    }
+
+    .left-side{
+      max-width: unset!important;
+      padding-bottom: 56px;
+    }
+
+    .right-side{
+      max-height: 55vh!important;
+    }
+
+    .card{
+      height: unset!important;
+    }
+    .room-partic{
+      width: fit-content!important;
+      justify-content: space-between!important;
+    }
 }
 
 .closeIcon
