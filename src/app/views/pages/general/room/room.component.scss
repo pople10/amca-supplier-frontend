@@ -153,6 +153,7 @@
 
     .right-side{
       max-height: 80vh!important;
+      padding: 5px;
     }
 
     .card{
@@ -161,6 +162,12 @@
     .room-partic{
       width: fit-content!important;
       justify-content: space-between!important;
+    }
+    .card{
+      padding: 0!important;
+    }
+    .col-md-12.body-container{
+      padding: 15px!important;
     }
 }
 
