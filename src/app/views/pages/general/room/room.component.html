@@ -81,7 +81,7 @@
                                         </app-avatar>
                                         {{ part.firstName+' '+part.lastName }}
                                     </div> 
-                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(part.email)">delete</mat-icon>
+                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(confirmRemove,part.email)">delete</mat-icon>
                                 </div>
                             </li>
                         </ul>
@@ -136,6 +136,24 @@
 <ng-template #buttonLoader>
     <span style=" margin: 3px 2px;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 </ng-template>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('delete')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>
+
 <ng-template #confirmRemove let-modal>
     <div class="modal-header">
         <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>

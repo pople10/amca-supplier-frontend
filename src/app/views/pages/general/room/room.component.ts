@@ -264,8 +264,15 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
         }
       ).add(()=>{this.dataSent=false});
   }
+  
+  removePerson(componant,email){
+    this.modalService.open(componant, {centered: true}).result.then((result) => {
+      if(result == "delete"){
+        this.removePersonTemp(email);
+    }});
+  }
 
-  removePerson(email)
+  removePersonTemp(email)
   {
     this.dataSent=true;
     this.chatService.deletePersons(this.id,email).subscribe(
