@@ -1245,6 +1245,12 @@
     "newusers":"Ajouter des utilisateurs",
     "welcome2":"Bienvenue sur votre Portail",
     "changePhoto":"Cliquez pour changer votre photo",
-    "connectUs":"Connectez-vous"
+    "connectUs":"Connectez-vous",
+    "uploadAttachment":"Télécharger une pièce jointe",
+    "copied":"Texte copié avec succès",
+    "uploading":"Téléchargement du fichier",
+    "largeFile":"Le fichier téléchargé est très volumineux, max : 10 Mo.",
+    "copying":"Copier le texte",
+    "copyLinkToChat":"Copiez le lien et collez-le dans le message de chat et nous nous occuperons du processus de téléchargement."
 
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -58,6 +58,7 @@ export class SupplierFormComponent implements OnInit,OnChanges {
   }
 
   /*****    flags for update any item     *****/
+  @ViewChild('lastStep', { static: false }) lastStep: ElementRef;
   @Input("id")
   id:number;
   @Output("done")
@@ -229,7 +230,7 @@ export class SupplierFormComponent implements OnInit,OnChanges {
       {type:"simpleInput",data:{formControlName:"nrc",label:"nrc",placeHolder:"",type:"number",ngModel:this.supplierRequest.nrc,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','nrc')},required:false}},
       {type:"selectInput",data:{formControlName:"commercialCourt",label:"commercialCourt",placeHolder:"",type:"text",ngModel:'supplierRequest.commercialCourt',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','commercialCourt')},required:false,options:'commercialCourt',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false,free:true}},
       {type:"simpleInput",data:{formControlName:"creationYear",label:"creationYear",placeHolder:"",type:"number",ngModel:this.supplierRequest.creationYear,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','creationYear')},required:true,max:new Date().getFullYear()}},
-      {type:"simpleInput",data:{formControlName:"ice",label:"ice",placeHolder:"",type:"text",ngModel:this.supplierRequest.ice,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','ice')},required:true}},
+      {type:"simpleInput",data:{formControlName:"ice",label:"ice",placeHolder:"",type:"number",ngModel:this.supplierRequest.ice,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','ice')},required:true}},
       {type:"simpleInput",data:{formControlName:"capitalMAD",label:"capitalMAD",placeHolder:"",type:"number",ngModel:this.supplierRequest.capitalMAD,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','capitalMAD')},required:true}},
     ];
   }
@@ -573,6 +574,7 @@ export class SupplierFormComponent implements OnInit,OnChanges {
 
   onSubmitPage10()
   {
+    this.lastStep.nativeElement.click();
     if(!this.supplierRequest.formCompleters||this.supplierRequest.formCompleters.length==0)
     {
       this.snackBar.open(this.translate.instant('emptydata'), this.translate.instant('close'));

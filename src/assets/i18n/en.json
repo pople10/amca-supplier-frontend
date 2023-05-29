@@ -161,6 +161,12 @@
     "connectWithUs":"Our social media",
     "alreadyHaveAccount":"Already have an account?",
     "changePhoto":"Click to change your photo",
-    "connectUs":"Login"
+    "connectUs":"Login",
+    "uploadAttachment":"Upload an attachment",
+    "copied":"Text copied with success",
+    "uploading":"Uploading the file",
+    "largeFile":"File uploaded is very large, max: 10MB.",
+    "copying":"Copy text",
+    "copyLinkToChat":"Copy link and paste it in the chat message and we will handle the download process."
 
 }
