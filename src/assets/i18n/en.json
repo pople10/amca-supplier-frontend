@@ -167,6 +167,19 @@
     "uploading":"Uploading the file",
     "largeFile":"File uploaded is very large, max: 10MB.",
     "copying":"Copy text",
-    "copyLinkToChat":"Copy link and paste it in the chat message and we will handle the download process."
+    "copyLinkToChat":"Copy link and paste it in the chat message and we will handle the download process.",
+    "unsatisfied":"Unsatisfied",
+    "satisfied":"Satisfied",
+    "mean":"Average",
+    "excellent":"Excellent",
+    "unknown":"Unknown",
+    "qualityRate": "Product/Service Quality",
+    "competitivePriceRate": "Competitive Pricing",
+    "respectDeadlineRate": "Deadline Adherence",
+    "expertiseRate": "Staff Expertise",
+    "reactivityRate": "Proactivity/Reactivity/Flexibility",
+    "realizationRate": "Execution Conditions",
+    "afterSaleRate": "After-Sales Service/Maintenance",
+    "conditionRate": "Financial Conditions/Solvency"
 
 }

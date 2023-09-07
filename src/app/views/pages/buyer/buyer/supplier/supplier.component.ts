@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileService } from 'src/app/services/shared/file.service';
+import { RateFields } from 'src/app/entities/enum/RateFields';
 
 @Component({
   selector: 'app-supplier',
@@ -32,6 +33,7 @@ export class SupplierComponent implements OnInit,AfterViewInit {
   doNotDisplay:string[]=["id","roles","comments","createDate","modifyDate"];
   scrollInto:string;
   thisYear:number=new Date().getFullYear();
+  fields:string[]=RateFields;
 
   constructor(
     public fileService:FileService,
@@ -79,7 +81,6 @@ export class SupplierComponent implements OnInit,AfterViewInit {
     this.commentService.getMyComment(this.id).subscribe(res=>{
       this.currentComment=res;
     });
-    this.comment.rate=0;
     this.comment.supplier_id=this.id;
     
     if(this.router.getCurrentNavigation()?.extras?.state?.scroll)
@@ -103,14 +104,14 @@ export class SupplierComponent implements OnInit,AfterViewInit {
     this._location.back();
   }
 
-  onRatingChanged(rate)
+  onRatingChanged(rate,field)
   {
-    this.comment.rate=rate;
+    this.comment[field]=rate;
   }
 
   addComment()
   {
-    if(!this.comment.rate||!this.comment.comment)
+    if(!this.comment.isValidFields()||!this.comment.comment)
     {
       this.snack.open(this.translate.instant('emptydata'), this.translate.instant('close'));
       return;

@@ -1251,6 +1251,19 @@
     "uploading":"Téléchargement du fichier",
     "largeFile":"Le fichier téléchargé est très volumineux, max : 10 Mo.",
     "copying":"Copier le texte",
-    "copyLinkToChat":"Copiez le lien et collez-le dans le message de chat et nous nous occuperons du processus de téléchargement."
+    "copyLinkToChat":"Copiez le lien et collez-le dans le message de chat et nous nous occuperons du processus de téléchargement.",
+    "unsatisfied":"Non Satifaisant",
+    "satisfied":"Satifaisant",
+    "mean":"Moyen",
+    "excellent":"Excellent",
+    "unknown":"Inconnue",
+    "qualityRate": "Qualité du produit/service",
+    "competitivePriceRate": "Compétitivité prix",
+    "respectDeadlineRate": "Respect des délais",
+    "expertizeRate": "Expertise du personnel",
+    "reactivityRate": "Proactivité / Réactivité / Flexibilité",
+    "realizationRate": "Conditions de réalisation",
+    "afterSaleRate": "Service après vente / maintenance",
+    "conditionRate": "Conditions financières / solvabilité"
 
 }

@@ -513,6 +513,7 @@ button.btn.delete:hover {
     flex-direction: column;
     padding: 20px;
     min-width: 200px;
+    max-width: 34%;
     flex: 1;
     gap: 10px;
 }
@@ -886,4 +887,9 @@ button.btn.btn-primary.sendBtn {
         margin-bottom: 12px;
     }
     
+}
+
+.flex-center{
+    align-items: center;
+    justify-content: center;
 }

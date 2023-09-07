@@ -11,10 +11,13 @@
         <div class="card-body">
             <h4>{{"modifyYourRating" | translate}}</h4>
             <div class="row">
-                <div class="col-3">
-                    <star-rating [rating]="comment.rate" [starCount]="1" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></star-rating>
+                <div class="col-12">
+                    <div class="row" *ngFor="let field of rateFields" style=" align-items: center; margin: 10px 1px; ">
+                        <h5>{{field | translate}}</h5>
+                        <star-rating [rating]="comment[field]" [starCount]="1" [color]="starColor" (ratingUpdated)="onRatingChanged($event,field)"></star-rating>
+                    </div>
                 </div>
-                <div class="col-9">
+                <div class="col-12">
                     <textarea [(ngModel)]="comment.comment" class="w-100 textarea p-1" placeholder="{{'yourComment'|translate}}"></textarea>
                 </div>
                 <div class="col-12 d-flex" style="justify-content:center">
