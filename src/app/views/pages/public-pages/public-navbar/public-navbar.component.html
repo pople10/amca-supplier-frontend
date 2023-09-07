@@ -1,33 +1,16 @@
-<ng-container *ngIf="!isMobile">
+<ng-container>
   <div id="mainContainer">
-    <div id="topContainer">
-        <div id="b1" class="part1">
-            <div class="d-flex">
-              <a target="_blank" href="https://www.linkedin.com/in/association-amca-8b887866">
-                <img class="mw-50px" src="/assets/images/linkedin.png"/>
-              </a>
-              <a target="_blank" href="https://www.facebook.com/Association-Marocaine-de-La-Communauté-Achats-AMCA-102453701526495/">
-                <img class="mw-50px" src="/assets/images/facebook.png"/>
-              </a>
-              <a target="_blank" href="https://youtube.com/channel/UCv3FXHT_11esmxe17_0dGuQ">
-                <img class="mw-50px" src="/assets/images/youtube.png"/>            
-              </a>
-              <a target="_blank" href="http://amcamaroc.org/">
-                <img class="mw-50px" src="/assets/images/website.png"/>
-              </a>
-            </div>
-        </div>
-        
+    <div id="topContainer" class="mr-1">
         <div id="b2" class="part2">
-          <a routerLink="/">
-            <img  src="assets/images/multilang1.png" alt="" width="100%" class="logoImg"/>
+          <a routerLink="/" id="sidebarText">
+            <img  src="assets/images/multilang1.png" alt="" width="95%" class="logoImg"/>
           </a>
         </div>
       <div id="b3" class="part1">
         <div class="links d-flex">
-          <a routerLink="/auth/login" class="m-1" *ngIf="!authService.isLoggedIn()">{{ "Login" | translate }}</a>
-          <a routerLink="/dashboard" class="m-1" *ngIf="authService.isLoggedIn()">{{ "dashboard" | translate }}</a>
-          <a routerLink="/contact" class="m-1">{{ "contactUs" | translate }}</a>
+          <a routerLink="/auth/login" class="nav-el mx-1" *ngIf="!authService.isLoggedIn()">{{ "Login" | translate }}</a>
+          <a routerLink="/dashboard" class="nav-el mx-1" *ngIf="authService.isLoggedIn()">{{ "dashboard" | translate }}</a>
+          <a routerLink="/contact" class="nav-el">{{ "contactUs" | translate }}</a>
         </div>
         <div 
         placement="bottom-right" id="langMenuBottom" ngbDropdown class="info d-inline-block">
@@ -50,18 +33,20 @@
               alt="ar"/>
               <span>AR</span>
             </ng-container>
-            <span
-              class="font-weight-medium ml-1 mr-1 d-none d-md-inline-block"
-            ></span>
+            <svg class="m-1" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="13" height="14" rx="5" fill="#D9D9D9" fill-opacity="0.5"/>
+              <path d="M6.02875 8.85231C6.00458 8.82971 5.90125 8.74437 5.81625 8.66488C5.28167 8.19883 4.40667 6.98305 4.13958 6.34671C4.09667 6.25007 4.00583 6.00575 4 5.87521C4 5.75012 4.03 5.63088 4.09083 5.5171C4.17583 5.37526 4.30958 5.26147 4.4675 5.19912C4.57708 5.15899 4.905 5.09664 4.91083 5.09664C5.26958 5.03429 5.8525 5 6.49667 5C7.11042 5 7.66958 5.03429 8.03375 5.08534C8.03958 5.09118 8.44708 5.15353 8.58667 5.22172C8.84167 5.34681 9 5.59113 9 5.85261V5.87521C8.99375 6.04549 8.83542 6.4036 8.82958 6.4036C8.56208 7.00565 7.73 8.19338 7.17708 8.67073C7.17708 8.67073 7.035 8.80516 6.94625 8.86361C6.81875 8.9548 6.66083 9 6.50292 9C6.32667 9 6.1625 8.94895 6.02875 8.85231Z" fill="white"/>
+              </svg>
+              
           </div>
           <div ngbDropdownMenu aria-labelledby="languageDropdown" class="dropPanel">
             <a ngbDropdownItem class="py-2" (click)="changeLanguage('ar')"
               ><img src="/assets/icons/ar.png" class="flag-img" alt="ar" />
-              <span class="ml-1">Arabe</span></a
+              <span class="ml-1 black">Arabe</span></a
             >
             <a ngbDropdownItem class="py-2" (click)="changeLanguage('fr')">
               <img src="/assets/icons/fr.png" class="flag-img" alt="fr" />
-              <span class="ml-1">Francais</span></a
+              <span class="ml-1 black">Francais</span></a
             >
           </div>
         </div>
@@ -70,7 +55,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="isMobile">
+<!--<ng-container *ngIf="isMobile">
   <div id="mainContainer">
     <div id="topContainer">
         
@@ -141,4 +126,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+</ng-container>-->

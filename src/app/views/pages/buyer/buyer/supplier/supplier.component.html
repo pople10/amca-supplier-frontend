@@ -39,51 +39,52 @@
     <!-- PAGE 1-->
     <div [ngStyle]="{'display':(page==0)?'block':'none'}"  *ngIf="!loading">
         <div class="title-type1">{{ "authorizedContacts" | translate }}</div>
-        <div class="fournisseur-container-1">
+        <div class="fournisseur-container-1" *ngFor="let authCont of data.authorizedContacts">
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "email" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].email ==null)}" >{{ data.authorizedContacts[0].email }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.email ==null)}" >{{ authCont.email }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fax" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fax ==null)}">{{ data.authorizedContacts[0].fax }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.fax ==null)}">{{ authCont.fax }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fullName" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].fullName ==null)}">{{ data.authorizedContacts[0].fullName }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.fullName ==null)}">{{ authCont.fullName }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.authorizedContacts[0].functionality ==null)}">{{ data.authorizedContacts[0].functionality | translate}}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.functionality ==null)}">{{ authCont.functionality | translate}}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(data.authorizedContacts[0].id ==null)}">{{ data.authorizedContacts[0].id }}</div>
+                <div class="fournisseur-body" [ngClass]="{'no-data':(authCont.id ==null)}">{{ authCont.id }}</div>
             </div>
         </div>
         <div class="title-type1">{{ "formCompleters" | translate }}</div>
-        <div class="fournisseur-container-1">
+        <div class="fournisseur-container-1" *ngFor="let formCompleter of data.formCompleters">
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "email" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].email ==null)}" >{{ data.formCompleters[0].email }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.email ==null)}" >{{ formCompleter.email }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fax" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fax ==null)}">{{ data.formCompleters[0].fax }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.fax ==null)}">{{ formCompleter.fax }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "fullName" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].fullName ==null)}">{{ data.formCompleters[0].fullName }}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.fullName ==null)}">{{ formCompleter.fullName }}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
-                <div class="fournisseur-body"  [ngClass]="{'no-data':(data.formCompleters[0].functionality ==null)}">{{ data.formCompleters[0].functionality | translate}}</div>
+                <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.functionality ==null)}">{{ formCompleter.functionality | translate}}</div>
             </div>
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(data.formCompleters[0].id ==null)}">{{ data.formCompleters[0].id }}</div>
+                <div class="fournisseur-body" [ngClass]="{'no-data':(formCompleter.id ==null)}">{{ formCompleter.id }}</div>
             </div>
         </div>
+        <hr/>
         <div class="card" style="border-radius:15px;">
             <div class="card-body hCustom" *ngIf="loading">
                 <div class="w-100 d-flex justify-content-center align-items-center mt-5">
@@ -147,9 +148,11 @@
             </div>
         </div>
         <br/>
-        <div class="row" style=" align-items: center; margin: 10px 1px; "  *ngIf="!currentComment">
-            <h4>{{"addYourRating" | translate}}</h4>
-            <star-rating [rating]="comment.rate" [starCount]="1" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></star-rating>
+        <div class="card mt-2 p-4" *ngIf="!currentComment">
+            <div class="row" *ngFor="let field of fields" style=" align-items: center; margin: 10px 1px; ">
+                <h5>{{field | translate}}</h5>
+                <star-rating [rating]="comment[field]" [starCount]="1" [color]="starColor" (ratingUpdated)="onRatingChanged($event,field)"></star-rating>
+            </div>
         </div>
         <div class="card mt-2" *ngIf="!currentComment" style="border-radius: 15px;background: transparent;padding: 0!important;box-shadow: none;border: 0;">
             <div class="card-body rating-container">
@@ -159,13 +162,14 @@
         </div>
         <div id="yr" class="card mt-2" *ngIf="currentComment" style="border-radius: 15px;">
             <div class="card-body">
-                <h4>{{"yourRating" | translate}}</h4>
+                <h4>{{"yourRating" | translate}} : {{currentComment.rate}} <mat-icon class="star-icon">star</mat-icon></h4>
+                <div class="row" *ngFor="let field of fields" style=" align-items: center; margin: 10px 1px; ">
+                    <h5>{{field | translate}}</h5>
+                    <star-rating [rating]="currentComment[field]" [starCount]="1" [color]="starColor"></star-rating>
+                </div>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <star-rating [rating]="currentComment.rate" [starCount]="1" [color]="starColor"></star-rating>
-                    </div>
-                    <div class="col-sm-9">
-                        <pre class="w-100 textarea overflow-scroll p-1">{{currentComment.comment}}</pre>
+                    <div class="col-sm-12">
+                        <pre class="w-100 textarea overflow-scroll p-3">{{currentComment.comment}}</pre>
                     </div>
                 </div>
             </div>
@@ -181,11 +185,11 @@
                 <div class="rating-element-lst" *ngFor="let rate of currentComments">
                     <app-avatar [short]="rate.buyer.firstName[0].toUpperCase()+rate.buyer.lastName[0].toUpperCase()"
                         [name]="rate.buyer.firstName+' '+rate.buyer.lastName"
-                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                        [src]="fileService.getPhotoPath(rate.buyer.photo)"
                       ></app-avatar>
 
                     <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} </h6>
-                    <div><star-rating [rating]="rate.rate" [starCount]="1" [color]="starColor"></star-rating></div>
+                    <div>{{rate.rate}} <mat-icon class="star-icon">star</mat-icon></div>
                         <div class="comment-element">
                             {{rate.comment}}
                         </div>

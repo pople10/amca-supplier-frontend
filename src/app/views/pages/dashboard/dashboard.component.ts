@@ -110,7 +110,13 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.currentDate = this.calendar.getToday();
 
     if(!this.roles.includes("admin"))
+    {
+      if(this.authService.isBuyer())
+        this.router.navigate(["/buyer/suppliers"]);
+      else
+        this.router.navigate(["/supplier/mine"]);
       return;
+    }
 
     this.statisticsService.getStatsAdmin().subscribe(response=>{
       this.statsData=response;

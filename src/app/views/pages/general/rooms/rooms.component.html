@@ -93,6 +93,7 @@
                                 <div class="avatar-container">
                                     <div class="avatar-element" *ngFor="let ele of piece['participants']">
                                         <app-avatar [name]="ele.firstName+' '+ele.lastName"
+                                        [src]="fileService.getPhotoPath(ele.photo)"
                                         [short]="ele.firstName[0].toUpperCase()+' '+ele.lastName[0].toUpperCase()"
                                         ></app-avatar>
                                     </div>

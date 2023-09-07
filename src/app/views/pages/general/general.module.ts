@@ -26,6 +26,7 @@ import { RoomComponent } from './room/room.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { LayoutModule } from '../../layout/layout.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Routes = [
   {
@@ -79,6 +80,7 @@ const routes: Routes = [
     NgbModalModule,
     NgxPaginationModule,
     MatIconModule,
+    MatTooltipModule,
     MatCardModule,
     LayoutModule
   ]

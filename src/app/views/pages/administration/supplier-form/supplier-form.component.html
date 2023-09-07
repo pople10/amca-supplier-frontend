@@ -325,7 +325,7 @@
                             </ng-container>
                             <div class="modal-footer col-12" [ngStyle]=" languageService.userLanguage == 'ar' ? {'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
                                 <div class="mt-2 mx-2" *ngIf="true==true;else editbutton">
-                                    <button (click)="this.onAddForm10($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                                    <button #lastStep (click)="this.onAddForm10($event)" [disabled]="!isdisableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn d-none">
                                         <i  data-feather="plus-circle" appFeatherIcon></i>
                                     </button>
                                 </div>

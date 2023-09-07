@@ -31,7 +31,7 @@ import { LayoutModule } from '../../../layout/layout.module';
 
 
 @NgModule({
-  declarations: [BuyerComponent, SuppliersComponent, SupplierComponent, SuppliersRequestsComponent,StarRatingComponent, CommentsComponent],
+  declarations: [BuyerComponent, SuppliersComponent, SupplierComponent, SuppliersRequestsComponent, CommentsComponent],
   imports: [
     CommonModule,
     BuyerRoutingModule,

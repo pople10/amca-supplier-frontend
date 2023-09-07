@@ -1,5 +1,4 @@
 #mainContainer {
-	background-color: white;
 	padding: 0.5% 0 0 0;
 }
 #topContainer {
@@ -21,7 +20,7 @@
 }
 .part1
 {
-	flex:3;
+	flex:1;
 }
 .part2
 {
@@ -31,12 +30,13 @@
 	width: 20%;
 	display: flex;
 	justify-content: flex-end;
-	div {
-		margin: 0 4px;
-	}
 	span {
-		font-size: 0.9em;
+		font-size: medium;
+		color: white;
 	}
+}
+.black{
+	color: #000!important;
 }
 #b2 {
 	width: 230px;
@@ -256,7 +256,7 @@ form {
 
 .flag-img
 {
-	max-width: 70px;
+	max-width: 40px;
 }
 
 @media(max-width:790px) {
@@ -270,12 +270,27 @@ form {
 	}
 	.part1
 	{
-		flex:2;
+		flex:1;
 	}
 	.links
-	{
-		flex-direction: column;
-    	width: 50%;
+	{    
+		flex-direction: row;
+		align-items: baseline;
+		gap: 10px;
+	}
+
+	#topContainer{
+		justify-content: center;
+		flex-direction: column!important;
+		align-items: flex-start!important;
+	}
+	#b2{
+		align-self: center;
+	}
+	#b3{
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
 	}
 }
 
@@ -312,14 +327,49 @@ div#b1-mobile .d-flex {
 }
 
 
+#b3 {
+	align-items: baseline;
+}
+
 @media only screen and (max-width: 600px) {
   div#b1-mobile{display:block;}
 	div#b1{display:none;}
 div#dropdownBasic1 span {
     display: none;
 }
-div#b3 {
-    align-items: center;
+
 }
 
+#sidebarText {
+    width: 200px;
+    background: #fff;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30PX;
+    margin-top: -30px;
+    margin-left: 20px;
+    scale: .8;
+}
+
+
+.nav-el{
+	background: #836994;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 30px;
+    color: #fff !important;
+    height: fit-content;
+    padding: 6px;
+}
+
+.nav-el:hover{
+	background: #fff!important;
+	color: #000 !important;;
+}
+
+#b3{
+	z-index: 1;
 }

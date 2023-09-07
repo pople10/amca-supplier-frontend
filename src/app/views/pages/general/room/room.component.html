@@ -1,12 +1,21 @@
+<input type="file" class="amcahidden" (click)="resetFileInput()"
+       (change)="onFileSelected($event)" #fileUpload>
 <div class="header">
     <div class="nav-type2">
         <div class="nav-2-element active" >
              {{ "rooms" | translate }} 
         </div>
     </div>
-    <div class="btn white-btn" (click)="openDialog(dialogTemplate)" >
-        <div>{{ "newusers" | translate }}</div>
-        <div class="plus">+</div>
+    <div class="flex-buttons">
+        <div class="btn white-btn" (click)="openDialog(dialogTemplate)" >
+            <div>{{ "newusers" | translate }}</div>
+            <div class="plus">+</div>
+        </div>
+        <button class="btn white-btn" (click)="fileUpload.click()" [disabled]="uploadingFile">
+            <div *ngIf="!uploadingFile">{{ "uploadAttachment" | translate }}</div>
+            <div *ngIf="uploadingFile">{{ "uploading" | translate }}</div>
+            <div class="plus"><mat-icon class="btn-iccon">attachment</mat-icon></div>
+        </button>
     </div>
 </div>
 <br>
@@ -75,12 +84,13 @@
                                 <div class="room-partic">
                                     <div class="room-avatar-part">
                                         <app-avatar 
+                                            [src]="fileService.getPhotoPath(part.photo)"
                                             [name]="part.firstName+' '+part.lastName"
                                             [short]="part.firstName[0].toUpperCase()+part.lastName[0].toUpperCase()">
                                         </app-avatar>
                                         {{ part.firstName+' '+part.lastName }}
                                     </div> 
-                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(part.email)">delete</mat-icon>
+                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(confirmRemove,part.email)">delete</mat-icon>
                                 </div>
                             </li>
                         </ul>
@@ -96,6 +106,7 @@
                         <div class="message-container" [ngClass]="{'my-message':isMe(message.sender)}">
                             <div class="avata-message">
                                 <app-avatar
+                                    [src]="fileService.getPhotoPath(message.sender.photo)"
                                     [name]="message.sender.firstName+' '+message.sender.lastName"
                                     [short]="message.sender.firstName[0].toUpperCase()+message.sender.lastName[0].toUpperCase()">
                                 </app-avatar>
@@ -107,6 +118,11 @@
                                 </div>
                                 <div class="container-mess" >
                                     <p>{{message.message}}</p>
+                                </div>
+                                <div class="attachments" *ngIf="getAttachementsFromMsg(message.message).length>0">
+                                    <a download target="_blank" (click)="generateAttachmentLink(i)" class="atttachment" *ngFor="let i of getAttachementsFromMsg(message.message)">
+                                        {{i}} <mat-icon>cloud_download</mat-icon>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +162,41 @@
         <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
       {{"close" | translate}}
     </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('delete')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>
+
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
         <button type="button" class="btn btn-primary" (click)="modal.close('save')">
       {{"delete" | translate}}
     </button>
     </div>
+</ng-template>
+
+
+<ng-template #copyModel let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"copying" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p class="mb-2 copyMsg">{{"copyLinkToChat" | translate}}</p>
+        <p class="copyable">{{toCopy}}</p>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="modal.close('copy')">
+            <mat-icon>content_copy</mat-icon>
+    </button>
 </ng-template>

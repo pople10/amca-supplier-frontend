@@ -10,6 +10,8 @@ import { LanguageService } from 'src/app/services/language/language.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { StarRatingColor } from '../../../form-elements/star-rating/star-rating.component';
+import { RateFields } from 'src/app/entities/enum/RateFields';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comments',
@@ -34,9 +36,11 @@ export class CommentsComponent implements OnInit {
   id:number;
   dataSent:boolean=false;
   starColor:StarRatingColor = StarRatingColor.accent;
+  rateFields:string[]=RateFields;
 
   constructor(
     private modalService:NgbModal,
+    private snack:MatSnackBar,
     private commentService:CommentService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,
@@ -47,9 +51,9 @@ export class CommentsComponent implements OnInit {
 
     }
 
-    onRatingChanged(rate)
+    onRatingChanged(rate,field)
     {
-      this.comment.rate=rate;
+      this.comment[field]=rate;
     }
 
     ngOnInit(): void {
@@ -79,6 +83,11 @@ export class CommentsComponent implements OnInit {
     modifyComment()
     {
       this.dataSent=true;
+      if(!this.comment.isValidFields()||!this.comment.comment)
+    {
+        this.snack.open(this.translate.instant('emptydata'), this.translate.instant('close'));
+        return;
+      }
       this.commentService.updateComment(this.id,this.comment).subscribe(
         res=>{
             this.id=null;
@@ -117,7 +126,9 @@ export class CommentsComponent implements OnInit {
       let tmp:CommentRequest=new CommentRequest();
       tmp.comment=res.comment;
       tmp.supplier_id=res.supplier.id
-      tmp.rate=res.rate;
+      for(let field of this.rateFields){
+        tmp[field]=res[field];
+      }
       return tmp;
     }
   

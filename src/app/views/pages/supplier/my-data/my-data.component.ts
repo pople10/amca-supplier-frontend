@@ -6,6 +6,7 @@ import { HandleRequestService } from 'src/app/services/shared/handle-request.ser
 import {Location} from '@angular/common';
 import { CommentResponse } from 'src/app/entities/CommentResponse';
 import { StarRatingColor } from '../../form-elements/star-rating/star-rating.component';
+import { FileService } from 'src/app/services/shared/file.service';
 @Component({
   selector: 'app-my-data',
   templateUrl: './my-data.component.html',
@@ -14,6 +15,7 @@ import { StarRatingColor } from '../../form-elements/star-rating/star-rating.com
 export class MyDataComponent implements OnInit {
   loading:boolean;
   data:any;
+  page=0;
   starColor:StarRatingColor = StarRatingColor.accent;
   dataSent:boolean=false;
   currentComments:CommentResponse[];
@@ -23,6 +25,7 @@ export class MyDataComponent implements OnInit {
   thisYear:number=new Date().getFullYear();
 
   constructor(
+    public fileService:FileService,
     private supplierService:SupplierService, 
     private route: ActivatedRoute,
     private handler:HandleRequestService,

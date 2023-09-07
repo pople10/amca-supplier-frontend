@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,9 @@ import { AlertifyService } from 'src/app/services/shared/alertify.service';
 import { HandleRequestService } from 'src/app/services/shared/handle-request.service';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
+import { FileService } from 'src/app/services/shared/file.service';
+import { DOMService } from 'src/app/services/shared/dom.service';
+import { ENV } from 'src/env';
 
 @Component({
   selector: 'app-room',
@@ -38,8 +41,13 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
   searching:boolean=false;
   opened:boolean=false;
   myEmail:string=null;
+  uploadingFile:boolean=false;
+  toCopy:string=null;
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
+  @ViewChild('copyModel', { static: false }) copyModel: ElementRef;
 
   constructor(
+    public fileService:FileService,
     private chatService:ChatService,
     private handleRequestService:HandleRequestService,
     public languageService:LanguageService,
@@ -49,6 +57,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
     private snackBar:MatSnackBar,
     private router:Router,
     private modalService:NgbModal,
+    private domService:DOMService,
     private authService:AuthService,
     private dialog: MatDialog
   ) { 
@@ -262,8 +271,15 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
         }
       ).add(()=>{this.dataSent=false});
   }
+  
+  removePerson(componant,email){
+    this.modalService.open(componant, {centered: true}).result.then((result) => {
+      if(result == "delete"){
+        this.removePersonTemp(email);
+    }});
+  }
 
-  removePerson(email)
+  removePersonTemp(email)
   {
     this.dataSent=true;
     this.chatService.deletePersons(this.id,email).subscribe(
@@ -277,6 +293,59 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
         this.handleRequestService.handleError(err);
       }
     ).add(()=>{this.dataSent=false});
+  }
+
+  resetFileInput(){
+    if (this.fileUpload && this.fileUpload.nativeElement) {
+      this.fileUpload.nativeElement.value = '';
+    }
+  }
+
+  getAttachementsFromMsg(text:string){
+    const pattern = /\/api\/file\/attachement\/(\w+\.\w+)/;
+
+    let prov = text;
+    
+    const componentValues = [];
+
+    let match = pattern.exec(prov);
+    while (match) {
+      const component = match[1];
+      componentValues.push(component);
+      prov = prov.replace(match[0],"");
+      match = pattern.exec(prov);
+    }
+
+    return componentValues;
+  }
+
+  onFileSelected(event){
+    if(event.target.files&&event.target.files.length==0)
+    {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    this.uploadingFile=true;
+    this.fileService.uploadFile(formData).subscribe(response=>{
+        this.toCopy = ENV["backend-api-base-url"]+response;
+        this.modalService.open(this.copyModel, {centered: true}).result.then((result) => {
+          if(result == "copy"){
+            this.domService.copyToClipboard(this.toCopy);
+            Swal.fire( { position: 'center', title: this.translate.instant("copied"), text: '', showConfirmButton: false, timer: 2000, icon: 'success' } );
+        }});
+    },err=>{
+      if(err.status==413){
+        Swal.fire( { position: 'center', title: this.translate.instant("largeFile"), text: '', showConfirmButton: false, icon: 'error' } );
+        return;
+      }
+      this.handleRequestService.handleError(err);
+    }).add(()=>{this.uploadingFile=false;})
+  }
+
+  generateAttachmentLink(i:string){
+    let url =  `${ENV["backend-api-base-url"]}/api/file/attachement/${i}`;
+    window.open(url, '_blank');
   }
 
 }

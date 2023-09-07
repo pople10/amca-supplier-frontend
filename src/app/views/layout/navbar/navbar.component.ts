@@ -10,13 +10,23 @@ import { NotificationDialogComponent } from '../notification-dialog/notification
 import { NotificationCode } from 'src/app/entities/enum/NotificationCode';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NotificationService } from 'src/app/services/notification.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  animations: [
+    trigger('FadeIn', [
+        transition('*=>*', [
+            style({opacity: 0}),
+            animate(600)
+        ])
+    ])
+  ]
 })
 export class NavbarComponent implements OnInit,OnDestroy {
+  hideMenu:boolean=false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -174,6 +184,13 @@ export class NavbarComponent implements OnInit,OnDestroy {
     }else{
       this.isMobile = false;
     }
+  }
+
+  get getMenuIcon()
+  {
+    if(!this.hideMenu)
+      return "menu";
+    return "close";
   }
 
 }

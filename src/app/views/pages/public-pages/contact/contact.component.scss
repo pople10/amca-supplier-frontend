@@ -118,7 +118,7 @@ footer
 .bannerContainer
 {
     text-align: center;
-    color: #0d046c;
+    color: #fff;
     font-size: 3vw;
     font-weight: 800;
 }
@@ -248,4 +248,8 @@ width: 100%;
   .text-intro{
     font-size: medium;
   }
+}
+
+.text-intro div{
+  color: #fff;
 }

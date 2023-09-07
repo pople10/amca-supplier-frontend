@@ -105,10 +105,33 @@ export class AuthService {
     return JSON.parse(localStorage.getItem("userData"));
   }
 
+  checkRole(role:string):boolean
+  {
+    let me = this.getUserDataLocalStorage();
+    if(me && me.roles && Array.isArray(me.roles))
+    {
+      if(me.roles.includes(role))
+        return true;
+    }
+    return false;
+  }
+
   getEmailLocalStorage()
   {
     let user = this.getUserDataLocalStorage();
     return user?user.email:null;
+  }
+
+  isAdmin():boolean{
+    return this.checkRole("admin");
+  }
+
+  isSupplier():boolean{
+    return this.checkRole("supplier");
+  }
+
+  isBuyer():boolean{
+    return this.checkRole("buyer") || this.checkRole('buyer_expert');
   }
 
   updateData(newData:any)
@@ -132,5 +155,11 @@ export class AuthService {
   getMe():Observable<UserResponse>
   {
     return this.http.get<UserResponse>(`${ENV["backend-api-base-url"]}/api/auth/me`);
+  }
+
+  uploadPhoto(data):Observable<any>{
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.post<any>(`${ENV["backend-api-base-url"]}/api/auth/photo`,data, { headers });
   }
 }

@@ -10,4 +10,6 @@ export class UserResponse
     public phone:string;
 
     public cin:string;
+
+    public photo:string;
 }

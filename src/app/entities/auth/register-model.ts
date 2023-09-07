@@ -11,6 +11,8 @@ export class RegisterModel {
 
     public phone:string;
 
+    public photo:string;
+
     public expert:boolean=false;
 
     public clear(){

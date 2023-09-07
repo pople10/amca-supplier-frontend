@@ -1099,12 +1099,30 @@
     "more":"المزيد",
     "newroom":"محادثة جديدة",
     "newusers":"إضافة أشخاص",
-    "welcome2":"مرحبًا بك في بوابتك"
-
-
-
-
- 
-
+    "welcome2":"مرحبًا بك في بوابتك",
+    "changePhoto":"انقر لتغيير صورتك",
+    "connectUs":"تسجيل الدخول",
+    "uploadAttachment":"رفع ملف",
+    "copied":"تم نسخ النص بنجاح",
+    "uploading":"تحميل الملف",
+    "largeFile":"الملف الذي تم تحميله كبير جدًا ، بحد أقصى: 10 ميجا بايت.",
+    "copying":"نسخ النص",
+    "copyLinkToChat":"انسخ الرابط والصقه في رسالة الدردشة وسنتولى عملية التنزيل.",
+    "unsatisfied":"غير مرضي",
+    "satisfied":"مرضي",
+    "mean":"متوسط",
+    "excellent":"ممتاز",
+    "unknown":"مجهول",
+    "qualityRate": "جودة المنتج/الخدمة",
+    "competitivePriceRate": "التسعير التنافسي",
+    "respectDeadlineRate": "الامتثال للمواعيد",
+    "expertiseRate": "خبرة العاملين",
+    "reactivityRate": "الاستجابة/المرونة",
+    "realizationRate": "شروط التنفيذ",
+    "afterSaleRate": "خدمة ما بعد البيع/الصيانة",
+    "conditionRate": "الشروط المالية/الجدوى",
+    "postcomment": "تعليق المنشور",
+    "post": "منشور",
+    "postcommentreply": "رد على التعليق"
 
 }

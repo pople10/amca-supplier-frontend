@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ValidatorService } from 'src/app/services/shared/validator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FileService } from 'src/app/services/shared/file.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -16,7 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public domSanitizer: DomSanitizer,private matSnack:MatSnackBar,private validatorService:ValidatorService,private translateService:TranslateService,private handleRequest:HandleRequestService,private authService:AuthService,private router: Router, public formBuilder: FormBuilder) { }
+  constructor(public fileService:FileService,public domSanitizer: DomSanitizer,private matSnack:MatSnackBar,private validatorService:ValidatorService,private translateService:TranslateService,private handleRequest:HandleRequestService,private authService:AuthService,private router: Router, public formBuilder: FormBuilder) { }
 
   validationEditForm:FormGroup;
   userData;
@@ -24,6 +26,7 @@ export class ProfileComponent implements OnInit {
   dataSent:boolean = false;
   submitted:boolean = false;
   uploading:boolean = false;
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
 
   updateProfile()
   {
@@ -94,4 +97,32 @@ export class ProfileComponent implements OnInit {
     this.showModifyForm = !this.showModifyForm;
   }
 
+  resetFileInput(){
+    if (this.fileUpload && this.fileUpload.nativeElement) {
+      this.fileUpload.nativeElement.value = '';
+    }
+  }
+
+  get photoName(){
+    if(this.userData["photo"]=="/assets/images/loader.gif") return this.userData.photo;
+    return this.userData.photo?this.fileService.getPhotoPath(this.userData.photo):null;
+  }
+
+  onFileSelected(event){
+    if(event.target.files&&event.target.files.length==0)
+    {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    this.userData["photo"]="/assets/images/loader.gif";
+    this.authService.uploadPhoto(formData).subscribe(response=>{
+        this.handleRequest.successMessage(this.translateService.instant("done"));
+        this.userData=response;
+        this.refresh(response);
+    },err=>{
+      this.handleRequest.handleError(err);
+      this.userData["photo"]=null;
+    })
+  }
 }

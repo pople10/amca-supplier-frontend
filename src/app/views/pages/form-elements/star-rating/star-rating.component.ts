@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } fro
 export class StarRatingComponent implements OnInit {
 
   @Input('rating') public rating: number = 3;
-  @Input('starCount') public starCount: number = 5;
+  @Input('starCount') public starCount: number = 4;
   @Input('color') public color: string = 'accent';
   @Output() public ratingUpdated = new EventEmitter();
 
@@ -36,6 +36,18 @@ export class StarRatingComponent implements OnInit {
     } else {
       return 'star_border';
     }
+  }
+  
+  getRateLabel(rate){
+    if(rate==1)
+      return "unsatisfied";
+    if(rate==2)
+      return "mean";
+    if(rate==3)
+      return "satisfied";
+    if(rate==4)
+      return "excellent";
+    return "unknown";
   }
 
 }
