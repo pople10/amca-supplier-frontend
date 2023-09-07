@@ -1264,6 +1264,9 @@
     "reactivityRate": "Proactivité / Réactivité / Flexibilité",
     "realizationRate": "Conditions de réalisation",
     "afterSaleRate": "Service après vente / maintenance",
-    "conditionRate": "Conditions financières / solvabilité"
+    "conditionRate": "Conditions financières / solvabilité",
+    "postcomment": "Commentaire de publication",
+    "post": "Publication",
+    "postcommentreply": "Réponse au commentaire de publication"
 
 }

@@ -180,6 +180,9 @@
     "reactivityRate": "Proactivity/Reactivity/Flexibility",
     "realizationRate": "Execution Conditions",
     "afterSaleRate": "After-Sales Service/Maintenance",
-    "conditionRate": "Financial Conditions/Solvency"
+    "conditionRate": "Financial Conditions/Solvency",
+    "postcomment":"Comment",
+    "post":"Post",
+    "postcommentreply":"Reply"
 
 }

@@ -1120,6 +1120,9 @@
     "reactivityRate": "الاستجابة/المرونة",
     "realizationRate": "شروط التنفيذ",
     "afterSaleRate": "خدمة ما بعد البيع/الصيانة",
-    "conditionRate": "الشروط المالية/الجدوى"
+    "conditionRate": "الشروط المالية/الجدوى",
+    "postcomment": "تعليق المنشور",
+    "post": "منشور",
+    "postcommentreply": "رد على التعليق"
 
 }
