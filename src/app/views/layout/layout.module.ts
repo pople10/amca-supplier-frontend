@@ -25,6 +25,7 @@ import { NotificationDialogComponent } from './notification-dialog/notification-
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { AvatMarComponent } from './avatar/avatar.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 
@@ -34,7 +35,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 @NgModule({
-  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent,AvatMarComponent],
+  declarations: [BaseComponent, NavbarComponent, SidebarComponent, FooterComponent, ContentAnimateDirective, NotificationDialogComponent,AvatMarComponent,CommentComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -57,6 +58,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  exports:[AvatMarComponent,]
+  exports:[AvatMarComponent,CommentComponent]
 })
 export class LayoutModule { }

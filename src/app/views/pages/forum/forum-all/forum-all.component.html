@@ -1,0 +1,67 @@
+<div class="header">
+    <div class="nav-type2">
+        <div class="nav-2-element active" >
+             {{ "Forum" | translate }} 
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+<div class="col-md-12 stretch-card"  *ngIf="!isLoad">
+    <div class="card">
+        <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
+            <div class="table-responsive" style=" position: relative; min-height: 40vh; ">
+                <div class="table_loader loader_container">
+                    <div class="table_loader_background"></div>
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoad">
+    <div class="col-md-12 stretch-card" >
+        <div class="card">
+            <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
+                <div class="post-container comment">
+                    <div class="top-element">
+                        <app-avatar [name]="currentPost.creator.firstName+' '+currentPost.creator.lastName" [src]="currentPost.creator.photo"
+                            [short]="currentPost.creator.firstName[0].toUpperCase()+currentPost.creator.lastName[0].toUpperCase()">
+                        </app-avatar>
+                        <div class="lelement-r">
+                            <div class="post-title">{{ currentPost.title }}</div>
+                            <div class="post-bottom">
+                                <div class="user-el">{{ currentPost.creator.firstName+' '+currentPost.creator.lastName  }}</div>
+                                <div class="date-el">{{ currentPost.createDate | date }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content" [innerHTML]="currentPost.content"></div>
+                    <div class="like-container">
+                        <div class="like-comment"  (click)="likePost(!currentPost.liked)" [ngClass]="{'active':currentPost.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{currentPost.count}}</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="col-md-12 stretch-card" >
+        <div class="card">
+            <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
+                <div class="reply-elemnt">
+                    <input [disabled]="disableComment" type="text" class="form-control"  [(ngModel)]="this.newComment" />
+                    <button  class="btn btn-primary view" [disabled]="this.newComment.length==0 || disableComment" (click)="addComment(currentPost)" style="cursor: pointer;">Add</button>
+                  </div>
+                <div *ngFor="let comment of currentPost.comments">
+                    <app-comment [comment]="comment" [onDone]="updatePost" ></app-comment>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>

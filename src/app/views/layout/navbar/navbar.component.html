@@ -148,6 +148,19 @@
                     </a>
                 </li>
             </ng-container>
+            <ng-container *ngIf="!roles.includes('supplier')">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/forum">
+                        <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
+                            send
+                        </mat-icon>
+                        <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
+                            && { 'margin-right': '30px','margin-left':'0px' } ">
+                            {{"Forum" | translate}}
+                        </span>
+                    </a>
+                </li>
+            </ng-container>
         </ul>
         </div>
     <div class="navbar-content" [ngStyle]="

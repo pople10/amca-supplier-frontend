@@ -1,0 +1,40 @@
+<div class="comment">
+   <div class="">
+        <div class="avatar-content-element">
+            <app-avatar [name]="comment.creator.firstName+' '+comment.creator.lastName" [src]="comment.creator.photo" [short]="comment.creator.firstName[0].toUpperCase()+comment.creator.lastName[0].toUpperCase()"></app-avatar>
+            <div class="data-element">
+                <div class="name" >{{ comment.creator.firstName+' '+comment.creator.lastName }}</div>
+                <div class="comment-content">{{ comment.content }}</div>
+            </div>
+        </div>
+        <div class="comment-actions">
+            <div class="like-comment" (click)="likeComment(comment.id,!comment.liked)" [ngClass]="{'active':comment.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{comment.count}}</div></div>
+            <div class="simple-action" *ngIf="comment.replies?.length>0" style="color: #966db2;" (click)="toggleReplies()"> {{ (showReplies ? 'shwoLess' : 'showMore') | translate }}</div>
+            <div class="simple-action"  style="color: #2196F3;"  *ngIf="!showReplyForm" (click)="showReplyForm=true"> {{ ('reply') | translate }}</div>
+            <div class="simple-action" (click)="deleteComment(comment.id)" style="color: #f32121;"  *ngIf="isMe(comment.creator.email)" (click)="showReplyForm=true"> {{ ('delete') | translate }}</div>
+        </div>
+   </div>
+    <div *ngIf="showReplies" class="replies">
+      <div *ngFor="let reply of comment.replies">
+        <div class="reply-content">
+            <div class="avatar-content-element">
+                <app-avatar [name]="reply.creator.firstName+' '+reply.creator.lastName" [src]="reply.creator.photo" [short]="reply.creator.firstName[0].toUpperCase()+reply.creator.lastName[0].toUpperCase()"></app-avatar>
+                <div class="data-element">
+                    <div class="name" >{{ reply.creator.firstName+' '+reply.creator.lastName }}</div>
+                    <div class="comment-content">{{ reply.content }}</div>
+                </div>
+            </div>
+            <div class="comment-actions">
+                <div class="like-comment"  (click)="likeReply(reply.id,!reply.liked)" [ngClass]="{'active':reply.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{reply.count}}</div></div>
+                <div class="simple-action" (click)="deleteReply(reply.id)" style="color: #f32121;"  *ngIf="isMe(reply.creator.email)" (click)="showReplyForm=true"> {{ ('delete') | translate }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showReplyForm" >
+        <div class="reply-elemnt">
+            <input [disabled]="disableReply" type="text" class="form-control"  [(ngModel)]="this.newReply" />
+            <button  class="btn btn-primary view" [disabled]="this.newReply.length==0 || disableReply" (click)="addReply(comment.id)" style="cursor: pointer;">Reply</button>
+          </div>
+    </div>
+</div>

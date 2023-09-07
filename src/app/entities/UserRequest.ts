@@ -14,3 +14,15 @@ export class UserRequest
 
     public phone:string;
 }
+
+export interface UnitUserResponse {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    photo: string;
+  }
+
+
+
+  

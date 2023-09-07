@@ -11,6 +11,7 @@ import { NoLinkPageComponent } from './views/pages/no-link-pages/no-link-page.co
 import { BuyerComponent } from './views/pages/buyer/buyer/buyer.component';
 import { NonAuthGuard } from './core/guard/non-auth.guard';
 import { SupplierComponent } from './views/pages/supplier/supplier.component';
+import { ForumComponent } from './views/pages/forum/forum.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,14 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/general/general.module').then(m => m.GeneralModule),
         data : {
           role : ["admin","supplier","buyer","buyer_expert"]
+        }
+      },
+      {
+        path: 'forum',
+        component : ForumComponent,
+        loadChildren: () => import('./views/pages/forum/forum.module').then(m => m.ForumModule),
+        data : {
+          role : ["admin","buyer","buyer_expert"]
         }
       },
       {
