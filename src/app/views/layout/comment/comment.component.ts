@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../services/post.service';
 import { HandleRequestService } from '../../../services/shared/handle-request.service';
 import { FileService } from 'src/app/services/shared/file.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-comment',
@@ -28,7 +29,8 @@ export class CommentComponent  {
     public fileService:FileService,
     private postService:PostService,
     private router:Router,
-    private handleRequestService:HandleRequestService
+    private handleRequestService:HandleRequestService,
+    private modalService:NgbModal,
   ) {}
 
   toggleReplies() {
@@ -99,22 +101,27 @@ export class CommentComponent  {
       this.showReplyForm = false;
     });
   }
-  deleteComment(id){
-    this.postService.deleteComment(id).subscribe((response)=>{
-      this.comment.replies = this.comment.replies.filter(e=>e.id!=id);
-    },err=>{
-        
-    }).add(()=>{
-    });
+  deleteComment(c,id){
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){
+        this.postService.deleteComment(id).subscribe((response)=>{
+          this.comment.replies = this.comment.replies.filter(e=>e.id!=id);
+        },err=>{
+            
+        }).add(()=>{
+        });
+      }})
   }
 
-  deleteReply(id){
-    this.postService.deleteReply(id).subscribe((response)=>{
+  deleteReply(c,id){
+    this.modalService.open(c, {centered: true}).result.then((result) => {
+      if(result == "save"){this.postService.deleteReply(id).subscribe((response)=>{
       this.comment.replies = this.comment.replies.filter(e=>e.id!=id);
     },err=>{
         
     }).add(()=>{
-    });
+    });}
+    })
   }
 }
 

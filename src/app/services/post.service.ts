@@ -31,8 +31,8 @@ export class PostService {
     return this.http.get<PostResponse>(`${this.baseUrl}/api/forum/post/${postId}`);
   }
 
-  getPosts(page:number,size:number): Observable<any> {
-    return this.http.get<UnitPostResponse[]>(`${this.baseUrl}/api/forum/posts?page=${page}&size=${size}`);
+  getPosts(page:number,size:number,sortType:string): Observable<any> {
+    return this.http.get<UnitPostResponse[]>(`${this.baseUrl}/api/forum/posts?page=${page}&size=${size}&sortType=${sortType}`);
   }
   
   
