@@ -82,12 +82,12 @@ export class CommentsComponent implements OnInit {
 
     modifyComment()
     {
-      this.dataSent=true;
       if(!this.comment.isValidFields()||!this.comment.comment)
-    {
+      {
         this.snack.open(this.translate.instant('emptydata'), this.translate.instant('close'));
         return;
       }
+      this.dataSent=true;
       this.commentService.updateComment(this.id,this.comment).subscribe(
         res=>{
             this.id=null;

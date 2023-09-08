@@ -161,12 +161,10 @@
                         [src]="fileService.getPhotoPath(rate.buyer.photo)"
                       ></app-avatar>
 
+                    
                     <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} </h6>
-                    <div>
-                        <star-rating [rating]="rate.rate" [starCount]="1" [color]="starColor"></star-rating></div>
-                        <div class="comment-element">
-                            {{rate.comment}}
-                        </div>
+                    <div>{{rate.rate}} <mat-icon class="star-icon">star</mat-icon></div>
+                    <div class="comment-element">{{rate.comment}}</div>
                 </div>
         </div>
     </div>
