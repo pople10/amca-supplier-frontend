@@ -29,7 +29,6 @@ export class ForumUserComponent implements OnInit {
   currentPage:number=0;
   currentSize:number=10;
   data:GenericPageable<UnitPostResponse>=new GenericPageable();
-  sizes:number[]=[5,10,20,50,100];
   fields:string[]=["id","title"]
   fieldsDates:string[]=["createDate"];
   currentPost:PostRequest = new PostRequest();
@@ -38,6 +37,9 @@ export class ForumUserComponent implements OnInit {
   doingAction:number=null;
   isAdmin = false;
   user:any={};
+  isLoadMore:boolean = true;
+  typeFetch:string = 'TIME'; 
+  typesOfFetch = ['TIME','LIKE'];
 
   quillConfig = {
     toolbar: {
@@ -68,7 +70,7 @@ export class ForumUserComponent implements OnInit {
     private dialog: MatDialog,
     private handleRequestService:HandleRequestService
   ) { 
-    this.getData();
+    this.getData(false);
      try{
       this.user = JSON.parse(localStorage.getItem("userData"));
       if(this.user.roles.includes("admin")) this.isAdmin=true;
@@ -124,13 +126,19 @@ export class ForumUserComponent implements OnInit {
 
   
 
-  private getData()
+  private getData(isMore)
     {
-      this.isLoad=false;
+      if(!isMore) this.isLoad=false;
+      else this.isLoadMore = false;
 
-      this.postService.getPosts(this.currentPage,this.currentSize).subscribe(response=>{
+      this.postService.getPosts(this.currentPage,this.currentSize,this.typeFetch).subscribe(response=>{
           this.data=response;
-          this.posts=this.data.content;
+          if(isMore){
+            this.posts=[...this.posts, ...this.data.content];
+          }
+          else{
+            this.posts=this.data.content;
+          }
       },err=>{
           this.handleRequestService.handleErrorWithCallBack(err,()=>{
             this.router.navigate(["/error"]);
@@ -138,12 +146,13 @@ export class ForumUserComponent implements OnInit {
       }).add(()=>{
         this.currentPage++;
         this.isLoad=true;
+        this.isLoadMore = true;
       });
     }
 
     loadMore()
     {
-      this.getData();
+      this.getData(true);
     }
     
     checkContent (){
@@ -198,6 +207,10 @@ export class ForumUserComponent implements OnInit {
         
     }).add(()=>{
     });
+    }
+    changeType(){
+     this.currentPage = 0;
+     this.getData(false);
     }
 }
 

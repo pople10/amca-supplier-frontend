@@ -1,7 +1,7 @@
 <div class="header">
     <div class="nav-type2">
         <div class="nav-2-element active" >
-             {{ "Forum" | translate }} 
+             {{ "post" | translate }} 
         </div>
     </div>
 </div>
@@ -55,9 +55,10 @@
         <div class="card">
             <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
                 <div class="reply-elemnt">
-                    <input [disabled]="disableComment" type="text" class="form-control"  [(ngModel)]="this.newComment" />
-                    <button  class="btn btn-primary view" [disabled]="this.newComment.length==0 || disableComment" (click)="addComment(currentPost)" style="cursor: pointer;">Add</button>
+                    <input [disabled]="disableComment" [placeholder]=" 'addComment' | translate"  type="text" class="form-control"  [(ngModel)]="this.newComment" />
+                    <button  class="btn btn-primary view" [disabled]="this.newComment.length==0 || disableComment" (click)="addComment(currentPost)" style="cursor: pointer;">{{ 'Add' | translate }}</button>
                   </div>
+                  <br/>
                 <div *ngFor="let comment of currentPost.comments">
                     <app-comment [comment]="comment" [onDone]="updatePost" ></app-comment>
                 </div>
@@ -66,3 +67,20 @@
     </div>
 </div>
 <br/>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>

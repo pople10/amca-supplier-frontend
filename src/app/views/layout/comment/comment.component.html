@@ -9,9 +9,9 @@
         </div>
         <div class="comment-actions">
             <div class="like-comment" (click)="likeComment(comment.id,!comment.liked)" [ngClass]="{'active':comment.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{comment.count}}</div></div>
-            <div class="simple-action" *ngIf="comment.replies?.length>0" style="color: #966db2;" (click)="toggleReplies()"> {{ (showReplies ? 'shwoLess' : 'showMore') | translate }}</div>
-            <div class="simple-action"  style="color: #2196F3;"  *ngIf="!showReplyForm" (click)="showReplyForm=true"> {{ ('reply') | translate }}</div>
-            <div class="simple-action" (click)="deleteComment(comment.id)" style="color: #f32121;"  *ngIf="isMe(comment.creator.email)" (click)="showReplyForm=true"> {{ ('delete') | translate }}</div>
+            <div class="simple-action" *ngIf="comment.replies?.length>0" style="background: #966db2;" (click)="toggleReplies()" #tooltip="matTooltip" [matTooltip]=" (showReplies ? 'shwoLess' : 'showMore' )| translate" matTooltipPosition="above"> <span  *ngIf="showReplies;else showLess"><i data-feather="chevrons-down" appFeatherIcon></i></span></div>
+            <div class="simple-action"  style="background: #2196F3;"  *ngIf="!showReplyForm" (click)="showReplyForm=true" #tooltip="matTooltip" [matTooltip]=" ('reply') | translate" matTooltipPosition="above"> <mat-icon>reply</mat-icon></div>
+            <div class="simple-action" (click)="deleteComment(confirmRemove,comment.id)" style="background: #f32121;"  *ngIf="isMe(comment.creator.email)" (click)="showReplyForm=true"  #tooltip="matTooltip" [matTooltip]=" ('delete') | translate" matTooltipPosition="above"><mat-icon>delete</mat-icon></div>
         </div>
    </div>
     <div *ngIf="showReplies" class="replies">
@@ -26,15 +26,37 @@
             </div>
             <div class="comment-actions">
                 <div class="like-comment"  (click)="likeReply(reply.id,!reply.liked)" [ngClass]="{'active':reply.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{reply.count}}</div></div>
-                <div class="simple-action" (click)="deleteReply(reply.id)" style="color: #f32121;"  *ngIf="isMe(reply.creator.email)" (click)="showReplyForm=true"> {{ ('delete') | translate }}</div>
+                <div class="simple-action" (click)="deleteReply(confirmRemove,reply.id)" style="background: #f32121;"  *ngIf="isMe(comment.creator.email)" (click)="showReplyForm=true"  #tooltip="matTooltip" [matTooltip]=" ('delete') | translate" matTooltipPosition="above"><mat-icon>delete</mat-icon></div>
             </div>
         </div>
       </div>
     </div>
     <div *ngIf="showReplyForm" >
         <div class="reply-elemnt">
-            <input [disabled]="disableReply" type="text" class="form-control"  [(ngModel)]="this.newReply" />
-            <button  class="btn btn-primary view" [disabled]="this.newReply.length==0 || disableReply" (click)="addReply(comment.id)" style="cursor: pointer;">Reply</button>
+            <input [disabled]="disableReply" type="text" class="form-control" [placeholder]=" 'addReply' | translate"  [(ngModel)]="this.newReply" />
+            <button  class="btn btn-primary view" [disabled]="this.newReply.length==0 || disableReply" (click)="addReply(comment.id)" style="cursor: pointer;">{{ 'reply' | translate }}</button>
           </div>
     </div>
 </div>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmation">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>
+<ng-template #showLess let-modal>
+    <span>
+    <i data-feather="chevrons-up"  appFeatherIcon></i>
+    </span>
+</ng-template>

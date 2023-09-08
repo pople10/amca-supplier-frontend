@@ -1123,6 +1123,15 @@
     "conditionRate": "الشروط المالية/الجدوى",
     "postcomment": "تعليق المنشور",
     "post": "منشور",
-    "postcommentreply": "رد على التعليق"
+    "postcommentreply": "رد على التعليق",
+    "comments":"تعليقات",
+    "addPost":"أضف منشورا",
+    "forum":"المنتدى",
+    "TIME":"الترتيب على حسب الوقت",
+    "LIKE":"الترتيب على حسب الإعجابات",
+    "reply":"رد",
+    "addReply":"إضافة رد",
+    "addComment":"إضافة تعليق"
+
 
 }

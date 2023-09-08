@@ -1,7 +1,7 @@
 <div class="header">
     <div class="nav-type2">
         <div class="nav-2-element active" >
-             {{ "Forum" | translate }} 
+             {{ "forum" | translate }} 
         </div>
     </div>
     <div class="btn white-btn" (click)="openDialog(dialogTemplate)" >
@@ -52,13 +52,20 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-           
             </div>
-            
         </div>
     </div>
 </div>
 <div class="posts-container" *ngIf="isLoad&&this.posts.length>0;else nodata">
+    <div class="select-type-fetch">
+        <ng-select [(ngModel)]="typeFetch" (change)="changeType()">
+            <ng-container *ngFor="let item of typesOfFetch">
+                <ng-option [value]="item">{{ item | translate }}</ng-option>
+              </ng-container>
+        </ng-select>
+    </div>
+   
+    <br/>
     <div *ngFor="let post of this.posts; let i = index">
         <div class="post-container">
             <div class="top-element">
@@ -95,9 +102,12 @@
 
         </div>
       </div>
-      <div *ngIf="!isLoad&&this.data.pageDetails.totalPages>this.currentPage+1" class="centerizeText smallText">
-        <div>Load More</div>
+      <div *ngIf="isLoad&&this.data.pageDetails.totalPages>this.currentPage" class="centerizeText smallText">
+        <div (click)="loadMore()" class="btn btn-primary view loadmore" >
+            <span *ngIf="isLoadMore;else buttonLoader">{{ "loadmore" | translate }}</span>
+        </div>
     </div>
+    <br/>
 </div>
 
 
