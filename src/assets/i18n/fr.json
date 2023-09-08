@@ -1267,6 +1267,20 @@
     "conditionRate": "Conditions financières / solvabilité",
     "postcomment": "Commentaire de publication",
     "post": "Publication",
-    "postcommentreply": "Réponse au commentaire de publication"
+    "postcommentreply": "Réponse au commentaire de publication",
+    "comments":"Commentaires",
+    "addPost":"Ajouter une Publication",
+    "forum":"Forum",
+    "TIME":"Trier par temps",
+    "LIKE":"Trier par aimes",
+    "reply":"Répondre",
+    "addReply":"Ajouter une réponse",
+    "addComment":"Ajouter un commentaire",
+    "loadmore":"Charger plus",
+    "showLess":"Masquer les réponses",
+    "showMore": "Afficher les réponses"
+
+
+
 
 }
