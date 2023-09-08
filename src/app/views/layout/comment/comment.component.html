@@ -9,7 +9,7 @@
         </div>
         <div class="comment-actions">
             <div class="like-comment" (click)="likeComment(comment.id,!comment.liked)" [ngClass]="{'active':comment.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{comment.count}}</div></div>
-            <div class="simple-action" *ngIf="comment.replies?.length>0" style="background: #966db2;" (click)="toggleReplies()" #tooltip="matTooltip" [matTooltip]=" (showReplies ? 'shwoLess' : 'showMore' )| translate" matTooltipPosition="above"> <span  *ngIf="showReplies;else showLess"><i data-feather="chevrons-down" appFeatherIcon></i></span></div>
+            <div class="simple-action" *ngIf="comment.replies?.length>0" style="background: #966db2;" (click)="toggleReplies()" #tooltip="matTooltip" [matTooltip]=" (showReplies ? 'showLess' : 'showMore' )| translate" matTooltipPosition="above"> <span  *ngIf="showReplies;else showLess"><i data-feather="chevrons-up" appFeatherIcon></i></span></div>
             <div class="simple-action"  style="background: #2196F3;"  *ngIf="!showReplyForm" (click)="showReplyForm=true" #tooltip="matTooltip" [matTooltip]=" ('reply') | translate" matTooltipPosition="above"> <mat-icon>reply</mat-icon></div>
             <div class="simple-action" (click)="deleteComment(confirmRemove,comment.id)" style="background: #f32121;"  *ngIf="isMe(comment.creator.email)" (click)="showReplyForm=true"  #tooltip="matTooltip" [matTooltip]=" ('delete') | translate" matTooltipPosition="above"><mat-icon>delete</mat-icon></div>
         </div>
@@ -57,6 +57,6 @@
 </ng-template>
 <ng-template #showLess let-modal>
     <span>
-    <i data-feather="chevrons-up"  appFeatherIcon></i>
+    <i data-feather="chevrons-down"  appFeatherIcon></i>
     </span>
 </ng-template>

@@ -77,6 +77,9 @@ export class ForumUserComponent implements OnInit {
       }
       catch(e){}
   }
+  removeHtmlTags(input: string): string {
+    return input.replace(/<[^>]*>/g, '');
+  }
   openDialog(dialogTemplate: any): void {
     this.dialog.open(dialogTemplate);
   }
