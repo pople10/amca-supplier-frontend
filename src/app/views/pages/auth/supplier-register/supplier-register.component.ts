@@ -221,8 +221,8 @@ export class SupplierRegisterComponent implements OnInit {
       {type:"simpleInput",data:{formControlName:"officeZipCode",label:"officeZipCode",placeHolder:"",type:"text",ngModel:this.supplierRequest.officeZipCode,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeZipCode')},required:true}},
       {type:"selectInput",data:{formControlName:"officeCountry",label:"officeCountry",placeHolder:"",type:"text",ngModel:'supplierRequest.officeCountry',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCountry')},required:true,options:'countries',value:'value',labelS:'label',getLabel:(r)=>{return r.label;},multiple:false}},
       {type:"selectInput",data:{formControlName:"officeCity",label:"officeCity",placeHolder:"",type:"text",ngModel:'supplierRequest.officeCity',onChange:(v)=>{this.onChangevalue(v,'supplierRequest','officeCity')},required:true,options:'villes',value:'ville',labelS:'ville',getLabel:(r)=>{return r.ville;},multiple:false,free:true}},
-      {type:"simpleInput",data:{formControlName:"xAxisMap",label:"xAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.xAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','xAxisMap')},required:false}},
-      {type:"simpleInput",data:{formControlName:"yAxisMap",label:"yAxisMap",placeHolder:"",type:"text",ngModel:this.supplierRequest.yAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','yAxisMap')},required:false}},
+      {type:"simpleInput",data:{formControlName:"xAxisMap",label:"xAxisMap",placeHolder:"",type:"number",ngModel:this.supplierRequest.xAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','xAxisMap')},required:false}},
+      {type:"simpleInput",data:{formControlName:"yAxisMap",label:"yAxisMap",placeHolder:"",type:"number",ngModel:this.supplierRequest.yAxisMap,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','yAxisMap')},required:false}},
     ];
   }
   initForme4= ()=>{    
