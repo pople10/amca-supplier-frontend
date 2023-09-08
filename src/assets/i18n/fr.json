@@ -1275,7 +1275,11 @@
     "LIKE":"Trier par aimes",
     "reply":"Répondre",
     "addReply":"Ajouter une réponse",
-    "addComment":"Ajouter un commentaire"
+    "addComment":"Ajouter un commentaire",
+    "loadmore":"Charger plus",
+    "showLess":"Masquer les réponses",
+    "showMore": "Afficher les réponses"
+
 
 
 
