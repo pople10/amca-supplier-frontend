@@ -1,7 +1,7 @@
 <div class="comment">
    <div class="">
         <div class="avatar-content-element">
-            <app-avatar [name]="comment.creator.firstName+' '+comment.creator.lastName" [src]="comment.creator.photo" [short]="comment.creator.firstName[0].toUpperCase()+comment.creator.lastName[0].toUpperCase()"></app-avatar>
+            <app-avatar [name]="comment.creator.firstName+' '+comment.creator.lastName" [src]="fileService.getPhotoPath(comment.creator.photo)" [short]="comment.creator.firstName[0].toUpperCase()+comment.creator.lastName[0].toUpperCase()"></app-avatar>
             <div class="data-element">
                 <div class="name" >{{ comment.creator.firstName+' '+comment.creator.lastName }}</div>
                 <div class="comment-content">{{ comment.content }}</div>
@@ -18,7 +18,7 @@
       <div *ngFor="let reply of comment.replies">
         <div class="reply-content">
             <div class="avatar-content-element">
-                <app-avatar [name]="reply.creator.firstName+' '+reply.creator.lastName" [src]="reply.creator.photo" [short]="reply.creator.firstName[0].toUpperCase()+reply.creator.lastName[0].toUpperCase()"></app-avatar>
+                <app-avatar [name]="reply.creator.firstName+' '+reply.creator.lastName" [src]="fileService.getPhotoPath(reply.creator.photo)" [short]="reply.creator.firstName[0].toUpperCase()+reply.creator.lastName[0].toUpperCase()"></app-avatar>
                 <div class="data-element">
                     <div class="name" >{{ reply.creator.firstName+' '+reply.creator.lastName }}</div>
                     <div class="comment-content">{{ reply.content }}</div>

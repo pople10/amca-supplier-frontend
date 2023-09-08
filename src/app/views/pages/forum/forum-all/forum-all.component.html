@@ -29,7 +29,7 @@
             <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
                 <div class="post-container comment">
                     <div class="top-element">
-                        <app-avatar [name]="currentPost.creator.firstName+' '+currentPost.creator.lastName" [src]="currentPost.creator.photo"
+                        <app-avatar [name]="currentPost.creator.firstName+' '+currentPost.creator.lastName" [src]="fileService.getPhotoPath(currentPost.creator.photo)"
                             [short]="currentPost.creator.firstName[0].toUpperCase()+currentPost.creator.lastName[0].toUpperCase()">
                         </app-avatar>
                         <div class="lelement-r">
@@ -50,6 +50,7 @@
     </div>
     <br/>
     <br/>
+    <h4 class="col-md-12 mx-2 mb-1">{{"comments"|translate}}</h4>
     <div class="col-md-12 stretch-card" >
         <div class="card">
             <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">

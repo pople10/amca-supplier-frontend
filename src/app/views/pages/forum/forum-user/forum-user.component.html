@@ -62,13 +62,13 @@
     <div *ngFor="let post of this.posts; let i = index">
         <div class="post-container">
             <div class="top-element">
-                <app-avatar [name]="post.creator?.firstName+' '+post.creator?.firstName" [src]="post.creator?.photo"
-                    [short]="post.creator?.firstName[0].toUpperCase()+post.creator?.firstName[0].toUpperCase()">
+                <app-avatar [name]="post.creator?.firstName+' '+post.creator?.lastName" [src]="fileService.getPhotoPath(post.creator?.photo)"
+                    [short]="post.creator?.firstName[0].toUpperCase()+post.creator?.lastName[0].toUpperCase()">
                 </app-avatar>
                 <div class="lelement-r">
                     <div class="post-title">{{ post.title }}</div>
                     <div class="post-bottom">
-                        <div class="user-el">{{ post.creator?.firstName+' '+post.creator?.firstName  }}</div>
+                        <div class="user-el">{{ post.creator?.firstName+' '+post.creator?.lastName  }}</div>
                         <div class="date-el">{{ post.createDate | date }}</div>
                     </div>
                     

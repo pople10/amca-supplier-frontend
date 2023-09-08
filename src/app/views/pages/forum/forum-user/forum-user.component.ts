@@ -13,6 +13,7 @@ import { UnitPostResponse } from '../../../../entities/UnitPostResponse';
 import { PostRequest } from '../../../../entities/PostRequest';
 import { PostService } from '../../../../services/post.service';
 import { HandleRequestService } from '../../../../services/shared/handle-request.service';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-forum-user',
@@ -61,6 +62,7 @@ export class ForumUserComponent implements OnInit {
     private translate:TranslateService,
     private snackBar:MatSnackBar,
     private router:Router,
+    public fileService:FileService,
     private modalService:NgbModal,
     private authService:AuthService,
     private dialog: MatDialog,

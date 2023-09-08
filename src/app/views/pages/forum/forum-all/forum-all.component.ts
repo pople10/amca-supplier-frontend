@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {  PostResponse } from '../../../../entities/UnitPostResponse';
 import { PostService } from '../../../../services/post.service';
 import { HandleRequestService } from '../../../../services/shared/handle-request.service';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-forum-all',
@@ -38,6 +39,7 @@ export class ForumAllComponent implements OnInit {
     private router:Router,
     private modalService:NgbModal,
     private authService:AuthService,
+    public fileService:FileService,
     private dialog: MatDialog,
     private handleRequestService:HandleRequestService
   ) { 

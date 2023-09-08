@@ -1,9 +1,9 @@
-import { UnitUserResponse } from './UserRequest';
+import { UserChatResponse } from './UserChatResponse';
 
 export class UnitPostResponse {
   id: number;
   title: string;
-  creator: UnitUserResponse;
+  creator: UserChatResponse;
   createDate: Date;
   modifyDate: Date;
   content: string;
@@ -14,7 +14,7 @@ export class UnitPostResponse {
 
 export class PostCommentReplyResponse {
   id: number;
-  creator: UnitUserResponse;
+  creator: UserChatResponse;
   liked: boolean;
   createDate: Date;
   modifyDate: Date;
@@ -24,7 +24,7 @@ export class PostCommentReplyResponse {
 
 export class PostCommentResponse {
   id: number;
-  creator: UnitUserResponse;
+  creator: UserChatResponse;
   liked: boolean;
   createDate: Date;
   modifyDate: Date;

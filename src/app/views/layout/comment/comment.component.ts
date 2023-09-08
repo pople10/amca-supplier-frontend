@@ -5,6 +5,7 @@ import { LanguageService } from '../../../services/language/language.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../services/post.service';
 import { HandleRequestService } from '../../../services/shared/handle-request.service';
+import { FileService } from 'src/app/services/shared/file.service';
 
 @Component({
   selector: 'app-comment',
@@ -24,6 +25,7 @@ export class CommentComponent  {
   constructor(
     public languageService:LanguageService,
     private route: ActivatedRoute,
+    public fileService:FileService,
     private postService:PostService,
     private router:Router,
     private handleRequestService:HandleRequestService
