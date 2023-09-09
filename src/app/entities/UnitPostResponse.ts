@@ -9,6 +9,7 @@ export class UnitPostResponse {
   content: string;
   count: number;
   liked?:boolean;
+  commentCount:number;
 }
 
 
