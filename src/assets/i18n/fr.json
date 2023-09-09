@@ -1278,9 +1278,8 @@
     "addComment":"Ajouter un commentaire",
     "loadmore":"Charger plus",
     "showLess":"Masquer les réponses",
-    "showMore": "Afficher les réponses"
-
-
-
+    "showMore": "Afficher les réponses",
+    "goBackForum":"Retourner à la forum",
+    "COMMENT_SORT":"Trier par interaction"
 
 }

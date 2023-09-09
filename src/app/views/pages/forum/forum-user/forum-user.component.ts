@@ -39,7 +39,7 @@ export class ForumUserComponent implements OnInit {
   user:any={};
   isLoadMore:boolean = true;
   typeFetch:string = 'TIME'; 
-  typesOfFetch = ['TIME','LIKE'];
+  typesOfFetch = ['TIME','LIKE','COMMENT_SORT'];
 
   quillConfig = {
     toolbar: {

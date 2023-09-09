@@ -183,6 +183,8 @@
     "conditionRate": "Financial Conditions/Solvency",
     "postcomment":"Comment",
     "post":"Post",
-    "postcommentreply":"Reply"
+    "postcommentreply":"Reply",
+    "goBackForum":"Return to forum",
+    "COMMENT_SORT":"Sort by interactivity"
 
 }

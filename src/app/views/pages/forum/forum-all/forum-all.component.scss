@@ -1,0 +1,11 @@
+.go-back {
+    background: linear-gradient(#7d5895 0 0) var(--p, 0) / var(--p, 0) no-repeat;
+    transition: .6s, background-position 0s;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 10px;
+  }
+.go-back:hover {
+    --p: 100%;
+    color: #fff;
+}

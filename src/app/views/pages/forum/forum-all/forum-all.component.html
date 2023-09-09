@@ -6,8 +6,10 @@
     </div>
 </div>
 <br>
-<br>
-
+<div class="go-back col-md-12 mb-2 mx-4 pointer" routerLink="/forum">
+    <i data-feather="arrow-left" appFeatherIcon></i>
+    <span>{{"goBackForum"|translate}}</span>
+</div>
 
 <div class="col-md-12 stretch-card"  *ngIf="!isLoad">
     <div class="card">
@@ -41,7 +43,7 @@
                         </div>
                     </div>
                     <div class="post-content" [innerHTML]="currentPost.content"></div>
-                    <div class="like-container">
+                    <div class="count-container">
                         <div class="like-comment"  (click)="likePost(!currentPost.liked)" [ngClass]="{'active':currentPost.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{currentPost.count}}</div></div>
                     </div>
                 </div>
