@@ -5,7 +5,7 @@
             <mat-icon class="menu-icon" [@FadeIn]="getMenuIcon">{{getMenuIcon}}</mat-icon>
         </a>
        <div id="sidebarText" style="z-index: 2;min-width: 250px;" 
-                routerLink="/" [ngClass]="{
+                (click)="hideMenu=false" routerLink="/" [ngClass]="{
             'sidebar-brand': true,
             adminTextColor: isAdmin
           }">
@@ -22,7 +22,7 @@
           
         <ul class="sidebar-nav metismenu" [ngClass]="{ 'menu-hidden': !hideMenu,'menu-displayed':hideMenu}"  id="sidebar-menu" [ngStyle]="this.languageService.userLanguage == 'ar' && {'padding-right': '33px','direction':'rtl'}" #sidebarMenu>
             <ng-container *ngIf="isAdmin">
-                <li class="nav-item" routerLink="/dashboard">
+                <li class="nav-item" (click)="hideMenu=false" routerLink="/dashboard">
                     <a class="nav-link" href="javascript:void(0);">
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>home</mat-icon>
                         <span class="link-title" [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
@@ -33,7 +33,7 @@
 
             <ng-container *ngIf="roles && roles.includes('supplier')">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/supplier">
+                    <a class="nav-link" (click)="hideMenu=false" routerLink="/supplier">
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             folder_shared
@@ -53,14 +53,14 @@
                         && { 'margin-right': '30px','margin-left':'0px' } ">{{"buyer" | translate}}</span>
                     </a>
                     <div ngbDropdownMenu aria-labelledby="buyerLink" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
-                        <a style="text-align: center;" ngbDropdownItem class="py-2" routerLink="/buyer/suppliers">
+                        <a style="text-align: center;" ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/buyer/suppliers">
                             <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"suppliers" | translate}}
                                 </span>
                         </a>
-                        <a *ngIf="roles && roles.includes('buyer_expert')"style="text-align: center;" ngbDropdownItem class="py-2" routerLink="/buyer/suppliers/requests/list">
+                        <a *ngIf="roles && roles.includes('buyer_expert')"style="text-align: center;" ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/buyer/suppliers/requests/list">
                             <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
@@ -71,7 +71,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/buyer/rates">
+                    <a class="nav-link" (click)="hideMenu=false" routerLink="/buyer/rates">
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             star
@@ -84,7 +84,7 @@
 
             <ng-container *ngIf="isAdmin">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/admin/history">
+                    <a class="nav-link" (click)="hideMenu=false" routerLink="/admin/history">
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             watch
@@ -104,28 +104,28 @@
                             && { 'margin-right': '30px','margin-left':'0px' } ">{{"users" | translate}}</span>
                         </a>
                         <div ngbDropdownMenu aria-labelledby="adminLink" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
-                            <a  ngbDropdownItem class="py-2" routerLink="/admin/admins">
+                            <a  ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/admin/admins">
                                 <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"admins" | translate}}
                                 </span>
                             </a>
-                            <a ngbDropdownItem class="py-2" routerLink="/admin/buyers">
+                            <a ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/admin/buyers">
                                 <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"buyers" | translate}}
                                 </span>
                             </a>
-                            <a ngbDropdownItem class="py-2" routerLink="/admin/suppliers">
+                            <a ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/admin/suppliers">
                                 <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
                                     {{"suppliers" | translate}}
                                 </span>
                             </a>
-                            <a ngbDropdownItem class="py-2" routerLink="/admin/users/search">
+                            <a ngbDropdownItem class="py-2" (click)="hideMenu=false" routerLink="/admin/users/search">
                                 <i class="link-icon" appFeatherIcon></i>
                                 <span [ngClass]="{ 'link-title': true, adminTextColor: isAdmin }" [ngStyle]="this.languageService.userLanguage == 'ar'
                                 && { 'margin-right': '30px','margin-left':'0px' } ">
@@ -140,7 +140,7 @@
             </ng-container>
             <ng-container *ngIf="!roles.includes('supplier')">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/general/rooms">
+                    <a class="nav-link" (click)="hideMenu=false" routerLink="/general/rooms">
                         <!-- <i class="link-icon" data-feather="pen-tool" appFeatherIcon></i> -->
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             send
@@ -154,7 +154,7 @@
             </ng-container>
             <ng-container *ngIf="!roles.includes('supplier')">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/forum">
+                    <a class="nav-link" (click)="hideMenu=false" routerLink="/forum">
                         <mat-icon [ngClass]="{ 'link-icon': true, adminTextColor: isAdmin }" appFeatherIcon>
                             forum
                         </mat-icon>
@@ -208,13 +208,13 @@
                     <div class="dropdown-body">
                         <ul class="profile-nav p-0 pt-3">
                             <li class="nav-item">
-                                <a routerLink="/general/profile" class="nav-link">
+                                <a (click)="hideMenu=false" routerLink="/general/profile" class="nav-link">
                                     <i class="feather icon-user"></i>
                                     <span>{{ "Profile" | translate }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a routerLink="/general/password/change" class="nav-link">
+                                <a (click)="hideMenu=false" routerLink="/general/password/change" class="nav-link">
                                     <mat-icon style="font-size: 16px; margin-right: 11px;"> vpn_key</mat-icon>
                                     <span>{{ "updatePassword" | translate }}</span>
                                 </a>

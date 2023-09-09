@@ -167,14 +167,29 @@ export class DashboardComponent implements OnInit,OnDestroy {
     
     this.apexChart4Options.series=this.statsData.categories.buyers.map(e=>e.count);
     this.apexChart4Options.labels=this.statsData.categories.buyers.map(e=>this.translateService.instant(e.label));
+    this.apexChart4Options.colors=this.statsData.categories.buyers.map(e=>this.getColorByLabelForBuyer(e.label));
     this.apexChart5Options.series=this.statsData.categories.suppliers.map(e=>e.count);
     this.apexChart5Options.labels=this.statsData.categories.suppliers.map(e=>this.translateService.instant(e.label));
+    this.apexChart5Options.colors=this.statsData.categories.suppliers.map(e=>this.getColorByLabelForSupplier(e.label));
     if(refresh)
     {
       this.apexChart1Options.xaxis.categories=this.months;
       this.apexChart2Options.xaxis.categories=this.months;
       this.apexChart3Options.xaxis.categories=this.months;
     }
+  }
+
+  getColorByLabelForSupplier(label){
+    if(label==="PENDING") return "rgb(0, 143, 251)";
+    if(label==="REJECTED") return "#e57373";
+    if(label==="QUALIFIED") return "rgb(0, 227, 150)";
+    return "#000000"
+  }
+
+  getColorByLabelForBuyer(label){
+    if(label==="normal") return "rgb(0, 143, 251)";
+    if(label==="expert") return "rgb(0, 227, 150)";
+    return "#000000"
   }
 
 
