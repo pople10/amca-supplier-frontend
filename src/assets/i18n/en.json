@@ -185,6 +185,8 @@
     "post":"Post",
     "postcommentreply":"Reply",
     "goBackForum":"Return to forum",
-    "COMMENT_SORT":"Sort by interactivity"
+    "COMMENT_SORT":"Sort by interactivity",
+    "title":"Title",
+    "content":"Content"
 
 }

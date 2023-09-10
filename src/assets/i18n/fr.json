@@ -1280,6 +1280,8 @@
     "showLess":"Masquer les réponses",
     "showMore": "Afficher les réponses",
     "goBackForum":"Retourner à la forum",
-    "COMMENT_SORT":"Trier par interaction"
+    "COMMENT_SORT":"Trier par interaction",
+    "title":"Titre",
+    "content":"Contenu"
 
 }
