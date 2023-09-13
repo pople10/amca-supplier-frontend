@@ -25,7 +25,7 @@ export class SuppliersComponent implements OnInit {
   loading:boolean=false;
   datos:GenericPageable<any>=new GenericPageable();
   refName="id";
-  fields:string[]=["firstName","lastName","email"]
+  fields:string[]=["socialReason","firstName","lastName","email"]
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
   fieldsStatic:string[]=["status"];
@@ -39,6 +39,7 @@ export class SuppliersComponent implements OnInit {
   id:number;
   dataSent:boolean=false;
   isSubmitted:boolean=false;
+  showForm:boolean=false;
 
 
   registerForm = new FormGroup({
@@ -172,8 +173,14 @@ export class SuppliersComponent implements OnInit {
 
   updateItem(refToUpdate,index)
   {
+    this.showForm = false;
     this.id=refToUpdate;
-    document.getElementById("formulaire").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    setTimeout(() => {
+      this.showForm = true;
+      let el = document.getElementById("formulaire");
+      if(el)
+        el.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }, 0);
   }
 
   deleteItem(componant,refToDelete,index){

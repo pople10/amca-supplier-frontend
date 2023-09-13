@@ -176,7 +176,7 @@
     "qualityRate": "Product/Service Quality",
     "competitivePriceRate": "Competitive Pricing",
     "respectDeadlineRate": "Deadline Adherence",
-    "expertiseRate": "Staff Expertise",
+    "expertizeRate": "Staff Expertise",
     "reactivityRate": "Proactivity/Reactivity/Flexibility",
     "realizationRate": "Execution Conditions",
     "afterSaleRate": "After-Sales Service/Maintenance",
@@ -187,6 +187,14 @@
     "goBackForum":"Return to forum",
     "COMMENT_SORT":"Sort by interactivity",
     "title":"Title",
-    "content":"Content"
+    "content":"Content",
+    "keyword":"Keyword",
+    "hide":"Hide",
+    "creator":"Creator",
+    "0_3CAPITAL": "Between 0M and 3M DHs",
+    "3_30CAPITAL": "Between 3M and 30M DHs",
+    "30_75CAPITAL": "Between 30M and 75M DHs",
+    "75_300CAPITAL": "Between 75M and 300M DHs",
+    "SUP300": "Above 300M DHs"
 
 }

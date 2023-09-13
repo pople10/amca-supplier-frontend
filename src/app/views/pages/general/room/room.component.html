@@ -88,9 +88,10 @@
                                             [name]="part.firstName+' '+part.lastName"
                                             [short]="part.firstName[0].toUpperCase()+part.lastName[0].toUpperCase()">
                                         </app-avatar>
-                                        {{ part.firstName+' '+part.lastName }}
+                                        {{ part.firstName+' '+part.lastName }} 
+                                        <mat-icon *ngIf="isCreator(part)" matTooltipPosition="above" matTooltip="{{'creator'|translate}}">supervised_user_circle</mat-icon>
                                     </div> 
-                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email" (click)="removePerson(confirmRemove,part.email)">delete</mat-icon>
+                                    <mat-icon class="deleteIconRoom" *ngIf="myEmail!=part.email && !isCreator(part)" (click)="removePerson(confirmRemove,part.email)">delete</mat-icon>
                                 </div>
                             </li>
                         </ul>

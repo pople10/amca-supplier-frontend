@@ -40,6 +40,10 @@ export class AddBuyerComponent implements OnInit {
   id:number;
   dataSent:boolean=false;
   isSubmitted:boolean=false;
+  showForm:boolean=false;
+  nameFilter:string=null;
+  showDisabledOnly:boolean=false;
+  paramFilter:string=null;
 
 
   registerForm = new FormGroup({
@@ -89,6 +93,17 @@ export class AddBuyerComponent implements OnInit {
     public dialog: MatDialog,
     private translate:TranslateService) { }
 
+
+  cancelFilter(){
+    this.currentPage=0;
+    this.paramFilter=null;
+    this.initData();
+  }
+
+  filter(){
+    
+  }
+    
   clear()
   {
     this.data=new BuyerRequest();
@@ -142,6 +157,7 @@ export class AddBuyerComponent implements OnInit {
               icon: 'success'
             }
           );
+          this.showForm=false;
         },err=>{
           this.handleRequestService.handleError(err);
         }).add(()=>{
@@ -204,11 +220,13 @@ export class AddBuyerComponent implements OnInit {
 
   updateItem(refToUpdate,index)
   {
+    this.showForm=false;
     this.doingAction=true;
     this.doingActionTo=index;
     this.userService.getBuyerById(refToUpdate).subscribe((res)=>{
       this.data=res;
       this.id=refToUpdate;
+      this.showForm=true;
       document.getElementById("formulaire").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     },err=>{this.handleRequestService.handleError(err);})
     .add(()=>{this.doingAction=false;this.doingActionTo=null;});

@@ -26,6 +26,7 @@ import { CommentsComponent } from './comments/comments.component';
 
 import {MatSelectModule} from '@angular/material/select';
 import { LayoutModule } from '../../../layout/layout.module';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -54,7 +55,8 @@ import { LayoutModule } from '../../../layout/layout.module';
     MatSnackBarModule,
     MatDividerModule,
     MatSelectModule,
-    LayoutModule
+    LayoutModule,
+    MatInputModule
   ]
 })
 export class BuyerModule { }

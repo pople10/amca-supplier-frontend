@@ -5,9 +5,37 @@
           {{ "buyers" | translate }}
       </div>
   </div>
+  <div class="btn white-btn" *ngIf="!showForm" (click)="showForm=true;id=null;" >
+      <div>{{ "add" | translate }}</div>
+      <div class="plus">+</div>
+  </div>
+  <button *ngIf="showForm" (click)="showForm=false" type="button" class="white-btn btn btn-warning">
+    <span>{{ "hide" | translate }}</span>
+    <div class="plus">X</div>
+  </button>
+  <div class="header-filters">
+    <div class="filters-container">
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"showDisabledOnly"|translate}}</mat-label>
+                <mat-slide-toggle [(checked)]="showDisabledOnly"></mat-slide-toggle>
+            </mat-form-field>
+        </div>
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"name"|translate}}</mat-label>
+                <input matInput [(ngModel)]="city"/>
+            </mat-form-field>
+        </div>
+   </div>
+    <div class="filter-element">
+        <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
+        <button [disabled]="isLoad" *ngIf="paramFilter" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+    </div>
+</div>
 </div> 
 <br/>
-<div id="formulaire">
+<div id="formulaire" [ngClass]="{'d-none': !showForm }">
     <div class="card">
         <div class="card-body hCustom" *ngIf="loading">
             <div class="w-100 d-flex justify-content-center align-items-center mt-5">
@@ -198,6 +226,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="mt-4 col-md-12 stretch-card">
   <div class="card">

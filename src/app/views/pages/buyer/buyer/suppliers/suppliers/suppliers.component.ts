@@ -19,7 +19,7 @@ import { HandleRequestService } from 'src/app/services/shared/handle-request.ser
 export class SuppliersComponent implements OnInit {
   data:GenericPageable<any>=new GenericPageable();
   refName="id";
-  fields:string[]=["firstName","lastName","email"]
+  fields:string[]=["socialReason","firstName","lastName","email"]
   /* Static columns 
   TODO translate status exist in StatusEnum [Backend] */
   fieldsStatic:string[]=["supplierStatus"];
@@ -38,12 +38,18 @@ export class SuppliersComponent implements OnInit {
   selectedFunctions:string[]=[];
   selectedActivities:string[]=[];
   selectedFamily:string[]=[];
+  capitalMAD:string=null;
+  city:string=null;
 
   socials:string[]=[];
   socialsGlobal:string[]=[];
   family:ValueLabelModel[]=[];
   functions:ValueLabelModel[]=[];
   activities:ValueLabelModel[]=[];
+  capitals:ValueLabelModel[]=[];
+
+  list:string[] = ["0-3", "3-30", "30-75", "75-300", "SUP300"];
+
 
   filter()
   {
@@ -66,6 +72,15 @@ export class SuppliersComponent implements OnInit {
     {
       this.spec.values["managerFunction"]=this.selectedFunctions;
     }
+    this.spec.values["capital"]="NONE";
+    if(this.capitalMAD)
+    {
+      this.spec.values["capital"]=this.capitalMAD;
+    }
+    if(this.city&&this.city.trim()!=="")
+    {
+      this.spec.values["city"]=this.city;
+    }
     if(!this.emptyJson(this.spec.values))
     {
       this.currentPage=0;
@@ -80,6 +95,8 @@ export class SuppliersComponent implements OnInit {
     this.selectedFamily=[];
     this.selectedFunctions=[];
     this.selectedSocials=[];
+    this.capitalMAD=null;
+    this.city=null;
     this.currentPage=0;
     this.getData(this.currentPage);
   }
@@ -108,6 +125,22 @@ export class SuppliersComponent implements OnInit {
         this.activities=response.filter(e=>e.name=="sectoractivity")[0].data;
         this.functions=response.filter(e=>e.name=="managerfunctions")[0].data;
       });
+      for (let item of this.list) {
+        let range = item.split('-').map(str => str.trim());
+        if (range.length === 1) {
+          this.capitals.push({ value: 'CAPSUP300', label: 'SUP300' });
+        } else if (range.length === 2) {
+          let minValue = range[0];
+          let maxValue = range[1];
+      
+          this.capitals.push({ value: `CAP${minValue}_${maxValue}`, label: `${minValue}_${maxValue}CAPITAL` });
+        }
+      }
+    }
+
+    clearCapital(event){
+      event.stopPropagation();
+      this.capitalMAD=null;
     }
 
     ngOnInit(): void {

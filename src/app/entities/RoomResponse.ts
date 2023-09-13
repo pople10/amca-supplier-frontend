@@ -8,4 +8,5 @@ export class RoomResponse
     public messages:RoomMessageResponse[]=[];
     public createDate:Date;
     public label:string;
+    public creator:UserChatResponse;
 }

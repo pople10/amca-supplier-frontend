@@ -610,7 +610,7 @@
     "turnoverN3":"Chiffre d'affaire pour {{year3}}",
     "isoCertification":"Certificate d'ISO",
     "otherIsoCertification":"Autre certificate d'ISO",
-    "salesFamily":"Domaine Commercial Couvert",
+    "salesFamily":"Famille produits",
     "financialInfo":"Informations financière",
     "contact":"Contacte",
     "MaxlengthField":"La valeur entrée est très longue",
@@ -1282,6 +1282,14 @@
     "goBackForum":"Retourner à la forum",
     "COMMENT_SORT":"Trier par interaction",
     "title":"Titre",
-    "content":"Contenu"
+    "content":"Contenu",
+    "keyword":"Mot clé",
+    "hide":"Cacher",
+    "creator":"Créateur",
+    "0_3CAPITAL": "Entre 0M et 3M DHs",
+    "3_30CAPITAL": "Entre 3M et 30M DHs",
+    "30_75CAPITAL": "Entre 30M et 75M DHs",
+    "75_300CAPITAL": "Entre 75M et 300M DHs",
+    "SUP300": "Au-dessus de 300M DHs"
 
 }

@@ -11,3 +11,22 @@
     padding-top: 5px;
     text-align: justify;
 }
+
+.actions-forum{
+    align-items: center;
+    gap: 10px;
+}
+
+.btns-filter{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 1%;
+}
+
+.btn-warning {
+    color: #fff!important;
+    background-color: #fbbc06!important;
+    border-color: #fbbc06!important;
+}

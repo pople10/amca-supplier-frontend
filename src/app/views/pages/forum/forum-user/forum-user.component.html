@@ -8,8 +8,19 @@
         <div>{{ "addPost" | translate }}</div>
         <div class="plus">+</div>
     </div>
+    <div class="filters-container">
+        <div class="filter-element">
+            <mat-form-field appearance="fill" class="fileds-filters">
+                <mat-label>{{"keyword"|translate}}</mat-label>
+                <input matInput [(ngModel)]="keyword"/>
+            </mat-form-field>
+        </div>
+        <div class="filter-element btns-filter">
+            <button [disabled]="!isLoad" class="btn btn-light m-2" (click)="applyFilter()">{{"search"|translate}}</button>
+            <button [disabled]="!isLoad" *ngIf="keywordSent" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+        </div>
+    </div>
 </div>
-<br>
 
 <div class="row">
     <ng-template #dialogTemplate>

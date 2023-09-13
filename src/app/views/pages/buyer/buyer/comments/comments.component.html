@@ -65,7 +65,7 @@
                                 {{piece.supplier.firstName+" "+piece.supplier.lastName.toUpperCase()}}
                             </td>
                             <td>
-                                <div class="rate-table"> {{piece.rate}} <mat-icon class="star-icon">star</mat-icon></div>
+                                <div class="rate-table"> {{piece.rate}}<span class="under-20">/20</span></div>
                             </td>
                             <td>
                                 {{(piece.comment.length>30)? (piece.comment | slice:0:30)+'...':(piece.comment)}}

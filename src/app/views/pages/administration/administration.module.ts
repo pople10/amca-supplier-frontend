@@ -49,6 +49,8 @@ import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 
 
@@ -136,7 +138,8 @@ const routes: Routes = [
     NgbPaginationModule,
     NgbCollapseModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ]
 })
 export class AdministrationModule { }

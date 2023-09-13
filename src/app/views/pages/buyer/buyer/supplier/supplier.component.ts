@@ -109,6 +109,20 @@ export class SupplierComponent implements OnInit,AfterViewInit {
     this.comment[field]=rate;
   }
 
+  maskName(name) {
+    if (name === null || name.length <= 1) {
+      return name; 
+    }
+    const words = name.split(' ');
+    const maskedNames = [];
+    words.forEach(word => {
+      const firstLetter = word.charAt(0);
+      const maskedWord = `${firstLetter}${'*'.repeat(word.length - 1)}`;
+      maskedNames.push(maskedWord);
+    });
+    return maskedNames.join(' ');
+  }
+
   addComment()
   {
     if(!this.comment.isValidFields()||!this.comment.comment)

@@ -95,6 +95,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewInit {
     this.websocket.close();
   }
 
+  isCreator(user:UserChatResponse){
+    if(!user || !this.data.creator) return false;
+    return user.email===this.data.creator.email;
+  }
+
   ngOnInit(): void {
     this.websocket=this.chatService.getRoomWebSocket(this.id);
     this.websocket.addEventListener('open', (event) => {

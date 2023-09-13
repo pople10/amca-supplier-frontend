@@ -40,6 +40,8 @@ export class ForumUserComponent implements OnInit {
   isLoadMore:boolean = true;
   typeFetch:string = 'TIME'; 
   typesOfFetch = ['TIME','LIKE','COMMENT_SORT'];
+  keyword:string=null;
+  keywordSent:string=null;
 
   quillConfig = {
     toolbar: {
@@ -100,6 +102,12 @@ export class ForumUserComponent implements OnInit {
 
   }
 
+  cancelFilter(){
+    this.keywordSent=null;
+    this.keyword=null;
+    this.applyFilter();
+  }
+
  
 
   addPost(){
@@ -127,6 +135,11 @@ export class ForumUserComponent implements OnInit {
   }
   
 
+  applyFilter(){
+    this.keywordSent=this.keyword?this.keyword.trim():"";
+    this.currentPage = 0;
+    this.getData(false);
+  }
   
 
   private getData(isMore)
@@ -134,7 +147,7 @@ export class ForumUserComponent implements OnInit {
       if(!isMore) this.isLoad=false;
       else this.isLoadMore = false;
 
-      this.postService.getPosts(this.currentPage,this.currentSize,this.typeFetch).subscribe(response=>{
+      this.postService.getPosts(this.currentPage,this.currentSize,this.typeFetch,this.keywordSent).subscribe(response=>{
           this.data=response;
           if(isMore){
             this.posts=[...this.posts, ...this.data.content];

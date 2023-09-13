@@ -63,6 +63,8 @@ export class SupplierFormComponent implements OnInit,OnChanges {
   id:number;
   @Output("done")
   callback: EventEmitter<any> = new EventEmitter();
+  @Output("cancel")
+  cancel: EventEmitter<any> = new EventEmitter();
   refToUpdate:string=null;
 
   /*****    Fome Group for validation     *****/
@@ -907,7 +909,6 @@ export class SupplierFormComponent implements OnInit,OnChanges {
     let whatToSend:Observable<any> = this.authService.registerSupplier(this.supplierRequest);
     if(this.id)
       whatToSend=this.userService.updateSupplierById(this.supplierRequest,this.id);
-    if(this)
     whatToSend.subscribe(
       res=>{
         this.callback.emit();

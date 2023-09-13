@@ -5,10 +5,18 @@
           {{ "suppliers" | translate }}
       </div>
   </div>
+  <div class="btn white-btn" *ngIf="!showForm" (click)="showForm=true;id=null;" >
+      <div>{{ "add" | translate }}</div>
+      <div class="plus">+</div>
+  </div>
+  <button *ngIf="showForm" (click)="showForm=false" type="button" class="white-btn btn btn-warning">
+    <span>{{ "hide" | translate }}</span>
+    <div class="plus">X</div>
+  </button>
 </div> 
 <br/>
-<div id="formulaire">
-    <admin-supplier-form (done)="getData(this.currentPage)" [id]="id"></admin-supplier-form>
+<div id="formulaire" [ngClass]="{'d-none': !showForm }">
+    <admin-supplier-form (done)="getData(this.currentPage);showForm=false;" [id]="id"></admin-supplier-form>
 </div>
 <div class="mt-4 col-md-12 stretch-card">
   <div class="card">

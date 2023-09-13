@@ -3,7 +3,7 @@
 <div class="header">
     <div class="nav-type2">
         <div class="nav-2-element" [ngClass]="{'active':page==0}" (click)="page=0">
-             {{ "supplier" | translate }} {{avg | number : '1.2-2' }}  <mat-icon class="star-icon">star</mat-icon> 
+             {{ "supplier" | translate }} {{avg | number : '1.2-2' }} <span>/20</span> 
         </div>
         <div class="nav-2-element" [ngClass]="{'active':page==1}" (click)="page=1">
            {{ "rate" | translate }} ({{ currentComments?currentComments.length:0 }})
@@ -21,12 +21,12 @@
         <div class="c-h-body">{{ data.capitalMAD }}</div>
     </div>
     <div class="card-header-1">
-        <div class="c-h-title">{{ "creationYear" | translate }}</div>
-        <div class="c-h-body">{{ data.creationYear }}</div>
+        <div class="c-h-title">{{ "socialReason" | translate }}</div>
+        <div class="c-h-body">{{ data.socialReason }}</div>
     </div>
     <div class="card-header-1">
-        <div class="c-h-title">{{ "cin" | translate }}</div>
-        <div class="c-h-body">{{ data.cin }}</div>
+        <div class="c-h-title">{{ "ice" | translate }}</div>
+        <div class="c-h-body">{{ data.ice }}</div>
     </div>
     <div class="card-header-1">
         <div class="c-h-title">{{ "commercialCourt" | translate }}</div>
@@ -56,10 +56,6 @@
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
                 <div class="fournisseur-body"  [ngClass]="{'no-data':(authCont.functionality ==null)}">{{ authCont.functionality | translate}}</div>
             </div>
-            <div class="fournisseur-el1">
-                <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(authCont.id ==null)}">{{ authCont.id }}</div>
-            </div>
         </div>
         <div class="title-type1">{{ "formCompleters" | translate }}</div>
         <div class="fournisseur-container-1" *ngFor="let formCompleter of data.formCompleters">
@@ -78,10 +74,6 @@
             <div class="fournisseur-el1">
                 <div class="fournisseur-title">{{ "functionality" | translate }}</div>
                 <div class="fournisseur-body"  [ngClass]="{'no-data':(formCompleter.functionality ==null)}">{{ formCompleter.functionality | translate}}</div>
-            </div>
-            <div class="fournisseur-el1">
-                <div class="fournisseur-title">{{ "id" | translate }}</div>
-                <div class="fournisseur-body" [ngClass]="{'no-data':(formCompleter.id ==null)}">{{ formCompleter.id }}</div>
             </div>
         </div>
         <hr/>
@@ -110,8 +102,8 @@
                         </div>
                     </div>
                     <div class="row mt-2 rowFournisseur">
-                        <div class="col-md-8">{{ "ice" | translate }}</div>
-                        <div class="col-md-4"  [ngClass]="{'no-data':(data.ice ==null)}">{{ data.ice }}</div>
+                        <div class="col-md-8">{{ "creationYear" | translate }}</div>
+                        <div class="col-md-4"  [ngClass]="{'no-data':(data.creationYear ==null)}">{{ data.creationYear }}</div>
                     </div>
                     <div class="row mt-2 rowFournisseur">
                         <div class="col-md-8">{{ "isoCertification" | translate }}</div>
@@ -157,13 +149,11 @@
                 </div>
                 <div class="rating-element-lst" *ngFor="let rate of currentComments">
                     <app-avatar [short]="rate.buyer.firstName[0].toUpperCase()+rate.buyer.lastName[0].toUpperCase()"
-                        [name]="rate.buyer.firstName+' '+rate.buyer.lastName"
-                        [src]="fileService.getPhotoPath(rate.buyer.photo)"
+                        [name]="maskName(rate.buyer.firstName+' '+rate.buyer.lastName)"
                       ></app-avatar>
 
-                    
-                    <h6>{{rate.buyer.firstName+" "+rate.buyer.lastName}} </h6>
-                    <div>{{rate.rate}} <mat-icon class="star-icon">star</mat-icon></div>
+                    <h6>{{maskName(rate.buyer.firstName+" "+rate.buyer.lastName)}} </h6>
+                    <div>{{rate.rate}}<span class="under-20">/20</span></div>
                     <div class="comment-element">{{rate.comment}}</div>
                 </div>
         </div>

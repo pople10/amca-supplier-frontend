@@ -82,6 +82,7 @@
                         <tr>
                             <th>{{"label"|translate}}</th>
                             <th>{{"participants"|translate}}</th>
+                            <th>{{"creator"|translate}}</th>
                             <th>{{"createDate"|translate}}</th>
                             <th>{{"actions"|translate}}</th>
                         </tr>
@@ -95,6 +96,16 @@
                                         <app-avatar [name]="ele.firstName+' '+ele.lastName"
                                         [src]="fileService.getPhotoPath(ele.photo)"
                                         [short]="ele.firstName[0].toUpperCase()+' '+ele.lastName[0].toUpperCase()"
+                                        ></app-avatar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="avatar-container">
+                                    <div class="avatar-element" *ngIf="piece['creator']">
+                                        <app-avatar [name]="piece['creator'].firstName+' '+piece['creator'].lastName"
+                                        [src]="fileService.getPhotoPath(piece['creator'].photo)"
+                                        [short]="piece['creator'].firstName[0].toUpperCase()+' '+piece['creator'].lastName[0].toUpperCase()"
                                         ></app-avatar>
                                     </div>
                                 </div>
