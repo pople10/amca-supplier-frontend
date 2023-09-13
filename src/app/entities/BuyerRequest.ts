@@ -10,7 +10,6 @@ export class BuyerRequest
 
     public lastName:string;
 
-    public cin:string;
 
     public phone:string;
 
@@ -19,7 +18,6 @@ export class BuyerRequest
     public disabled:boolean=false;
 
     public clear(){
-        this.cin='';
         this.email="";
         this.firstName="";
         this.lastName="";

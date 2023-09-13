@@ -49,14 +49,14 @@ export class UserService {
     return this.http.put<any>(`${ENV["backend-api-base-url"]}/api/user/reactive/${refToDelete}`,{});
   }
 
-  getSuppliersWithPageAndSize(page:number,size:number):Observable<GenericPageable<any>>
+  getSuppliersWithPageAndSize(page:number,size:number,data):Observable<GenericPageable<any>>
   {
-    return this.http.get<GenericPageable<any>>(`${ENV["backend-api-base-url"]}/api/user/suppliers?page=${page}&size=${size}`);
+    return this.http.post<GenericPageable<any>>(`${ENV["backend-api-base-url"]}/api/user/suppliers?page=${page}&size=${size}`,data);
   }
 
-  getBuyersWithPageAndSize(page:number,size:number):Observable<GenericPageable<any>>
+  getBuyersWithPageAndSize(page:number,size:number,name:string,includeDisabledOnly:boolean):Observable<GenericPageable<any>>
   {
-    return this.http.get<GenericPageable<any>>(`${ENV["backend-api-base-url"]}/api/user/buyers?page=${page}&size=${size}`);
+    return this.http.get<GenericPageable<any>>(`${ENV["backend-api-base-url"]}/api/user/buyers?page=${page}&size=${size}&includeDisabledOnly=${includeDisabledOnly?"true":"false"}`+(name?.length>0?("&name="+name):""));
   }
 
   getAdminsWithPageAndSize(page:number,size:number):Observable<GenericPageable<any>>

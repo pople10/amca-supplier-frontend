@@ -14,22 +14,26 @@
     <div class="plus">X</div>
   </button>
   <div class="header-filters">
-    <div class="filters-container">
+    <div>
+      <div class="filters-container">
         <div class="filter-element">
-          <mat-slide-toggle [(checked)]="showDisabledOnly"></mat-slide-toggle>
-        </div>
-        <div class="filter-element">
-            <mat-form-field appearance="fill" class="fileds-filters">
-                <mat-label>{{"name"|translate}}</mat-label>
-                <input matInput [(ngModel)]="city"/>
-            </mat-form-field>
-        </div>
-   </div>
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"name"|translate}}</mat-label>
+                  <input matInput [(ngModel)]="nameFilter"/>
+              </mat-form-field>
+          </div>
+     </div>
+     <div class="filter-element d-flex" style="align-items: center; font-size: 18px; gap:10px">
+      <mat-slide-toggle [(ngModel)]="showDisabledOnly" color="primary"></mat-slide-toggle>
+      <div>{{ "showDisabledOnly" | translate }}</div>
+    </div>
+    </div>
     <div class="filter-element">
         <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
-        <button [disabled]="isLoad" *ngIf="paramFilter" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+        <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
     </div>
 </div>
+
 </div> 
 <br/>
 <div id="formulaire" [ngClass]="{'d-none': !showForm }">
@@ -133,26 +137,6 @@
                                     <ul *ngFor="let msg of passwordMessages" style="margin-top:10px;">
                                         <li>{{msg | translate}}</li>
                                     </ul>
-                                </div>
-                            </div>
-
-                            <div class="form-group" [ngStyle]="
-                  this.languageService.userLanguage == 'ar' && {
-                    'text-align': 'right'
-                  }
-                ">
-                                <label for="cin">{{
-                                  display | translate
-                  }}<span class="text-danger"> *</span></label>
-                                <input [(ngModel)]="this.data.cin" type="text" class="form-control" id="cin" placeholder="{{ display | translate }}" formControlName="cin" [ngClass]="{'is-invalid':isSubmitted && form.cin.errors}" [ngStyle]="
-                    this.languageService.userLanguage == 'ar' && {
-                      'text-align': 'right'
-                    }
-                  " />
-                                <div *ngIf="
-                  isSubmitted && form.cin.errors?.required
-                          " class="invalid-feedback">
-                                    {{ "RequiredField" | translate }}
                                 </div>
                             </div>
 

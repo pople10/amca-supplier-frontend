@@ -8,19 +8,8 @@
         <div>{{ "addPost" | translate }}</div>
         <div class="plus">+</div>
     </div>
-    <div class="filters-container">
-        <div class="filter-element">
-            <mat-form-field appearance="fill" class="fileds-filters">
-                <mat-label>{{"keyword"|translate}}</mat-label>
-                <input matInput [(ngModel)]="keyword"/>
-            </mat-form-field>
-        </div>
-        <div class="filter-element btns-filter">
-            <button [disabled]="!isLoad" class="btn btn-light m-2" (click)="applyFilter()">{{"search"|translate}}</button>
-            <button [disabled]="!isLoad" *ngIf="keywordSent" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
-        </div>
-    </div>
 </div>
+<br>
 
 <div class="row">
     <ng-template #dialogTemplate>
@@ -37,19 +26,21 @@
                     {{"content" | translate}}
                     <span class="text-danger"> *</span>
                 </label>
-                <div class="quill-editor-container">
-                    <quill-editor [(ngModel)]="currentPost.content" [modules]="quillConfig"></quill-editor>
-                </div>
+                <quill-editor [(ngModel)]="currentPost.content"
+                [modules]="quillConfig"
+                >
+              </quill-editor>
               <div *ngIf="checkContent()" class="invalid-feedback" style="display: block;"> {{ "RequiredField" | translate }} </div>
             </div>
         </div>
         <div class="dialog-footer" >
             <button [disabled]="dataSent" style="color:#fff" (click)="closeDialog()" class="btn btn-warning delete">{{"cancel"|translate}}</button>
-            <button [disabled]="dataSent" (click)="addPost()" class="btn btn-success">{{"Save"|translate}}</button>
+            <button [disabled]="dataSent" (click)="addPost()" class="btn btn-success">{{"add"|translate}}</button>
         </div>
     </div>
     </ng-template>
 </div>
+<br>
 <br/>
 <div class="col-md-12 stretch-card"  *ngIf="!isLoad">
     <div class="card">
@@ -61,21 +52,20 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-           
             </div>
-            
         </div>
     </div>
 </div>
 <div class="posts-container" *ngIf="isLoad&&this.posts.length>0;else nodata">
     <div class="select-type-fetch">
-        <ng-select [(ngModel)]="typeFetch" (change)="changeType()" [clearable]="false">
+        <ng-select [(ngModel)]="typeFetch" (change)="changeType()">
             <ng-container *ngFor="let item of typesOfFetch">
                 <ng-option [value]="item">{{ item | translate }}</ng-option>
               </ng-container>
         </ng-select>
     </div>
-
+   
+    <br/>
     <div *ngFor="let post of this.posts; let i = index">
         <div class="post-container">
             <div class="top-element">
@@ -91,15 +81,9 @@
                     
                 </div>
             </div>
-            <div class="description">
-                <div class="description-content">
-                    {{(removeHtmlTags(post.content).length>400)? (removeHtmlTags(post.content) | slice:0:400)+'...':(removeHtmlTags(post.content))}}
-                </div>
-            </div>
             <div class="bottom-element">
-                <div class="count-container" style="margin-left: 0px;">
+                <div class="like-container" style="margin-left: 0px;">
                     <div class="like-comment"  (click)="likePost(post.id,!post.liked)" [ngClass]="{'active':post.liked}"><div class="like-e"><i data-feather="heart" appFeatherIcon></i></div><div class="left-element">{{post.count}}</div></div>
-                    <div class="like-comment comment-count active"><div class="like-e"><i data-feather="message-square" appFeatherIcon></i></div><div class="left-element">{{post.commentCount}}</div></div>
                 </div>
                 <div class="actions posts-action">
                     <button (click)="navigateToPost(post.id)"  type="button" class="btn btn-primary view" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
@@ -118,12 +102,12 @@
 
         </div>
       </div>
-      
-        <div *ngIf="isLoad&&this.data.pageDetails.totalPages>this.currentPage" class="centerizeText smallText">
-            <div (click)="loadMore()" class="btn btn-primary view loadmore" >
-                <span *ngIf="isLoadMore;else buttonLoader">{{ "loadmore" | translate }}</span>
-            </div>
+      <div *ngIf="isLoad&&this.data.pageDetails.totalPages>this.currentPage" class="centerizeText smallText">
+        <div (click)="loadMore()" class="btn btn-primary view loadmore" >
+            <span *ngIf="isLoadMore;else buttonLoader">{{ "loadmore" | translate }}</span>
         </div>
+    </div>
+    <br/>
 </div>
 
 

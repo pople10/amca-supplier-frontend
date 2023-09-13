@@ -9,9 +9,12 @@ import { UserService } from 'src/app/services/shared/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierRequest } from 'src/app/entities/SupplierRequest';
 import { GenericPageable } from 'src/app/entities/generic-pageable';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserDataComponent } from '../show-user-data/show-user-data.component';
+import { ValueLabelModel } from '../../../../entities/shared/ValueLabelModel';
+import { Specification } from '../../../../entities/Specification';
+import { BuyerService } from '../../../../services/buyer.service';
+import { GeneralService } from '../../../../services/shared/general.service';
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
@@ -21,7 +24,6 @@ export class SuppliersComponent implements OnInit {
 
   data:SupplierRequest = new SupplierRequest();
   passwordMessages:string[]=[];
-  display:string="CIN";
   loading:boolean=false;
   datos:GenericPageable<any>=new GenericPageable();
   refName="id";
@@ -40,6 +42,29 @@ export class SuppliersComponent implements OnInit {
   dataSent:boolean=false;
   isSubmitted:boolean=false;
   showForm:boolean=false;
+  paramFilter:string=null;
+  spec:Specification=new Specification();
+
+  selectedSocials:string[]=[];
+  selectedFunctions:string[]=[];
+  selectedActivities:string[]=[];
+  selectedFamily:string[]=[];
+  capitalMAD:string=null;
+  city:string=null;
+
+  socials:string[]=[];
+  socialsGlobal:string[]=[];
+  family:ValueLabelModel[]=[];
+  functions:ValueLabelModel[]=[];
+  activities:ValueLabelModel[]=[];
+  capitals:ValueLabelModel[]=[];
+  list:string[] = ["0-3", "3-30", "30-75", "75-300", "SUP300"];
+
+  nameFilter:string=null;
+  showDisabledOnly:boolean=false;
+
+
+  search=null;
 
 
   registerForm = new FormGroup({
@@ -69,13 +94,6 @@ export class SuppliersComponent implements OnInit {
       '',
       [
         Validators.required
-      ]),
-    cin:new FormControl(
-      '',
-      [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(10)
       ])
   });
 
@@ -86,9 +104,30 @@ export class SuppliersComponent implements OnInit {
     private userService : UserService, 
     private handleRequestService:HandleRequestService,
     private modalService:NgbModal,
+    private buyerService:BuyerService,
     public dialog: MatDialog,
+    private generalService:GeneralService,
     private translate:TranslateService) { 
+      this.buyerService.getSocialReasons().subscribe(response=>{
+        this.socials=response;
+        this.socialsGlobal=response;
+      })
+      this.generalService.getSupplierConsts().subscribe(response=>{
+        this.family=response.filter(e=>e.name=="salesfamily")[0].data;
+        this.activities=response.filter(e=>e.name=="sectoractivity")[0].data;
+        this.functions=response.filter(e=>e.name=="managerfunctions")[0].data;
+      });
+      for (let item of this.list) {
+        let range = item.split('-').map(str => str.trim());
+        if (range.length === 1) {
+          this.capitals.push({ value: 'CAPSUP300', label: 'SUP300' });
+        } else if (range.length === 2) {
+          let minValue = range[0];
+          let maxValue = range[1];
       
+          this.capitals.push({ value: `CAP${minValue}_${maxValue}`, label: `${minValue}_${maxValue}CAPITAL` });
+        }
+      }
     }
 
   clear()
@@ -135,7 +174,7 @@ export class SuppliersComponent implements OnInit {
   public getData(page:number)
   {
     this.isLoad=true;
-    this.userService.getSuppliersWithPageAndSize(page,this.currentSize).subscribe(response=>{
+    this.userService.getSuppliersWithPageAndSize(page,this.currentSize,this.spec).subscribe(response=>{
         this.datos=response;
     },err=>{
         this.handleRequestService.handleErrorWithCallBack(err,()=>{
@@ -260,7 +299,7 @@ export class SuppliersComponent implements OnInit {
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
         data: {user: response,
-        fields:["id","firstName","lastName","cin","email","socialReason","tradeName","lawForm","nrc",
+        fields:["id","firstName","lastName","email","socialReason","tradeName","lawForm","nrc",
         "commercialCourt","creationYear","ice","capitalMAD","officeAddress","officeZipCode","officeCountry",
         "officeCity","xAxisMap","yAxisMap","managerFullName","managerFunction","professionalFax",
         "professionalPhone","professionalEmail","website","totalEffective","turnoverN1","turnoverN2","turnoverN3","isoCertification",
@@ -273,6 +312,88 @@ export class SuppliersComponent implements OnInit {
       });
     },error=>{ this.handleRequestService.handleError(error)})
     .add(()=>{this.doingAction=false;this.doingActionTo=null;})
+  }
+
+  openChanged(e)
+  {
+    if(e==false)
+    {
+      this.socials=this.socialsGlobal;
+      this.search=null;
+    }
+  }
+  onKey(value) { 
+    if(!this.search||this.search.trim()=="")
+    {
+      this.socials=this.socialsGlobal;
+      return;
+    }
+    this.socials=this.socialsGlobal.filter(e=>e.toLowerCase().includes(this.search.toLowerCase()))
+  }
+  
+  emptyJson(json:any):boolean
+  {
+    return Object.keys(json).length==0;
+  }
+
+  clearCapital(event){
+    event.stopPropagation();
+    this.capitalMAD=null;
+  }
+
+  filter()
+  {
+    this.spec.values={};
+    if(this.selectedSocials&&this.selectedSocials.length!=0)
+    {
+      this.spec.values["socialReason"]=this.selectedSocials;
+    }
+    
+    if(this.selectedFamily&&this.selectedFamily.length!=0)
+    {
+      this.spec.values["salesFamily"]=this.selectedFamily;
+    }
+
+    if(this.selectedActivities&&this.selectedActivities.length!=0)
+    {
+      this.spec.values["activitySector"]=this.selectedActivities;
+    }
+    if(this.selectedFunctions&&this.selectedFunctions.length!=0)
+    {
+      this.spec.values["managerFunction"]=this.selectedFunctions;
+    }
+    this.spec.values["capital"]="NONE";
+    if(this.capitalMAD)
+    {
+      this.spec.values["capital"]=this.capitalMAD;
+    }
+    if(this.city&&this.city.trim()!=="")
+    {
+      this.spec.values["city"]=this.city;
+    }
+    if(this.nameFilter?.length>0)
+    {
+      this.spec.values["name"]=this.nameFilter;
+    }
+    if(!this.emptyJson(this.spec.values))
+    {
+      this.currentPage=0;
+      this.getData(this.currentPage);
+    }
+  }
+
+  cancelFilter()
+  {
+    this.spec=new Specification();
+    this.selectedActivities=[];
+    this.selectedFamily=[];
+    this.selectedFunctions=[];
+    this.selectedSocials=[];
+    this.capitalMAD=null;
+    this.city=null;
+    this.nameFilter=null;
+    this.currentPage=0;
+    this.getData(this.currentPage);
   }
 
 }

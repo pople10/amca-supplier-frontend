@@ -108,7 +108,6 @@ export class SupplierRegisterComponent implements OnInit {
   DataPage1 = {
     "firstName":[Validators.required,Validators.maxLength(72)],
     "lastName":[Validators.required,Validators.maxLength(72)],
-    "cin":[Validators.required],
     "email":[Validators.required,Validators.email],
     "phone":[Validators.required],
     "password":[Validators.required]
@@ -185,7 +184,6 @@ export class SupplierRegisterComponent implements OnInit {
     this.inputsStep1 = [
       {type:"simpleInput",data:{formControlName:"firstName",label:"firstName",placeHolder:"",type:"text",ngModel:this.supplierRequest.firstName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','firstName')},required:true}},
       {type:"simpleInput",data:{formControlName:"lastName",label:"lastName",placeHolder:"",type:"text",ngModel:this.supplierRequest.lastName,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','lastName')},required:true}},
-      {type:"simpleInput",data:{formControlName:"cin",label:"cin",placeHolder:"",type:"text",ngModel:this.supplierRequest.cin,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','cin')},required:true}},
       {type:"simpleInput",data:{formControlName:"email",label:"email",placeHolder:"",type:"text",ngModel:this.supplierRequest.email,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','email')},required:true}},
       {type:"phoneNumber",data:{formControlName:"phone",label:"phone",placeHolder:"",type:"tel",ngModel:this.supplierRequest.phone,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','phone')},required:true}},
       {type:"simpleInput",data:{formControlName:"password",label:"password",placeHolder:"",type:"password",ngModel:this.supplierRequest.password,onChange:(v)=>{this.onChangevalue(v,'supplierRequest','password')},required:true}},

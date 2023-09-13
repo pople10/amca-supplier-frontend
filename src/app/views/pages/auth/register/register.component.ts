@@ -16,7 +16,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class RegisterComponent implements OnInit {
   data:RegisterModel = new RegisterModel();
   passwordMessages:string[]=[];
-  display:string="CIN";
 
   constructor(private router: Router,private translateService:TranslateService,public languageService: LanguageService, private authService : AuthService, private handleRequestService:HandleRequestService) { }
 
@@ -68,13 +67,7 @@ export class RegisterComponent implements OnInit {
       [
         Validators.required
       ]),
-    cin:new FormControl(
-      '',
-      [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(10)
-      ])
+   
   });
 
   ngOnInit(): void {

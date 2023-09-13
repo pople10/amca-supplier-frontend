@@ -23,7 +23,6 @@ export class AdminsComponent implements OnInit {
 
   data:UserRequest = new UserRequest();
   passwordMessages:string[]=[];
-  display:string="CIN";
   loading:boolean=false;
   datos:GenericPageable<any>=new GenericPageable();
   refName="id";
@@ -42,6 +41,7 @@ export class AdminsComponent implements OnInit {
   dataSent:boolean=false;
   isSubmitted:boolean=false;
   myemail:string=null;
+  showForm:boolean=false;
 
 
   registerForm = new FormGroup({
@@ -98,6 +98,7 @@ export class AdminsComponent implements OnInit {
   {
     this.data=new UserRequest();
     this.isSubmitted=false;
+    this.showForm=false;
   }
 
   onChangePassword(event){
@@ -138,6 +139,7 @@ export class AdminsComponent implements OnInit {
           this.isSubmitted=false;
           this.id=null;
           this.getData(this.currentPage);
+          this.showForm=false;
           Swal.fire(
             {
               position: 'center',
@@ -209,6 +211,7 @@ export class AdminsComponent implements OnInit {
 
   updateItem(refToUpdate,index)
   {
+    this.showForm=true;
     this.doingAction=true;
     this.doingActionTo=index;
     this.userService.getUser(refToUpdate).subscribe((res)=>{
@@ -296,7 +299,7 @@ export class AdminsComponent implements OnInit {
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
         data: {user: response,
-        fields:["id","firstName","lastName","cin","email"],
+        fields:["id","firstName","lastName","email"],
         fieldsStatic:["status"],
         fieldsDates:["createDate","modifyDate"],
         fieldsArrays:[],

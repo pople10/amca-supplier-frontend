@@ -31,7 +31,7 @@ export class UserSearchComponent implements OnInit,AfterViewInit {
       const dialogRef = this.dialog.open(ShowUserDataComponent, {
         width: '90%',
         data: {user: response,
-        fields:["id","firstName","lastName","cin","email"],
+        fields:["id","firstName","lastName","email"],
         fieldsStatic:["status"],
         fieldsDates:["createDate","modifyDate"],
         fieldsArrays:[],

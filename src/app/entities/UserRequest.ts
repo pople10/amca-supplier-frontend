@@ -10,8 +10,6 @@ export class UserRequest
 
     public lastName:string;
 
-    public cin:string;
-
     public phone:string;
 }
 

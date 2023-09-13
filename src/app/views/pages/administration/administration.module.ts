@@ -50,6 +50,7 @@ import { SuppliersComponent } from './suppliers/suppliers.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -139,7 +140,15 @@ const routes: Routes = [
     NgbCollapseModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgbPaginationModule,
+    FormsModule,
+    FeahterIconModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatSelectModule
+
+    
   ]
 })
 export class AdministrationModule { }

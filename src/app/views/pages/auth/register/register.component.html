@@ -105,26 +105,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" [ngStyle]="
-                  this.languageService.userLanguage == 'ar' && {
-                    'text-align': 'right'
-                  }
-                ">
-                                <label for="cin">{{
-                                  display | translate
-                  }}<span class="text-danger"> *</span></label>
-                                <input [(ngModel)]="this.data.cin" type="text" class="form-control" id="cin" placeholder="{{ display | translate }}" formControlName="cin" [ngClass]="{'is-invalid':isSubmitted && form.cin.errors}" [ngStyle]="
-                    this.languageService.userLanguage == 'ar' && {
-                      'text-align': 'right'
-                    }
-                  " />
-                                <div *ngIf="
-                  isSubmitted && form.cin.errors?.required
-                          " class="invalid-feedback">
-                                    {{ "RequiredField" | translate }}
-                                </div>
-                            </div>
-
 
 
                             <div class="form-group" [ngStyle]="

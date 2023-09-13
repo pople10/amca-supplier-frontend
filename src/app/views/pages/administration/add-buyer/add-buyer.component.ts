@@ -13,6 +13,8 @@ import { GenericPageable } from 'src/app/entities/generic-pageable';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowUserDataComponent } from '../show-user-data/show-user-data.component';
+import { ValueLabelModel } from '../../../../entities/shared/ValueLabelModel';
+import { Specification } from '../../../../entities/Specification';
 
 @Component({
   selector: 'app-add-buyer',
@@ -22,7 +24,6 @@ import { ShowUserDataComponent } from '../show-user-data/show-user-data.componen
 export class AddBuyerComponent implements OnInit {
   data:BuyerRequest = new BuyerRequest();
   passwordMessages:string[]=[];
-  display:string="CIN";
   loading:boolean=false;
   datos:GenericPageable<any>=new GenericPageable();
   refName="id";
@@ -44,6 +45,11 @@ export class AddBuyerComponent implements OnInit {
   nameFilter:string=null;
   showDisabledOnly:boolean=false;
   paramFilter:string=null;
+  spec:Specification=new Specification();
+  
+
+
+  search=null;
 
 
   registerForm = new FormGroup({
@@ -97,11 +103,14 @@ export class AddBuyerComponent implements OnInit {
   cancelFilter(){
     this.currentPage=0;
     this.paramFilter=null;
+    this.nameFilter=null;
+    this.showDisabledOnly=false;
     this.initData();
   }
 
   filter(){
-    
+    this.currentPage=0;
+    this.getData(0);
   }
     
   clear()
@@ -182,7 +191,7 @@ export class AddBuyerComponent implements OnInit {
   private getData(page:number)
   {
     this.isLoad=true;
-    this.userService.getBuyersWithPageAndSize(page,this.currentSize).subscribe(response=>{
+    this.userService.getBuyersWithPageAndSize(page,this.currentSize,this.nameFilter,this.showDisabledOnly).subscribe(response=>{
         this.datos=response;
     },err=>{
         this.handleRequestService.handleErrorWithCallBack(err,()=>{
@@ -333,4 +342,12 @@ export class AddBuyerComponent implements OnInit {
     .add(()=>{this.doingAction=false;this.doingActionTo=null;})
   }
   
+  
+  emptyJson(json:any):boolean
+  {
+    return Object.keys(json).length==0;
+  }
+
+  
+
 }

@@ -13,8 +13,73 @@
     <span>{{ "hide" | translate }}</span>
     <div class="plus">X</div>
   </button>
+  <div class="header-filters">
+      <div class="filters-container">
+        <div class="filter-element">
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"name"|translate}}</mat-label>
+                  <input matInput [(ngModel)]="nameFilter"/>
+              </mat-form-field>
+          </div>
+          <div class="filter-element">
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"socialReason"|translate}}</mat-label>
+                  <mat-select  [(ngModel)]="selectedSocials" multiple (openedChange)="openChanged($event)">
+                      <input [(ngModel)]="search" placeholder="{{'search' | translate}}" class="form-control" (keyup)="onKey($event)">
+                      <mat-option *ngFor="let i of socials" [value]="i">{{i}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="filter-element">
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"activitySector"|translate}}</mat-label>
+                  <mat-select [(ngModel)]="selectedActivities" multiple>
+                  <mat-option *ngFor="let i of activities" [value]="i.value">{{i.label|translate}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="filter-element">
+              <mat-form-field appearance="fill" *ngIf="false" class="fileds-filters">
+                  <mat-label>{{"managerFunction"|translate}}</mat-label>
+                  <mat-select [(ngModel)]="selectedFunctions" multiple>
+                  <mat-option *ngFor="let i of functions" [value]="i.value">{{i.label|translate}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="filter-element">
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"officeCity"|translate}}</mat-label>
+                  <input matInput [(ngModel)]="city"/>
+              </mat-form-field>
+          </div>
+          <div class="filter-element" >
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"salesFamily"|translate}}</mat-label>
+                  <mat-select [(ngModel)]="selectedFamily" multiple>
+                  <mat-option *ngFor="let i of family" [value]="i.value">{{i.label|translate}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="filter-element">
+              <mat-form-field appearance="fill" class="fileds-filters">
+                  <mat-label>{{"capitalMAD"|translate}}</mat-label>
+                  <mat-select [(ngModel)]="capitalMAD">
+                  <mat-option *ngFor="let i of capitals" [value]="i.value">{{i.label|translate}}</mat-option>
+                  </mat-select>
+                  <button mat-button *ngIf="capitalMAD" matSuffix mat-icon-button aria-label="Clear" (click)="clearCapital($event)">
+                      <mat-icon>clear</mat-icon>
+                  </button>
+              </mat-form-field>
+          </div>
+     </div>
+    <div class="filter-element">
+        <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
+        <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+    </div>
+  </div>
 </div> 
 <br/>
+
 <div id="formulaire" [ngClass]="{'d-none': !showForm }">
     <admin-supplier-form (done)="getData(this.currentPage);showForm=false;" [id]="id"></admin-supplier-form>
 </div>
