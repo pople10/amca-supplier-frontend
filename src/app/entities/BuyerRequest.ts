@@ -16,6 +16,8 @@ export class BuyerRequest
 
     public expert:boolean=false;
 
+    public disabled:boolean=false;
+
     public clear(){
         this.cin='';
         this.email="";

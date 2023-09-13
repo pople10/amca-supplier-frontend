@@ -195,6 +195,7 @@
     "3_30CAPITAL": "Between 3M and 30M DHs",
     "30_75CAPITAL": "Between 30M and 75M DHs",
     "75_300CAPITAL": "Between 75M and 300M DHs",
-    "SUP300": "Above 300M DHs"
+    "SUP300": "Above 300M DHs",
+    "isDisabled":"Do you want to make it disabled by default?"
 
 }

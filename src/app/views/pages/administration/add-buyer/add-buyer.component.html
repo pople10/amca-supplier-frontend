@@ -194,6 +194,18 @@
 
                             </div>
 
+                            <div [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                ">
+                <mat-checkbox name="disabled" ngDefaultControl id="disabled" [(ngModel)]="data.disabled" [ngModelOptions]="{standalone: true}">
+                      <label for="disabled">{{"isDisabled" | translate}}</label>
+        </mat-checkbox>
+                                
+
+                            </div>
+
                             <div class="mt-3 d-flex" [ngStyle]="
                   this.languageService.userLanguage == 'ar' && {
                     'text-align': 'right'

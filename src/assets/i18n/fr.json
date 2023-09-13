@@ -1290,6 +1290,7 @@
     "3_30CAPITAL": "Entre 3M et 30M DHs",
     "30_75CAPITAL": "Entre 30M et 75M DHs",
     "75_300CAPITAL": "Entre 75M et 300M DHs",
-    "SUP300": "Au-dessus de 300M DHs"
+    "SUP300": "Au-dessus de 300M DHs",
+    "isDisabled":"Voulez-vous le désactiver par défaut ?"
 
 }
