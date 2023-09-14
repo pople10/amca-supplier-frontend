@@ -71,13 +71,6 @@ export class AdminsComponent implements OnInit {
       '',
       [
         Validators.required
-      ]),
-    cin:new FormControl(
-      '',
-      [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(10)
       ])
   });
 
@@ -122,8 +115,7 @@ export class AdminsComponent implements OnInit {
     this.initData();
   }
 
-  onRegister(e) {
-    e.preventDefault();
+  onRegister() {
     this.isSubmitted=true;
     this.dataSent=true;
     if(this.registerForm.valid)

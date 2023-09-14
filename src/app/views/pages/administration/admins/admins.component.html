@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-10 pl-md-0 mx-auto">
                     <div class="auth-form-wrapper">
-                        <form class="forms-sample" [formGroup]="registerForm" (ngSubmit)="onRegister($event)" >
+                        <form class="forms-sample" [formGroup]="registerForm" (ngSubmit)="onRegister()" >
                             <div class="form-group row" [ngStyle]=" 
                   this.languageService.userLanguage == 'ar' && {
                     'text-align': 'right'
@@ -148,7 +148,7 @@
                     'text-align': 'right'
                   }
                 ">
-                                <button type="submit" [disabled]="dataSent" style="min-width: 10vw;" class="btn mx-auto btn-success mr-2 mb-2 mb-md-0 auth-btn-connect">
+                                <button (click)="onRegister()" [disabled]="dataSent" style="min-width: 10vw;" class="btn mx-auto btn-success mr-2 mb-2 mb-md-0 auth-btn-connect">
                                   <span *ngIf="!data.id" [ngStyle]="dataSent&&{'display':'none'}">
                                     <i  data-feather="user-plus" appFeatherIcon></i>
                                     {{ "add" | translate }}
@@ -221,7 +221,7 @@
                             <button [disabled]="doingAction"  *ngIf="piece.status!='CREATED'" (click)="unlockItem(confirmUnlock,piece[refName],i)" type="button" class="btn btn-success" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="unlock" appFeatherIcon></i></span>
                             </button>
-                            <button [disabled]="doingAction" (click)="updateItem(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                            <button [disabled]="doingAction" *ngIf="myemail!=piece.email" (click)="updateItem(piece[refName],i)" type="button" class="btn btn-primary" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
                               <span *ngIf="doingActionTo!=i;else buttonLoader"><i data-feather="edit-2" appFeatherIcon></i></span>
                             </button>
                               <button [disabled]="doingAction" *ngIf="piece.status=='CREATED'&&myemail!=piece.email" (click)="lockItem(confirmLock,piece[refName],i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">

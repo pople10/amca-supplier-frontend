@@ -7,8 +7,6 @@ export class RegisterModel {
 
     public lastName:string;
 
-    public cin:string;
-
     public phone:string;
 
     public photo:string;
@@ -16,7 +14,6 @@ export class RegisterModel {
     public expert:boolean=false;
 
     public clear(){
-        this.cin='';
         this.email="";
         this.firstName="";
         this.lastName="";

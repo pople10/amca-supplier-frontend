@@ -29,8 +29,8 @@
     </div>
     </div>
     <div class="filter-element">
-        <button [disabled]="isLoad" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
-        <button [disabled]="isLoad" *ngIf="!emptyJson(spec.values)" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
+        <button [disabled]="isLoad||(!showDisabledOnly&&!nameFilter)" class="btn btn-light m-2" (click)="filter()">{{"filter"|translate}}</button>
+        <button [disabled]="isLoad" *ngIf="filtered" class="btn btn-warning m-2" (click)="cancelFilter()">{{"cancel"|translate}}</button>
     </div>
 </div>
 

@@ -46,6 +46,7 @@ export class AddBuyerComponent implements OnInit {
   showDisabledOnly:boolean=false;
   paramFilter:string=null;
   spec:Specification=new Specification();
+  filtered:boolean=false;
   
 
 
@@ -79,13 +80,6 @@ export class AddBuyerComponent implements OnInit {
       '',
       [
         Validators.required
-      ]),
-    cin:new FormControl(
-      '',
-      [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(10)
       ])
   });
 
@@ -105,10 +99,12 @@ export class AddBuyerComponent implements OnInit {
     this.paramFilter=null;
     this.nameFilter=null;
     this.showDisabledOnly=false;
+    this.filtered=false;
     this.initData();
   }
 
   filter(){
+    this.filtered=true;
     this.currentPage=0;
     this.getData(0);
   }

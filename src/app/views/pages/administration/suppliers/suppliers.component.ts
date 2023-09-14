@@ -15,6 +15,7 @@ import { ValueLabelModel } from '../../../../entities/shared/ValueLabelModel';
 import { Specification } from '../../../../entities/Specification';
 import { BuyerService } from '../../../../services/buyer.service';
 import { GeneralService } from '../../../../services/shared/general.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
@@ -62,6 +63,7 @@ export class SuppliersComponent implements OnInit {
 
   nameFilter:string=null;
   showDisabledOnly:boolean=false;
+  filtered:boolean=false;
 
 
   search=null;
@@ -105,6 +107,7 @@ export class SuppliersComponent implements OnInit {
     private handleRequestService:HandleRequestService,
     private modalService:NgbModal,
     private buyerService:BuyerService,
+    private snack:MatSnackBar,
     public dialog: MatDialog,
     private generalService:GeneralService,
     private translate:TranslateService) { 
@@ -362,7 +365,6 @@ export class SuppliersComponent implements OnInit {
     {
       this.spec.values["managerFunction"]=this.selectedFunctions;
     }
-    this.spec.values["capital"]="NONE";
     if(this.capitalMAD)
     {
       this.spec.values["capital"]=this.capitalMAD;
@@ -378,12 +380,17 @@ export class SuppliersComponent implements OnInit {
     if(!this.emptyJson(this.spec.values))
     {
       this.currentPage=0;
+      this.filtered=true;
       this.getData(this.currentPage);
+    }
+    else{
+      this.snack.open(this.translate.instant('emptydata'), this.translate.instant('close'));
     }
   }
 
   cancelFilter()
   {
+    this.filtered=false;
     this.spec=new Specification();
     this.selectedActivities=[];
     this.selectedFamily=[];
